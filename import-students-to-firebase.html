@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>นำเข้ารายชื่อนักเรียนเข้าสู่ Firebase | สวนแสนสุข</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<style>
+*{box-sizing:border-box}
+body{font-family:'Kanit',sans-serif;background:#f0fdf4;color:#1f2937;margin:0;padding:25px}
+.wrap{max-width:900px;margin:auto;background:#fff;border:4px solid #86efac;border-radius:24px;padding:26px;box-shadow:0 8px 0 #bbf7d0}
+h1{color:#15803d;margin-top:0}
+.notice{background:#fef9c3;border:2px solid #fde047;border-radius:14px;padding:14px;margin:15px 0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}
+.stat{background:#f0fdf4;border:2px solid #bbf7d0;border-radius:14px;padding:12px;text-align:center;font-weight:800}
+button{font-family:'Kanit';font-size:19px;font-weight:800;border:0;border-radius:14px;padding:14px 22px;cursor:pointer}
+#importBtn{background:#22c55e;color:white;box-shadow:0 5px 0 #15803d}
+#importBtn:disabled{opacity:.55;cursor:not-allowed}
+#status{margin-top:20px;padding:15px;border-radius:14px;background:#f8fafc;border:2px solid #e2e8f0;white-space:pre-wrap;min-height:70px}
+.progress{height:18px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-top:12px}
+.bar{height:100%;width:0%;background:#22c55e;transition:.2s}
+table{width:100%;border-collapse:collapse;margin-top:18px;font-size:14px}
+th,td{padding:8px;border-bottom:1px solid #e5e7eb;text-align:left}
+th{background:#dcfce7;position:sticky;top:0}
+.table-wrap{max-height:360px;overflow:auto;border:2px solid #dcfce7;border-radius:12px}
+@media(max-width:700px){.stats{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>🌱 นำเข้ารายชื่อนักเรียนและคะแนนเดิมสู่ Firebase</h1>
+<div class="notice">
+<strong>ใช้หน้านี้เพียงครั้งเดียว</strong><br>ก่อนกดปุ่มสีเขียว คุณสามารถแก้ <strong>ห้อง / ชื่อเล่น / คะแนน</strong> ในตารางด้านล่างได้เลย ระบบจะใช้ค่าที่แก้ล่าสุดตอนนำเข้า<br>
+ระบบจะสร้าง/อัปเดตเอกสารใน collection <code>users</code> จากข้อมูลแปลงเดิม
+โดยใช้รหัสเดียวกับหน้า Login เช่น <code>ป.4-1_กันกัน</code><br><br>
+ถ้าเคยนำเข้ารายการนั้นสำเร็จแล้ว ระบบจะข้ามเพื่อป้องกันการย้อนคะแนนภายหลัง
+</div>
+
+<div class="stats">
+<div class="stat">ทั้งหมด<br><span id="totalCount">0</span> คน</div>
+<div class="stat">ป.4/1<br><span id="r1">0</span> คน</div>
+<div class="stat">ป.4/2<br><span id="r2">0</span> คน</div>
+<div class="stat">ป.4/3<br><span id="r3">0</span> คน</div>
+</div>
+
+<button id="importBtn" onclick="importStudents()">⬆️ นำเข้าข้อมูล 127 คนเข้าสู่ Firebase</button>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div id="status">พร้อมนำเข้า — กรุณาตรวจรายชื่อด้านล่างก่อนกดปุ่ม</div>
+
+<h2>📋 รายชื่อที่จะนำเข้า</h2>
+<div class="table-wrap">
+<table>
+<thead><tr><th>ห้อง</th><th>ชื่อเล่น (แก้ได้)</th><th>คะแนน 💧 (แก้ได้)</th><th>Document ID ที่จะใช้</th></tr></thead>
+<tbody id="preview"></tbody>
+</table>
+</div>
+</div>
+
+<script>
+const firebaseConfig = {
+    apiKey: "AIzaSyDfBIp5gujB9cE2twLz483hllYOubgYuks",
+    authDomain: "codingplant-f19fc.firebaseapp.com",
+    projectId: "codingplant-f19fc",
+    storageBucket: "codingplant-f19fc.firebasestorage.app",
+    messagingSenderId: "194545106875",
+    appId: "1:194545106875:web:d4b7ca3dd6b57f46cc8e9e"
+};
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+const STUDENTS = [{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"กันกัน","waterDrops":17,"legacyGardenId":"1780549975523-ห้อง 4/1-0-864"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"สตรอง","waterDrops":8,"legacyGardenId":"1780549975523-ห้อง 4/1-1-407"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"กังฟู","waterDrops":17,"legacyGardenId":"1780549975523-ห้อง 4/1-2-633"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"บิ๊กบอส","waterDrops":17,"legacyGardenId":"1780549975523-ห้อง 4/1-3-574"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"ไตเติ้ล","waterDrops":21,"legacyGardenId":"1780549975523-ห้อง 4/1-4-372"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"ข้าวปั้น หญิง","waterDrops":15,"legacyGardenId":"1780549975523-ห้อง 4/1-5-661"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"ไทม์","waterDrops":17,"legacyGardenId":"1780549975523-ห้อง 4/1-6-141"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"โชกุน","waterDrops":7,"legacyGardenId":"1780549975523-ห้อง 4/1-7-43"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"กุน","waterDrops":6,"legacyGardenId":"1780549975523-ห้อง 4/1-8-71"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"น้ำปั่น","waterDrops":7,"legacyGardenId":"1780549975523-ห้อง 4/1-9-644"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"อเล็ก","waterDrops":17,"legacyGardenId":"1780549975523-ห้อง 4/1-10-759"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"โฟร์","waterDrops":18,"legacyGardenId":"1780549975523-ห้อง 4/1-11-22"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"โอชิน","waterDrops":8,"legacyGardenId":"1780549975523-ห้อง 4/1-12-611"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"กีต้า","waterDrops":21,"legacyGardenId":"1780549975523-ห้อง 4/1-13-470"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"โฟโต้","waterDrops":17,"legacyGardenId":"1780549975523-ห้อง 4/1-14-72"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"เก้า","waterDrops":18,"legacyGardenId":"1780549975523-ห้อง 4/1-15-969"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"ไตคูณ","waterDrops":21,"legacyGardenId":"1780549975523-ห้อง 4/1-16-284"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"ซีเนียร์","waterDrops":22,"legacyGardenId":"1780549975523-ห้อง 4/1-17-676"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"โชคเกอร์","waterDrops":18,"legacyGardenId":"1780549975523-ห้อง 4/1-18-939"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"มีตังค์","waterDrops":18,"legacyGardenId":"1780549975523-ห้อง 4/1-19-222"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"ไอเดีย","waterDrops":8,"legacyGardenId":"1780549975523-ห้อง 4/1-20-475"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"มิริน","waterDrops":18,"legacyGardenId":"1780549975523-ห้อง 4/1-21-236"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"ชาช่า","waterDrops":8,"legacyGardenId":"1780549975523-ห้อง 4/1-22-148"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"ข้าวปั้น ชาย","waterDrops":18,"legacyGardenId":"1780549975523-ห้อง 4/1-23-602"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"ต้นข้าว","waterDrops":18,"legacyGardenId":"1780549975523-ห้อง 4/1-24-863"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"การ์ตูน","waterDrops":14,"legacyGardenId":"1780549975523-ห้อง 4/1-25-656"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"ทับทิม","waterDrops":17,"legacyGardenId":"1780549975523-ห้อง 4/1-26-457"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"ข้าวหอม","waterDrops":8,"legacyGardenId":"1780549975523-ห้อง 4/1-27-380"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"บิวตี้","waterDrops":17,"legacyGardenId":"1780549975523-ห้อง 4/1-28-138"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"เพียว","waterDrops":17,"legacyGardenId":"1780549975523-ห้อง 4/1-29-991"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"ปลื้ม","waterDrops":18,"legacyGardenId":"1780549975523-ห้อง 4/1-30-396"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"น้ำชา","waterDrops":8,"legacyGardenId":"1780549975523-ห้อง 4/1-31-955"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"โดนัท","waterDrops":17,"legacyGardenId":"1780549975523-ห้อง 4/1-32-66"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"น้ำฝน","waterDrops":17,"legacyGardenId":"1780549975523-ห้อง 4/1-33-674"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"ไอริน","waterDrops":17,"legacyGardenId":"1780549975523-ห้อง 4/1-34-794"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"อลินดา","waterDrops":14,"legacyGardenId":"1780549975523-ห้อง 4/1-35-60"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"โฟกัส","waterDrops":8,"legacyGardenId":"1780549975523-ห้อง 4/1-36-872"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"พลอยใส","waterDrops":18,"legacyGardenId":"1780549975523-ห้อง 4/1-37-793"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"ณดา","waterDrops":18,"legacyGardenId":"1780549975523-ห้อง 4/1-38-745"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"วันเวย์","waterDrops":7,"legacyGardenId":"1780549975523-ห้อง 4/1-39-564"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"พีช","waterDrops":7,"legacyGardenId":"1780549975523-ห้อง 4/1-40-355"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"เอ็มซี","waterDrops":4,"legacyGardenId":"1780549975523-ห้อง 4/1-41-2"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"มิเกล","waterDrops":17,"legacyGardenId":"1780549975523-ห้อง 4/1-42-460"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"พาขวัญ","waterDrops":17,"legacyGardenId":"1780549975523-ห้อง 4/1-43-543"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"มาย","waterDrops":18,"legacyGardenId":"1780549975523-ห้อง 4/1-44-411"},{"room":"ป.4/1","legacyRoom":"ห้อง 4/1","nickname":"ปุณ","waterDrops":23,"legacyGardenId":"17878005718360rymo"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"บอล","waterDrops":17,"legacyGardenId":"1780024094557"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"ปันปัน ชาย","waterDrops":12,"legacyGardenId":"1780024094566"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"ตง","waterDrops":11,"legacyGardenId":"1780024094493"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"วันเฮ็ง","waterDrops":15,"legacyGardenId":"1780024094521"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"ไทรอั้มพ์","waterDrops":13,"legacyGardenId":"1780024094541"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"สปาย","waterDrops":17,"legacyGardenId":"1780024094508"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"ชีต้า","waterDrops":14,"legacyGardenId":"1780024094507"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"นัท","waterDrops":6,"legacyGardenId":"1780024094585"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"บูม","waterDrops":20,"legacyGardenId":"1780024094535"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"แอร์ ชาย","waterDrops":17,"legacyGardenId":"1780024094497"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"โชกุน","waterDrops":8,"legacyGardenId":"1780024094566"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"เบส","waterDrops":16,"legacyGardenId":"1780024094564"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"แทส","waterDrops":14,"legacyGardenId":"1780024094570"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"ลอซซี่","waterDrops":13,"legacyGardenId":"1780024094594"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"นาวา","waterDrops":14,"legacyGardenId":"1780024094578"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"ลูฟี่","waterDrops":18,"legacyGardenId":"1780024094511"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"ธันย่า","waterDrops":16,"legacyGardenId":"1780024094500"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"โยเกิร์ต","waterDrops":16,"legacyGardenId":"1780024094525"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"ข้าวฟ่าง","waterDrops":17,"legacyGardenId":"1780024094596"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"ต้นหอม","waterDrops":13,"legacyGardenId":"1780024094551"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"มินดา","waterDrops":14,"legacyGardenId":"1780024094591"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"มิ้น","waterDrops":7,"legacyGardenId":"1780024094524"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"ปันปัน หญิง","waterDrops":7,"legacyGardenId":"1780024094515"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"เมษา","waterDrops":8,"legacyGardenId":"1780024094549"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"จ๋อม","waterDrops":9,"legacyGardenId":"1780024094577"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"ไอติม","waterDrops":14,"legacyGardenId":"1780024094531"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"ตาต้า","waterDrops":12,"legacyGardenId":"1780024094607"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"แอร์ หญิง","waterDrops":13,"legacyGardenId":"1780024094548"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"ยูอาย","waterDrops":16,"legacyGardenId":"1780024094576"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"มีตังค์","waterDrops":15,"legacyGardenId":"1780024094613"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"แกรมมี่","waterDrops":18,"legacyGardenId":"1780024094590"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"ณัชชา","waterDrops":8,"legacyGardenId":"1780024094606"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"ชมพู่","waterDrops":15,"legacyGardenId":"1780024094595"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"มินนี่","waterDrops":8,"legacyGardenId":"1780024094518"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"เพชร","waterDrops":4,"legacyGardenId":"1780625973195ex8ua"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"วินเนอร์","waterDrops":16,"legacyGardenId":"178062653442480r47"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"ก๋า","waterDrops":13,"legacyGardenId":"1780627152618k2au1"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"เนเน่","waterDrops":10,"legacyGardenId":"1781834695194ebliq"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"ฟอร์จูน","waterDrops":14,"legacyGardenId":"17818347466282fu63"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"ฮุนซู","waterDrops":14,"legacyGardenId":"178304413254136n42"},{"room":"ป.4/2","legacyRoom":"ห้อง 4/2","nickname":"อาร์ตี้","waterDrops":12,"legacyGardenId":"1783045066051f24y9"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"โบ๊ท","waterDrops":20,"legacyGardenId":"1779864985187"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"อ้าย","waterDrops":35,"legacyGardenId":"1779864985759"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"บอส","waterDrops":39,"legacyGardenId":"1779864985066"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"ออแกน","waterDrops":22,"legacyGardenId":"1779864985175"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"เพิร์ธ","waterDrops":24,"legacyGardenId":"1779864985685"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"ยูโด","waterDrops":31,"legacyGardenId":"1779864985822"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"สกาย","waterDrops":26,"legacyGardenId":"1779864985823"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"แบงค์","waterDrops":26,"legacyGardenId":"1779864985537"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"เจมส์","waterDrops":29,"legacyGardenId":"1779864985716"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"นิวตัน","waterDrops":26,"legacyGardenId":"1779864985931"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"เปา","waterDrops":25,"legacyGardenId":"1779864985538"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"แทนไท","waterDrops":22,"legacyGardenId":"1779864985854"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"โอชิ","waterDrops":29,"legacyGardenId":"1779864985986"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"พิซซ่า","waterDrops":26,"legacyGardenId":"1779864985968"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"คอตโต้","waterDrops":12,"legacyGardenId":"1779864985839"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"ออนิว","waterDrops":23,"legacyGardenId":"1779864985002"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"โฟกัส","waterDrops":11,"legacyGardenId":"1779864985467"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"ยิป","waterDrops":22,"legacyGardenId":"1779864985588"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"แพรว","waterDrops":11,"legacyGardenId":"1779864985841"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"ข้าวหอม","waterDrops":18,"legacyGardenId":"1779864985891"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"ยี่หวา","waterDrops":19,"legacyGardenId":"1779864985167"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"ต้นข้าว","waterDrops":23,"legacyGardenId":"1779864985888"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"ฟ้าใส","waterDrops":18,"legacyGardenId":"1779864985524"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"ไออุ่น","waterDrops":19,"legacyGardenId":"1779864985636"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"โฟกัส หญิง","waterDrops":21,"legacyGardenId":"1779864985071"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"ซานิ","waterDrops":25,"legacyGardenId":"1779864985902"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"โบนัส","waterDrops":19,"legacyGardenId":"1779864985229"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"แตงโม","waterDrops":32,"legacyGardenId":"1779864985169"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"ฟองเบียร์","waterDrops":18,"legacyGardenId":"1779864985628"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"ข้าวหอม กลาง","waterDrops":30,"legacyGardenId":"1779864985491"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"แก้ม","waterDrops":18,"legacyGardenId":"1779864985865"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"แคท","waterDrops":22,"legacyGardenId":"1779864985404"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"ผักหวาน","waterDrops":17,"legacyGardenId":"1779864985759"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"กัน","waterDrops":13,"legacyGardenId":"1779867632001"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"ออแกน หญิง","waterDrops":17,"legacyGardenId":"1779867691349"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"นัตตี้","waterDrops":26,"legacyGardenId":"17816827094685wfga"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"โปรแกรม","waterDrops":16,"legacyGardenId":"1781682832460tz1mp"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"อันอัน","waterDrops":29,"legacyGardenId":"1781682983294gvt8c"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"ญาญ่า","waterDrops":11,"legacyGardenId":"1783491798005kcs24"},{"room":"ป.4/3","legacyRoom":"ห้อง 4/3","nickname":"ภูมิ","waterDrops":19,"legacyGardenId":"1783494167013xlsx3"}];
+
+function makeSafeUserId(room, name) {
+    const safeRoom = room.replace(/\//g, "-");
+    return `${safeRoom}_${name.trim()}`;
+}
+
+function esc(v) {
+    return String(v ?? "").replace(/[&<>"']/g, ch => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    })[ch]);
+}
+
+function refreshDocId(index) {
+    const nameInput = document.getElementById(`name_${index}`);
+    const roomSelect = document.getElementById(`room_${index}`);
+    const docIdCell = document.getElementById(`docid_${index}`);
+    if (!nameInput || !roomSelect || !docIdCell) return;
+    const name = nameInput.value.trim();
+    const room = roomSelect.value;
+    docIdCell.textContent = name ? makeSafeUserId(room, name) : "-";
+}
+
+function renderPreview() {
+    const counts = {};
+    STUDENTS.forEach(s => counts[s.room] = (counts[s.room] || 0) + 1);
+    document.getElementById("totalCount").textContent = STUDENTS.length;
+    document.getElementById("r1").textContent = counts["ป.4/1"] || 0;
+    document.getElementById("r2").textContent = counts["ป.4/2"] || 0;
+    document.getElementById("r3").textContent = counts["ป.4/3"] || 0;
+
+    document.getElementById("preview").innerHTML = STUDENTS.map((s, index) => `
+        <tr>
+          <td>
+            <select id="room_${index}" onchange="refreshDocId(${index})" style="font-family:'Kanit';padding:6px;border:1px solid #cbd5e1;border-radius:8px">
+              <option value="ป.4/1" ${s.room==="ป.4/1"?"selected":""}>ป.4/1</option>
+              <option value="ป.4/2" ${s.room==="ป.4/2"?"selected":""}>ป.4/2</option>
+              <option value="ป.4/3" ${s.room==="ป.4/3"?"selected":""}>ป.4/3</option>
+            </select>
+          </td>
+          <td>
+            <input id="name_${index}" value="${esc(s.nickname)}"
+              oninput="refreshDocId(${index})"
+              style="width:100%;font-family:'Kanit';padding:6px;border:1px solid #cbd5e1;border-radius:8px">
+          </td>
+          <td>
+            <input id="water_${index}" type="number" min="0" step="1" value="${s.waterDrops}"
+              style="width:90px;font-family:'Kanit';padding:6px;border:1px solid #cbd5e1;border-radius:8px">
+          </td>
+          <td><code id="docid_${index}">${esc(makeSafeUserId(s.room, s.nickname))}</code></td>
+        </tr>
+    `).join("");
+}
+renderPreview();
+
+async function importStudents() {
+    const btn = document.getElementById("importBtn");
+    const status = document.getElementById("status");
+    const bar = document.getElementById("bar");
+
+    if (!confirm(
+        `ยืนยันนำเข้ารายชื่อ ${STUDENTS.length} คนเข้าสู่ Firebase?\n\n` +
+        `คะแนนในไฟล์นี้จะถูกใช้เป็นคะแนนตั้งต้นสำหรับรายการที่ยังไม่เคยนำเข้า`
+    )) return;
+
+    btn.disabled = true;
+    let created = 0, updated = 0, skipped = 0, failed = 0;
+    const errors = [];
+
+    // อ่านค่าล่าสุดจากตาราง ณ ตอนที่กดนำเข้า
+    const editedStudents = STUDENTS.map((original, index) => ({
+        ...original,
+        room: document.getElementById(`room_${index}`).value,
+        nickname: document.getElementById(`name_${index}`).value.trim(),
+        waterDrops: Math.max(0, parseInt(document.getElementById(`water_${index}`).value || "0", 10) || 0)
+    }));
+
+    const seenIds = new Set();
+    const duplicates = [];
+    editedStudents.forEach(s => {
+        if (!s.nickname) return;
+        const id = makeSafeUserId(s.room, s.nickname);
+        if (seenIds.has(id)) duplicates.push(id);
+        seenIds.add(id);
+    });
+
+    if (editedStudents.some(s => !s.nickname)) {
+        alert("พบช่องชื่อว่าง กรุณากรอกชื่อให้ครบก่อนนำเข้า");
+        btn.disabled = false;
+        return;
+    }
+
+    if (duplicates.length) {
+        alert("พบชื่อซ้ำในห้องเดียวกัน กรุณาแก้ก่อนนำเข้า:\\n\\n" + duplicates.join("\\n"));
+        btn.disabled = false;
+        return;
+    }
+
+    for (let i = 0; i < editedStudents.length; i++) {
+        const s = editedStudents[i];
+        const userId = makeSafeUserId(s.room, s.nickname);
+        const ref = db.collection("users").doc(userId);
+
+        try {
+            await db.runTransaction(async tx => {
+                const snap = await tx.get(ref);
+                const now = firebase.firestore.FieldValue.serverTimestamp();
+
+                // Prevent an old seed file from overwriting scores after a successful import.
+                if (snap.exists && snap.data()?.initialGardenImportCompleted === true) {
+                    skipped++;
+                    return;
+                }
+
+                const common = {
+                    room: s.room,
+                    nickname: s.nickname,
+                    waterDrops: Number(s.waterDrops) || 0,
+                    legacyGardenId: s.legacyGardenId,
+                    legacyGardenRoom: s.legacyRoom,
+                    initialGardenImportCompleted: true,
+                    initialGardenImportedWater: Number(s.waterDrops) || 0,
+                    initialGardenImportedAt: now,
+                    updatedAt: now
+                };
+
+                if (!snap.exists) {
+                    tx.set(ref, {
+                        ...common,
+                        avatar: "👤",
+                        createdAt: now
+                    });
+                    created++;
+                } else {
+                    // Merge into an existing profile/login record without deleting avatar,
+                    // inventory or groupWalletId.
+                    tx.set(ref, common, {merge:true});
+                    updated++;
+                }
+            });
+        } catch (e) {
+            failed++;
+            errors.push(`${s.room} / ${s.nickname}: ${e.message}`);
+        }
+
+        const pct = Math.round(((i + 1) / editedStudents.length) * 100);
+        bar.style.width = pct + "%";
+        status.textContent =
+            `กำลังนำเข้า ${i + 1}/${editedStudents.length} (${pct}%)\n` +
+            `สร้างใหม่: ${created} | อัปเดต: ${updated} | ข้าม: ${skipped} | ผิดพลาด: ${failed}`;
+    }
+
+    status.textContent =
+        `✅ นำเข้าเสร็จแล้ว\n` +
+        `ทั้งหมด: ${editedStudents.length} คน\n` +
+        `สร้างใหม่: ${created} คน\n` +
+        `อัปเดตข้อมูลที่มีอยู่: ${updated} คน\n` +
+        `ข้าม (เคยนำเข้าแล้ว): ${skipped} คน\n` +
+        `ผิดพลาด: ${failed} คน` +
+        (errors.length ? `\n\nข้อผิดพลาด:\n${errors.join("\n")}` : "");
+
+    btn.textContent = failed ? "⚠️ นำเข้าเสร็จแต่มีข้อผิดพลาด" : "✅ นำเข้าเรียบร้อยแล้ว";
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1767 @@
+﻿<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🤝 แลกเปลี่ยนเรียนรู้ | สวนแสนสุข</title>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --purple:#a855f7; --purple-dark:#4c1d95; --purple-soft:#f3e8ff;
+      --pink:#db2777; --green:#22c55e; --yellow:#fde047; --brown:#854d0e;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0; padding:0 0 70px; font-family:'Kanit',sans-serif; color:#333; text-align:center;
+      background-color:#fff1f2; background-image:radial-gradient(#fecdd3 3px,transparent 3px); background-size:40px 40px;
+    }
+    button,input,textarea,select { font-family:'Kanit',sans-serif; }
+    button { cursor:pointer; }
+
+    /* เมนูหลัก */
+    .nav-menu { background:var(--purple); padding:15px; display:flex; justify-content:center; gap:15px; flex-wrap:wrap; position:relative; }
+    .nav-menu a.main-link { background:#d8b4fe; color:var(--purple-dark); text-decoration:none; font-weight:800; font-size:18px; padding:10px 20px; border-radius:20px; border:3px solid var(--purple-soft); box-shadow:0 4px 0 #9333ea; transition:.2s; }
+    .nav-menu a.main-link:active { transform:translateY(4px); box-shadow:none; }
+    .top-left-menu { position:absolute; top:12px; left:15px; z-index:100; }
+    .btn-home-login { background:#fff; border:3px solid var(--purple-soft); width:46px; height:46px; font-size:22px; border-radius:50%; text-decoration:none; box-shadow:0 4px 0 #9333ea; display:flex; justify-content:center; align-items:center; }
+    .hamburger-wrapper { position:absolute; right:18px; top:50%; transform:translateY(-50%); z-index:1000; }
+    .hamburger-button { width:44px; height:44px; display:flex; justify-content:center; align-items:center; background:#fff; color:var(--purple-dark); border:3px solid var(--purple-soft); border-radius:14px; font-size:23px; font-weight:800; box-shadow:0 4px 0 #9333ea; }
+    .hamburger-button.open,.hamburger-button:active { transform:translateY(4px); box-shadow:none; }
+    .utility-dropdown { display:none; position:absolute; top:56px; right:0; width:285px; padding:14px; background:#fff; border:3px solid #e9d5ff; border-radius:20px; box-shadow:0 12px 28px rgba(76,29,149,.24); text-align:left; }
+    .utility-dropdown.show { display:block; }
+    .dropdown-title { color:var(--purple-dark); font-size:18px; font-weight:800; text-align:center; margin-bottom:10px; }
+    .dropdown-coin { display:flex; justify-content:space-between; gap:10px; background:#fef9c3; color:var(--brown); border:2px solid var(--yellow); border-radius:14px; padding:10px 12px; margin-bottom:10px; font-weight:800; }
+    .dropdown-link { display:flex; align-items:center; gap:11px; padding:10px 12px; margin-top:8px; color:var(--purple-dark); text-decoration:none; background:#faf5ff; border:2px solid #e9d5ff; border-radius:14px; }
+    .dropdown-icon { width:34px; text-align:center; font-size:24px; }
+    .dropdown-link strong,.dropdown-link small { display:block; }
+    .dropdown-link small { color:#7c3aed; font-size:12px; font-weight:400; }
+    .logout-link { color:#991b1b; background:#fff1f2; }
+
+    .page-title { font-size:38px; font-weight:800; color:var(--pink); margin:30px 10px 5px; text-shadow:2px 2px #fff; }
+    .page-subtitle { color:#9d174d; font-weight:600; margin:0 15px 20px; }
+    .section-tabs { max-width:1100px; margin:0 auto 20px; padding:0 18px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+    .tab-btn { border:3px solid #e9d5ff; background:#fff; color:var(--purple-dark); border-radius:18px; padding:11px 20px; font-size:18px; font-weight:800; box-shadow:0 4px 0 #c084fc; }
+    .tab-btn.active { background:var(--yellow); color:var(--brown); border-color:#fff; box-shadow:0 4px 0 #ca8a04; }
+    .page-section { display:none; }
+    .page-section.active { display:block; }
+
+    /* กระดานโพสต์อิท */
+    .knowledge-wrap { max-width:1180px; margin:auto; padding:0 18px; }
+    .game-dashboard { display:grid; grid-template-columns:1.2fr .8fr; gap:18px; margin-bottom:20px; }
+    .mission-panel,.leader-panel { background:rgba(255,255,255,.94); border:4px solid #c084fc; border-radius:24px; padding:18px; box-shadow:0 8px 0 #e9d5ff; text-align:left; }
+    .mission-panel h3,.leader-panel h3 { margin:0 0 10px; color:var(--purple-dark); font-size:22px; }
+    .progress-track { height:18px; background:#ede9fe; border-radius:20px; overflow:hidden; border:2px solid #c4b5fd; }
+    .progress-fill { width:0; height:100%; background:linear-gradient(90deg,#4ade80,#fde047); transition:.4s; }
+    .helper-status { margin-top:8px; font-weight:700; color:#166534; }
+    .leader-list { margin:0; padding:0; list-style:none; }
+    .leader-list li { display:flex; justify-content:space-between; background:#faf5ff; border:2px solid #e9d5ff; border-radius:12px; padding:7px 10px; margin-top:7px; }
+
+    .board-tools { background:#fff; border:4px solid #f472b6; border-radius:24px; padding:18px; box-shadow:0 8px 0 #fbcfe8; margin-bottom:20px; }
+    .tool-row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+    .search-input,.filter-select { border:3px solid #f9a8d4; border-radius:15px; padding:11px 14px; font-size:16px; background:#fff; min-width:210px; }
+    .new-note-btn { border:none; border-radius:15px; padding:11px 20px; font-size:17px; font-weight:800; color:#14532d; background:#4ade80; box-shadow:0 4px 0 #16a34a; }
+    .status-buttons { display:flex; justify-content:center; align-items:center; gap:12px; margin-top:14px; flex-wrap:wrap; }
+    .status-btn { border:3px solid #e9d5ff; background:#fff; color:#6b21a8; border-radius:999px; padding:8px 18px; font-family:inherit; font-size:15px; font-weight:800; cursor:pointer; box-shadow:0 3px 0 #e9d5ff; transition:.15s; }
+    .status-btn:hover { transform:translateY(-2px); }
+    .status-btn:active { transform:translateY(2px); box-shadow:none; }
+    .status-btn.active { background:#f3e8ff; border-color:#c084fc; color:#6b21a8; }
+    .unsolved-btn.active { background:#fef3c7; border-color:#fbbf24; color:#92400e; }
+    .solved-btn.active { background:#dcfce7; border-color:#4ade80; color:#166534; }
+    .ai-box { margin-top:14px; background:#f0f9ff; border:3px dashed #7dd3fc; border-radius:16px; padding:12px; color:#075985; text-align:left; }
+    .ai-box strong { color:#0369a1; }
+    .similar-list button { border:0; background:#fff; border-radius:10px; margin:4px; padding:5px 9px; color:#0369a1; font-weight:700; }
+
+    .cork-board { min-height:500px; padding:30px 24px; border:12px solid #92400e; border-radius:25px; background-color:#b77943; background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.04) 0 2px,transparent 2px 7px); box-shadow:inset 0 0 25px rgba(69,26,3,.55),0 12px 22px rgba(0,0,0,.2); }
+    .notes-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:26px; align-items:start; }
+    .sticky-note { position:relative; min-height:220px; padding:28px 17px 17px; text-align:left; color:#422006; box-shadow:5px 8px 12px rgba(0,0,0,.25); transform:rotate(var(--tilt)); transition:.2s; cursor:pointer; overflow:hidden; }
+    .sticky-note:hover { transform:rotate(0deg) translateY(-6px) scale(1.02); z-index:2; }
+    .sticky-note::before { content:'📌'; position:absolute; top:-8px; left:50%; transform:translateX(-50%); font-size:30px; filter:drop-shadow(0 2px 1px rgba(0,0,0,.25)); }
+    .sticky-yellow { background:#fef08a; } .sticky-pink { background:#fbcfe8; } .sticky-blue { background:#bae6fd; } .sticky-green { background:#bbf7d0; } .sticky-purple { background:#ddd6fe; }
+    .sticky-note.pinned { outline:5px solid #f97316; }
+    .sticky-note.solved { background:#bbf7d0 !important; filter:none; border:4px solid #4ade80; }
+    .sticky-note.solved::after { content:'✓ แก้ได้แล้ว!'; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) rotate(-8deg); width:78%; padding:10px 8px; border:5px solid #15803d; border-radius:18px; background:rgba(240,253,244,.78); color:#15803d; text-align:center; font-size:26px; font-weight:800; line-height:1.1; letter-spacing:.5px; box-shadow:0 3px 0 rgba(21,128,61,.18); z-index:5; pointer-events:none; }
+    .note-badges { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:8px; }
+    .badge { padding:3px 8px; border-radius:20px; background:rgba(255,255,255,.75); font-size:12px; font-weight:800; }
+    .badge-alert { background:#fee2e2; color:#991b1b; animation:pulse 1.5s infinite; }
+    .note-title { margin:0 0 7px; font-size:20px; line-height:1.3; }
+    .note-body { font-size:15px; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .note-meta { border-top:2px dashed rgba(120,53,15,.25); margin-top:12px; padding-top:9px; font-size:12px; font-weight:700; display:flex; justify-content:space-between; gap:6px; }
+    @keyframes pulse { 50% { transform:scale(1.05); } }
+
+    /* ฟอร์มและหน้าต่างคำถาม */
+    .dialog-overlay { display:none; position:fixed; inset:0; z-index:3000; background:rgba(30,10,50,.72); padding:20px; overflow:auto; }
+    .dialog-overlay.show { display:block; }
+    .dialog-card { width:min(720px,100%); margin:25px auto; background:#fff; border:5px solid #c084fc; border-radius:25px; padding:22px; text-align:left; box-shadow:0 12px 0 #6b21a8; }
+    .dialog-card h2 { margin:0 0 12px; color:var(--purple-dark); }
+    .dialog-close { float:right; border:none; background:#fee2e2; color:#991b1b; border-radius:50%; width:38px; height:38px; font-size:22px; font-weight:800; }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .field { display:flex; flex-direction:column; gap:5px; margin-bottom:12px; }
+    .field.full { grid-column:1/-1; }
+    .field label { font-weight:800; color:#5b21b6; }
+    .field input,.field textarea,.field select { width:100%; border:3px solid #ddd6fe; border-radius:13px; padding:10px 12px; font-size:16px; }
+    .field textarea { min-height:100px; resize:vertical; }
+    .attachment-box { background:#f0f9ff; border:3px dashed #7dd3fc; border-radius:16px; padding:12px; }
+    .attachment-preview { display:none; margin-top:10px; border-radius:14px; overflow:hidden; background:#fff; border:2px solid #bae6fd; }
+    .attachment-preview.show { display:block; }
+    .attachment-preview img { display:block; width:100%; max-height:360px; object-fit:contain; background:#fff; }
+    .attachment-preview iframe { display:block; width:100%; height:360px; border:0; }
+    .attachment-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+    .question-attachment { margin-top:14px; border:3px solid #bae6fd; border-radius:16px; overflow:hidden; background:#fff; }
+    .question-attachment img { display:block; width:100%; max-height:480px; object-fit:contain; }
+    .question-attachment iframe { display:block; width:100%; height:430px; border:0; }
+    .attachment-label { padding:8px 12px; background:#e0f2fe; color:#075985; font-weight:800; }
+    .mini-attachment { margin:8px 0; padding:6px 9px; display:inline-block; border-radius:12px; background:rgba(255,255,255,.78); font-size:12px; font-weight:800; }
+    .primary-btn,.secondary-btn,.danger-btn,.teacher-btn { border:none; border-radius:13px; padding:9px 14px; font-weight:800; font-size:15px; margin:3px; }
+    .primary-btn { background:#4ade80; color:#14532d; box-shadow:0 3px 0 #16a34a; }
+    .secondary-btn { background:#e9d5ff; color:#4c1d95; }
+    .danger-btn { background:#fecaca; color:#991b1b; }
+    .teacher-btn { background:#fde047; color:#713f12; }
+    .question-detail { background:#fef9c3; border:3px solid #fde047; border-radius:18px; padding:15px; }
+    .answer-card { border:3px solid #e9d5ff; background:#faf5ff; border-radius:16px; padding:13px; margin-top:12px; }
+    .answer-card.best { border-color:#f59e0b; background:#fffbeb; box-shadow:0 0 0 4px #fef3c7; }
+    .answer-card.approved { border-color:#4ade80; }
+    .answer-top { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
+    .answer-text { white-space:pre-wrap; margin:8px 0; }
+    .answer-status { font-size:12px; font-weight:800; border-radius:20px; padding:4px 8px; background:#e5e7eb; }
+    .approved .answer-status { background:#dcfce7; color:#166534; }
+    .best .answer-status { background:#fef3c7; color:#92400e; }
+    .helping-banner { background:#e0f2fe; color:#075985; border:2px solid #7dd3fc; padding:8px 10px; border-radius:12px; margin:10px 0; font-weight:700; }
+    .empty-state { background:rgba(255,255,255,.8); padding:25px; border-radius:18px; font-weight:800; color:#7c2d12; }
+    .toast { position:fixed; z-index:5000; right:20px; bottom:20px; max-width:340px; padding:15px 18px; border-radius:16px; background:#4c1d95; color:#fff; font-weight:800; box-shadow:0 8px 20px rgba(0,0,0,.25); transform:translateY(140px); opacity:0; transition:.3s; }
+    .toast.show { transform:translateY(0); opacity:1; }
+
+    /* ระบบส่งงานเดิม */
+    .padlet-container { max-width:950px; margin:0 auto; padding:20px; }
+    .mission-board { background:rgba(255,255,255,.92); border:5px solid #f472b6; border-radius:25px; padding:25px; margin-bottom:40px; box-shadow:0 10px 0 #fbcfe8; }
+    .board-header { font-size:26px; font-weight:800; color:#9d174d; margin:0 0 20px; border-bottom:3px dashed #fbcfe8; padding-bottom:15px; text-align:left; }
+    .upload-form { display:flex; flex-direction:column; gap:15px; background:#fff5f5; padding:20px; border-radius:20px; border:3px dashed #fca5a5; align-items:center; margin-bottom:25px; }
+    .input-name { padding:12px 15px; font-size:18px; border:3px solid #fecaca; border-radius:15px; outline:none; font-weight:600; width:100%; max-width:400px; text-align:center; }
+    .input-link { background:#f0f9ff; border-color:#38bdf8; color:#0284c7; }
+    .preview-iframe { width:100%; max-width:400px; height:330px; border:0; border-radius:15px; display:none; }
+    .btn-post { background:#4ade80; color:#14532d; border:0; padding:12px 30px; font-size:20px; font-weight:800; border-radius:15px; box-shadow:0 4px 0 #16a34a; width:100%; max-width:400px; }
+    .post-grid { display:flex; gap:20px; flex-wrap:wrap; justify-content:center; }
+    .post-card { background:#fef3c7; border:4px solid #fde047; border-radius:15px; padding:15px; width:340px; box-shadow:3px 5px 10px rgba(0,0,0,.1); position:relative; }
+    .post-card.graded-stamp::before { content:'✅ ตรวจแล้ว'; position:absolute; top:-10px; right:-10px; background:#10b981; color:#fff; padding:5px 12px; border-radius:15px; font-weight:bold; font-size:13px; box-shadow:0 4px 0 #047857; transform:rotate(10deg); z-index:10; }
+    .post-project { background:#fffbeb; width:100%; height:260px; border-radius:10px; margin-bottom:10px; overflow:hidden; }
+    .post-project iframe,.post-project img { width:100%; height:100%; border:0; object-fit:cover; }
+    .post-name { font-size:18px; font-weight:800; color:#78350f; background:#fff; padding:5px; border-radius:10px; margin-bottom:10px; border:2px solid #fde047; }
+    .reaction-bar { display:flex; justify-content:center; gap:8px; }
+    .btn-react { background:#fff; border:2px solid #fde047; border-radius:10px; padding:5px 10px; font-weight:800; }
+    .btn-fullscreen { background:#eef2ff; border:2px solid #a5b4fc; color:#3730a3; border-radius:10px; padding:5px 10px; font-weight:800; cursor:pointer; }
+    .btn-fullscreen:hover { background:#e0e7ff; }
+    .post-project:fullscreen { width:100vw; height:100vh; background:#111827; border-radius:0; margin:0; padding:18px; box-sizing:border-box; }
+    .post-project:fullscreen iframe,.post-project:fullscreen img { width:100%; height:100%; object-fit:contain; background:#111827; }
+    @keyframes wiggle { 20%,60%{transform:scale(1.05) rotate(-4deg)} 40%,80%{transform:scale(1.05) rotate(4deg)} }
+    .anim-wiggle { animation:wiggle .5s ease; }
+
+    @media(max-width:900px){ .game-dashboard{grid-template-columns:1fr;} }
+    @media(max-width:768px){
+      .nav-menu{padding:75px 15px 15px; flex-direction:column; align-items:center;}
+      .top-left-menu{top:14px;left:15px}.hamburger-wrapper{top:16px;right:15px;transform:none}
+      .form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.page-title{font-size:30px}
+      .cork-board{padding:25px 15px}.notes-grid{grid-template-columns:1fr}.sticky-note{transform:none!important}
+    }
+  
+    /* ===== ระบบป้องกันการปั๊มเหรียญจากคำถาม ===== */
+    .anti-cheat-note{
+      margin:12px 0;padding:12px 14px;border:3px dashed #f59e0b;border-radius:15px;
+      background:#fffbeb;color:#92400e;font-weight:700;line-height:1.65
+    }
+    .helpful-btn{
+      margin-top:10px;width:100%;border:none;border-radius:13px;padding:11px 14px;
+      background:#22c55e;color:#14532d;font-size:16px;font-weight:800;
+      box-shadow:0 4px 0 #16a34a;cursor:pointer
+    }
+    .helpful-btn:active{transform:translateY(4px);box-shadow:none}
+    .helpful-btn:disabled{background:#cbd5e1;color:#64748b;box-shadow:none;cursor:not-allowed}
+    .selected-helpful{
+      margin-top:9px;padding:8px 10px;border-radius:12px;background:#dcfce7;
+      color:#166534;font-weight:800;text-align:center
+    }
+    .waiting-approved{
+      margin:10px 0;padding:12px;border-radius:13px;background:#eff6ff;
+      color:#1e3a8a;border:2px solid #93c5fd;font-weight:700;line-height:1.6
+    }
+
+
+    /* ===== Reflection เด้งหลังส่งงาน ===== */
+    .reflection-overlay{
+      display:none;position:fixed;inset:0;background:rgba(30,41,59,.68);
+      z-index:3000;align-items:center;justify-content:center;padding:18px
+    }
+    .reflection-overlay.show{display:flex}
+    .reflection-popup{
+      width:min(620px,100%);max-height:92vh;overflow:auto;background:white;
+      border:5px solid #38bdf8;border-radius:26px;box-shadow:0 14px 0 rgba(2,132,199,.35);
+      padding:22px;text-align:left
+    }
+    .reflection-popup h2{margin:0;color:#0369a1;text-align:center;font-size:27px}
+    .reflection-popup .subtext{
+      color:#475569;text-align:center;line-height:1.65;font-weight:600;margin:7px 0 16px
+    }
+    .reflection-member{
+      background:#f0f9ff;border:3px solid #7dd3fc;border-radius:16px;padding:12px 14px;
+      color:#075985;font-weight:800;text-align:center;margin-bottom:14px
+    }
+    .reflection-progress{
+      display:flex;justify-content:space-between;gap:10px;color:#0369a1;font-weight:800;
+      margin-bottom:8px
+    }
+    .reflection-progress-track{
+      height:14px;background:#e0f2fe;border-radius:999px;overflow:hidden;margin-bottom:15px
+    }
+    .reflection-progress-bar{
+      height:100%;background:linear-gradient(90deg,#38bdf8,#22c55e);width:0;transition:.3s
+    }
+    .reflection-popup .field{margin-bottom:12px}
+    .reflection-popup label{
+      display:block;color:#1e40af;font-weight:800;margin-bottom:5px
+    }
+    .reflection-popup select,.reflection-popup textarea{
+      width:100%;border:2px solid #bfdbfe;border-radius:12px;padding:10px 12px;
+      font-family:'Kanit',sans-serif;font-size:15px;outline:none
+    }
+    .reflection-popup textarea{min-height:78px;resize:vertical}
+    .reflection-actions{display:flex;gap:10px;margin-top:14px}
+    .reflection-save{
+      flex:1;border:none;border-radius:14px;padding:12px;background:#22c55e;color:#14532d;
+      font-size:17px;font-weight:800;box-shadow:0 4px 0 #16a34a;cursor:pointer
+    }
+    .reflection-save:active{transform:translateY(4px);box-shadow:none}
+    .reflection-save:disabled{background:#cbd5e1;color:#64748b;box-shadow:none;cursor:not-allowed}
+    .reflection-reminder{
+      margin-top:10px;padding:10px 12px;background:#fef9c3;border:2px dashed #facc15;
+      border-radius:12px;color:#854d0e;font-weight:700;line-height:1.55
+    }
+
+
+/* ===== 👾 เพื่อนมอนสเตอร์ช่วยเรียน ===== */
+.study-buddy{position:fixed;right:20px;bottom:20px;z-index:2500;display:flex;align-items:flex-end;gap:10px;filter:drop-shadow(0 8px 12px rgba(76,29,149,.18))}
+.study-buddy-bubble{max-width:250px;background:#fff;border:3px solid #c084fc;border-radius:18px 18px 6px 18px;padding:10px 13px;color:#5b21b6;font-size:14px;font-weight:700;line-height:1.45;box-shadow:0 5px 0 #e9d5ff;transition:.2s}
+.study-buddy-char{width:64px;height:64px;border:0;border-radius:50%;background:linear-gradient(135deg,#c084fc,#8b5cf6);font-size:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 0 #6d28d9;animation:buddyFloat 2.4s ease-in-out infinite}
+.study-buddy-char:active{transform:translateY(5px);box-shadow:0 1px 0 #6d28d9}@keyframes buddyFloat{50%{transform:translateY(-6px)}}
+@media(max-width:650px){.study-buddy{right:10px;bottom:10px}.study-buddy-bubble{display:none}.study-buddy-char{width:54px;height:54px;font-size:31px}}
+
+
+/* ===== 👤 Avatar ที่ใช้ร่วมกันจาก profile.html ===== */
+.menu-avatar-stack{display:flex;align-items:center;min-width:42px;height:42px;position:relative;flex:0 0 auto}
+.menu-avatar-mini{width:40px;height:40px;border-radius:50%;overflow:hidden;background:#f5f3ff;border:2px solid #c4b5fd;box-shadow:0 2px 0 #ddd6fe;margin-right:-9px}
+.menu-avatar-mini:last-child{margin-right:0}
+.menu-avatar-mini svg{width:100%;height:100%;display:block}
+.menu-avatar-fallback{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#ede9fe;border:2px solid #c4b5fd;font-size:22px}
+.post-author-wrap{display:flex;align-items:center;gap:7px;min-width:0}
+.post-avatar-stack{display:flex;align-items:center;min-width:28px;flex:0 0 auto}
+.post-avatar-mini{width:31px;height:31px;border-radius:50%;overflow:hidden;background:#fff;border:2px solid rgba(91,33,182,.28);margin-right:-8px;box-shadow:0 2px 3px rgba(0,0,0,.12)}
+.post-avatar-mini:last-child{margin-right:0}.post-avatar-mini svg{width:100%;height:100%;display:block}
+.answer-author{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+.answer-avatar-stack{
+  display:flex;
+  align-items:center;
+  min-width:42px;
+  flex:0 0 auto;
+}
+.answer-avatar-mini{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  overflow:hidden;
+  background:#fff;
+  border:2px solid #c4b5fd;
+  box-shadow:0 2px 4px rgba(76,29,149,.15);
+  margin-right:-8px;
+}
+.answer-avatar-mini:last-child{margin-right:0}
+.answer-avatar-mini svg{width:100%;height:100%;display:block}
+.answer-author-text{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  min-width:0;
+}
+.answer-author-name{
+  font-weight:800;
+  color:#4c1d95;
+  line-height:1.2;
+}
+.answer-author-role{
+  margin-top:2px;
+  font-size:11px;
+  color:#7c3aed;
+  font-weight:700;
+}
+
+
+
+/* =========================================================
+   👩‍🏫 คำแนะนำจากครู
+   ========================================================= */
+.teacher-guidance-box{
+  margin:14px 0 18px;
+  padding:15px 16px;
+  border:3px solid #93c5fd;
+  border-radius:18px;
+  background:linear-gradient(180deg,#eff6ff,#f8fbff);
+  text-align:left;
+  box-shadow:0 4px 0 #bfdbfe;
+}
+.teacher-guidance-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:8px;
+}
+.teacher-guidance-title{
+  color:#1d4ed8;
+  font-size:18px;
+  font-weight:800;
+}
+.teacher-guidance-badge{
+  padding:4px 9px;
+  border-radius:999px;
+  background:#dbeafe;
+  color:#1e40af;
+  font-size:11px;
+  font-weight:800;
+}
+.teacher-guidance-text{
+  color:#1e3a8a;
+  line-height:1.7;
+  white-space:pre-wrap;
+  font-weight:600;
+}
+.teacher-solved-btn{
+  width:100%;
+  margin-top:11px;
+  border:none;
+  border-radius:13px;
+  padding:11px 13px;
+  background:#4ade80;
+  color:#14532d;
+  font-family:'Kanit',sans-serif;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+  box-shadow:0 4px 0 #16a34a;
+}
+.teacher-solved-btn:active{transform:translateY(4px);box-shadow:none}
+.teacher-guidance-note-badge{
+  background:#dbeafe!important;
+  color:#1e40af!important;
+}
+
+</style>
+</head>
+<body>
+  <nav class="nav-menu">
+    <div class="top-left-menu"><a href="index.html" class="btn-home-login" title="กลับหน้าแรก">🏠</a></div>
+    <a href="mission.html" class="main-link">⚔️ สถานการณ์ปัญหา</a>
+    <a href="resource.html" class="main-link">📚 แหล่งเรียนรู้</a>
+    <a href="hints.html" class="main-link">💡 ฐานการช่วยเหลือ</a>
+    <a href="share.html" class="main-link" style="background:#fde047;color:#854d0e;border-color:#fff;box-shadow:0 4px 0 #ca8a04">🤝 แลกเปลี่ยนเรียนรู้</a>
+    <a href="coach.html" class="main-link">🧑‍🏫 โค้ช</a>
+    <div class="hamburger-wrapper">
+      <button id="hamburgerButton" class="hamburger-button" onclick="toggleUtilityMenu()">☰</button>
+      <div id="utilityDropdown" class="utility-dropdown">
+                <div class="dropdown-title">เมนูของฉัน</div>
+                <div class="dropdown-coin"><span>🪙 เหรียญเวทมนตร์</span><strong id="topCoinAmount">--</strong></div>
+                <a href="monster-hatchery.html" class="dropdown-link"><span class="dropdown-icon">🌱</span><span><strong>แปลงปลูกต้นไม้</strong><small>ดูคะแนนและการเติบโต</small></span></a>
+                
+                
+                <a href="profile.html" class="dropdown-link">
+    <span class="menu-avatar-stack" id="menuAvatarStack"><span class="menu-avatar-fallback">👤</span></span>
+    <span><strong>โปรไฟล์</strong><small id="menuProfileNames">ตัวละคร • แต่งตัว • ร้านค้า</small></span>
+</a>
+                <a href="login.html" class="dropdown-link logout-link"><span class="dropdown-icon">🚪</span><span><strong>ออกจากระบบ</strong><small>กลับหน้าเข้าสู่ระบบ</small></span></a>
+            </div>
+    </div>
+  </nav>
+
+  <h1 class="page-title">🌸 พื้นที่แลกเปลี่ยนเรียนรู้ 🌸</h1>
+  <p class="page-subtitle">ถามเมื่อสงสัย ช่วยกันตอบ และเติบโตไปด้วยกันทั้งห้อง</p>
+
+  <div class="section-tabs">
+    <button class="tab-btn active" data-target="knowledgeSection" onclick="switchSection(this)">📌 กระดานโพสต์อิท</button>
+    <button class="tab-btn" data-target="workSection" onclick="switchSection(this)">🚀 ส่งและชมผลงาน</button>
+  </div>
+
+  <section id="knowledgeSection" class="page-section active">
+    <div class="knowledge-wrap">
+      <div class="game-dashboard">
+        <div class="mission-panel">
+          <h3>⭐ เส้นทางนักช่วยเหลือ</h3>
+          <div class="progress-track"><div id="helperProgress" class="progress-fill"></div></div>
+          <div id="helperStatus" class="helper-status">ช่วยเพื่อนที่ครูอนุมัติครบ 5 ครั้ง รับ 💧 10 หยดน้ำ</div>
+        </div>
+        <div class="leader-panel">
+          <h3>🏆 นักช่วยเหลือประจำห้อง</h3>
+          <ol id="leaderList" class="leader-list"><li><span>กำลังโหลด...</span><b>⏳</b></li></ol>
+        </div>
+      </div>
+
+      <div class="board-tools">
+        <div class="tool-row">
+          <input id="searchInput" class="search-input" type="search" placeholder="🔎 ค้นหาคำถามหรือชื่อเพื่อน" oninput="renderKnowledgePosts()">
+          <button class="new-note-btn" onclick="openNewPostDialog()">➕ ปักโพสต์อิทคำถาม</button>
+        </div>
+
+        <div class="status-buttons">
+          <button class="status-btn active" data-filter="all" onclick="setPostFilter('all', this)">📌 ทั้งหมด</button>
+          <button class="status-btn unsolved-btn" data-filter="open" onclick="setPostFilter('open', this)">❓ ยังไม่แก้</button>
+          <button class="status-btn solved-btn" data-filter="solved" onclick="setPostFilter('solved', this)">✅ แก้แล้ว</button>
+        </div>
+
+        <div id="aiSuggestion" class="ai-box"><strong>🤖 ผู้ช่วยคิดคำถาม:</strong> พิมพ์คำค้นหรือเปิดแบบฟอร์ม ระบบจะช่วยตรวจคำถามคล้ายกันและแนะนำให้เขียนคำถามชัดขึ้น</div>
+      </div>
+
+      <div class="cork-board">
+        <div id="notesGrid" class="notes-grid"><div class="empty-state">กำลังเปิดกระดานภูมิปัญญา... ⏳</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="workSection" class="page-section">
+    <div class="padlet-container">
+      <div id="dynamicMissionContainer"><p style="color:#db2777;font-weight:800;font-size:20px">กำลังโหลดภารกิจเวทมนตร์... ⏳</p></div>
+    </div>
+  </section>
+
+  <!-- หน้าต่างสร้างคำถาม -->
+  <div id="newPostDialog" class="dialog-overlay">
+    <div class="dialog-card">
+      <button class="dialog-close" onclick="closeDialog('newPostDialog')">×</button>
+      <h2>📌 ปักโพสต์อิทคำถาม</h2>
+      <div class="form-grid">
+        <div class="field"><label>ชื่อผู้ถาม</label><input id="questionName" placeholder="ชื่อเล่นหรือชื่อกลุ่ม"></div>
+        <div class="field"><label>ห้องเรียน</label><select id="questionRoom"><option value="">เลือกห้อง</option><option value="ป.4/1">ป.4/1</option><option value="ป.4/2">ป.4/2</option><option value="ป.4/3">ป.4/3</option></select></div>
+        <div class="field full"><label>หัวข้อคำถาม ❓</label><input id="questionTitle" maxlength="100" placeholder="เช่น ทำไมตัวละครไม่เดินเมื่อกดธงเขียว" oninput="checkQuestionQuality()"></div>
+        <div class="field full"><label>รายละเอียดปัญหา</label><textarea id="questionBody" maxlength="600" placeholder="บอกว่าต้องการให้ Scratch ทำอะไร เกิดปัญหาอะไร และลองแก้แบบไหนแล้ว" oninput="checkQuestionQuality()"></textarea></div>
+        <div class="field full attachment-box">
+          <label>🐱 แนบโปรเจกต์หรือภาพปัญหา (เลือกอย่างใดอย่างหนึ่งหรือแนบทั้งสองอย่างก็ได้)</label>
+          <input id="questionScratchLink" type="url" placeholder="🔗 วางลิงก์โปรเจกต์ Scratch เช่น https://scratch.mit.edu/projects/123456789/" oninput="previewQuestionScratch()">
+          <input id="questionImage" type="file" accept="image/png,image/jpeg,image/webp" onchange="previewQuestionImage(event)">
+          <small>แนะนำให้แคปภาพบล็อกคำสั่งหรือหน้าจอที่เกิดปัญหา ภาพจะถูกย่อก่อนบันทึก</small>
+          <div id="scratchAttachmentPreview" class="attachment-preview"></div>
+          <div id="imageAttachmentPreview" class="attachment-preview"></div>
+          <div class="attachment-actions"><button type="button" class="danger-btn" onclick="clearQuestionAttachments()">🗑️ ล้างไฟล์แนบ</button></div>
+        </div>
+        <div class="field full"><label>สีโพสต์อิท</label><select id="questionColor"><option value="yellow">🟨 เหลือง</option><option value="pink">🩷 ชมพู</option><option value="blue">🟦 ฟ้า</option><option value="green">🟩 เขียว</option><option value="purple">🟪 ม่วง</option></select></div>
+      </div>
+      <div id="aiWritingHelp" class="ai-box"><strong>🤖 คำแนะนำ:</strong> คำถามที่ดีควรบอกว่า “ต้องการทำอะไร–เกิดอะไรขึ้น–ลองแก้อะไรแล้ว”</div>
+      <div class="anti-cheat-note">
+        🛡️ การรับเหรียญของผู้ถาม: การปักคำถามยังไม่ได้เหรียญทันที
+        ต้องรอให้มีคำตอบที่ครูอนุมัติ แล้วเจ้าของคำถามเลือก
+        “คำตอบนี้ช่วยแก้ปัญหาได้” จึงจะปิดคำถามและรับ 1 เหรียญ
+      </div>
+      <div style="text-align:center;margin-top:14px"><button id="submitQuestionBtn" class="primary-btn" onclick="submitQuestion()">📌 ปักคำถามบนกระดาน</button></div>
+    </div>
+  </div>
+
+  <!-- หน้าต่างอ่านและตอบ -->
+  <div id="postDetailDialog" class="dialog-overlay">
+    <div class="dialog-card">
+      <button class="dialog-close" onclick="closeDialog('postDetailDialog')">×</button>
+      <div id="postDetailContent"></div>
+    </div>
+  </div>
+
+
+  <div id="reflectionOverlay" class="reflection-overlay">
+    <div class="reflection-popup">
+      <h2>🪞 Reflection หลังส่งงาน</h2>
+      <div class="subtext">
+        ผลงานถูกส่งสำเร็จแล้ว ตอนนี้สมาชิกแต่ละคนสะท้อนสิ่งที่ได้เรียนรู้สั้น ๆ
+        ข้อมูลนี้จะไปแสดงในหน้าโปรไฟล์ของตนเอง
+      </div>
+
+      <div class="reflection-progress">
+        <span id="reflectionStepText">สมาชิก 1/1</span>
+        <span id="reflectionMissionText">ภารกิจ</span>
+      </div>
+      <div class="reflection-progress-track">
+        <div id="reflectionProgressBar" class="reflection-progress-bar"></div>
+      </div>
+
+      <div id="reflectionMemberName" class="reflection-member">
+        👤 ผู้เรียน
+      </div>
+
+      <div class="field">
+        <label for="submitReflectionDifficulty">📊 ภารกิจนี้ยากระดับไหน</label>
+        <select id="submitReflectionDifficulty">
+          <option value="ง่าย">ง่าย</option>
+          <option value="พอดี" selected>พอดี</option>
+          <option value="ยาก">ยาก</option>
+          <option value="ยากมาก">ยากมาก</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="submitReflectionHelp">🤝 อะไรช่วยให้ทำงานสำเร็จ</label>
+        <select id="submitReflectionHelp">
+          <option value="ทำด้วยตนเอง">ทำด้วยตนเอง</option>
+          <option value="ใช้โค้ช">ใช้โค้ช</option>
+          <option value="ใช้คำใบ้">ใช้คำใบ้</option>
+          <option value="เพื่อนช่วย">เพื่อนช่วย</option>
+          <option value="ครูช่วย">ครูช่วย</option>
+          <option value="หลายวิธีร่วมกัน">หลายวิธีร่วมกัน</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="submitReflectionLearned">💡 ฉันเข้าใจหรือค้นพบอะไรจากภารกิจนี้</label>
+        <textarea id="submitReflectionLearned" maxlength="600"
+          placeholder="เช่น เข้าใจว่าต้องกำหนดทิศทางก่อนสั่งให้ตัวละครเดิน"></textarea>
+      </div>
+
+      <div class="field">
+        <label for="submitReflectionNext">🚀 ครั้งหน้าฉันจะปรับปรุงอย่างไร</label>
+        <textarea id="submitReflectionNext" maxlength="600"
+          placeholder="เช่น จะทดลองเปลี่ยนทีละบล็อกและสังเกตผลก่อนแก้จุดอื่น"></textarea>
+      </div>
+
+      <div class="reflection-reminder">
+        สมาชิกแต่ละคนต้องบันทึก Reflection ของตนเอง ระบบจึงจะปิดหน้าต่างนี้
+      </div>
+
+      <div class="reflection-actions">
+        <button id="submitReflectionSaveBtn" class="reflection-save"
+          onclick="saveSubmissionReflection()">
+          📝 บันทึกและไปสมาชิกคนถัดไป
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+<script id="sharedAvatarRenderer">
+const DEFAULT_CHARACTER = {
+    skin: "skin_purple",
+    hairStyle: "monster_orb",
+    hairColor: "feature_horns",
+    eyes: "eyes_cyclops",
+    shirt: "chest_none",
+    pants: "aura_none",
+    shoes: "trail_none",
+    hat: null,
+    glasses: null,
+    accessory: null,
+    background: "bg_space"
+};
+
+const DEFAULT_OWNED_ITEMS = [
+    "chest_none", "aura_none", "trail_none", "bg_space"
+];
+
+/* เพิ่ม/ลบสินค้าได้ที่ ITEM_CATALOG จุดเดียว แล้วใช้ id เดิมใน renderAvatar */
+const ITEM_CATALOG = [
+    { id:"hat_witch", name:"หมวกแม่มดดาว", category:"hat", price:120 },
+    { id:"hat_crown", name:"มงกุฎอสูร", category:"hat", price:150 },
+    { id:"hat_frog", name:"หมวกกบกรี๊บ", category:"hat", price:100 },
+    { id:"hat_gamer", name:"หมวกเกมเมอร์", category:"hat", price:90 },
+    { id:"hat_sleep", name:"หมวกนอนหลับ", category:"hat", price:80 },
+    { id:"hat_cat", name:"หมวกแมวพาสเทล", category:"hat", price:95 },
+    { id:"hat_headphone", name:"หูฟังเรืองแสง", category:"hat", price:110 },
+    { id:"hat_party", name:"หมวกปาร์ตี้มิติ", category:"hat", price:70 },
+
+    { id:"face_pixel", name:"แว่นพิกเซล", category:"glasses", price:70 },
+    { id:"face_star", name:"แว่นดาววิบวับ", category:"glasses", price:85 },
+    { id:"face_patch", name:"ผ้าปิดตาโจรสลัด", category:"glasses", price:60 },
+    { id:"face_mask", name:"หน้ากากจิ้งจอก", category:"glasses", price:95 },
+    { id:"face_visor", name:"แว่นไซเบอร์", category:"glasses", price:110 },
+    { id:"face_heart", name:"แว่นหัวใจ", category:"glasses", price:80 },
+
+    { id:"chest_none", name:"ไม่ติดของหน้าอก", category:"shirt", price:0, starter:true },
+    { id:"chest_bow", name:"โบว์สายรุ้ง", category:"shirt", price:55 },
+    { id:"chest_scarf", name:"ผ้าพันคอฮีโร่", category:"shirt", price:75 },
+    { id:"chest_gem", name:"อัญมณีพลัง", category:"shirt", price:90 },
+    { id:"chest_controller", name:"จอยเกมจิ๋ว", category:"shirt", price:85 },
+    { id:"chest_badge", name:"เข็มกลัดรอยยิ้ม", category:"shirt", price:50 },
+
+    { id:"aura_none", name:"ไม่มีออร่า", category:"pants", price:0, starter:true },
+    { id:"aura_sparkle", name:"ออร่าประกายดาว", category:"pants", price:65 },
+    { id:"aura_bubble", name:"ออร่าฟองสบู่", category:"pants", price:70 },
+    { id:"aura_music", name:"ออร่าโน้ตเพลง", category:"pants", price:75 },
+    { id:"aura_pixel", name:"ออร่าพิกเซล", category:"pants", price:80 },
+    { id:"aura_rainbow", name:"ออร่าสายรุ้ง", category:"pants", price:95 },
+
+    { id:"trail_none", name:"ไม่มีรอยเท้า", category:"shoes", price:0, starter:true },
+    { id:"trail_star", name:"รอยเท้าดาว", category:"shoes", price:45 },
+    { id:"trail_heart", name:"รอยเท้าหัวใจ", category:"shoes", price:50 },
+    { id:"trail_leaf", name:"รอยเท้าใบไม้", category:"shoes", price:45 },
+    { id:"trail_rainbow", name:"รอยเท้าสายรุ้ง", category:"shoes", price:70 },
+    { id:"trail_pixel", name:"รอยเท้าพิกเซล", category:"shoes", price:60 },
+
+    { id:"back_bat", name:"ปีกค้างคาวน้อย", category:"accessory", price:90 },
+    { id:"back_fairy", name:"ปีกนางฟ้าพาสเทล", category:"accessory", price:110 },
+    { id:"back_jetpack", name:"เจ็ตแพ็กจิ๋ว", category:"accessory", price:130 },
+    { id:"back_sword", name:"ดาบฮีโร่ของเล่น", category:"accessory", price:100 },
+    { id:"back_controller", name:"กระเป๋าจอยเกม", category:"accessory", price:95 },
+    { id:"back_balloon", name:"ลูกโป่งเพื่อนซี้", category:"accessory", price:85 },
+
+    { id:"bg_space", name:"อวกาศเริ่มต้น", category:"background", price:0, starter:true },
+    { id:"bg_arcade", name:"ห้องเกมอาร์เคด", category:"background", price:90 },
+    { id:"bg_candy", name:"สวนลูกกวาด", category:"background", price:90 },
+    { id:"bg_skyisland", name:"เกาะลอยฟ้า", category:"background", price:100 },
+    { id:"bg_toycity", name:"เมืองของเล่น", category:"background", price:95 },
+    { id:"bg_magicroom", name:"ห้องเวทมนตร์", category:"background", price:110 },
+    { id:"bg_rainbowpark", name:"สวนสายรุ้ง", category:"background", price:105 }
+];
+
+const CATEGORY_INFO = {
+    all: { label:"ทั้งหมด", icon:"⭐" },
+    hat: { label:"หมวก", icon:"🎩" },
+    glasses: { label:"แว่น/หน้า", icon:"👓" },
+    shirt: { label:"ของหน้าอก", icon:"🎀" },
+    pants: { label:"ออร่า", icon:"✨" },
+    shoes: { label:"รอยเท้า", icon:"🐾" },
+    accessory: { label:"ปีก/ของหลัง", icon:"🪽" },
+    background: { label:"พื้นหลัง", icon:"🖼️" }
+};
+
+const BASE_OPTION_LABELS = {};
+
+function mergeCharacter(character) {
+    const merged = { ...DEFAULT_CHARACTER, ...(character || {}) };
+
+    // ป้องกันข้อมูลเก่าที่ยังใช้ตัวเลือกซึ่งถูกนำออกแล้ว
+    const allowedSkins = new Set(["skin_lava","skin_amber","skin_lemon","skin_acid","skin_ocean","skin_purple","skin_candy","skin_neon","skin_aqua","skin_lilac"]);
+    const allowedSpecies = new Set(["monster_orb","monster_slime","monster_bat","monster_crystal","monster_spider","monster_cube","monster_egg","monster_bunny","monster_puff","monster_ghost","monster_drop","monster_cake","monster_golem"]);
+    const allowedFeatures = new Set(["feature_horns","feature_antlers","feature_crown","feature_eye_stalks","feature_spikes","feature_halo","feature_bunnyears","feature_antenna","feature_flowers","feature_bow","feature_cat_ears","feature_leaf_crown","feature_bubbles","feature_sweets","feature_none"]);
+    const allowedEyes = new Set(["eyes_cyclops","eyes_three","eyes_many","eyes_happy","eyes_star","eyes_wink","eyes_shy","eyes_kawaii","eyes_glasses","eyes_heart","eyes_dizzy","eyes_robot"]);
+
+    if (!allowedSkins.has(merged.skin)) merged.skin = "skin_purple";
+    if (!allowedSpecies.has(merged.hairStyle)) merged.hairStyle = "monster_orb";
+    if (!allowedFeatures.has(merged.hairColor)) merged.hairColor = "feature_horns";
+    if (!allowedEyes.has(merged.eyes)) merged.eyes = "eyes_cyclops";
+
+    return merged;
+}
+
+function itemById(id) {
+    return ITEM_CATALOG.find(item => item.id === id);
+}
+
+function colorFor(id, fallback) {
+    const colors = {
+        hair_brown:"#6b3f24",
+        hair_black:"#1f2937",
+        hair_blonde:"#e5b93f",
+        hair_pink:"#f472b6",
+        hair_blue:"#3b82f6",
+        shirt_blue:"#38bdf8",
+        shirt_green:"#8b5cf6",
+        shirt_black:"#111827",
+        shirt_pink:"#f472b6",
+        pants_navy:"#1e3a8a",
+        pants_black:"#111827",
+        pants_green:"#3f6212",
+        shoes_red:"#ef4444",
+        shoes_black:"#111827",
+        shoes_blue:"#2563eb"
+    };
+    return colors[id] || fallback;
+}
+
+function renderAvatar(container, rawCharacter) {
+    if (!container) return;
+    const c = mergeCharacter(rawCharacter);
+    const uid = "monster" + Math.random().toString(36).slice(2, 9);
+
+    const palettes = {
+        skin_acid:["#eaff7a","#94df43","#3c8f3d"], skin_lava:["#ffd18a","#ff7043","#a52337"],
+        skin_ocean:["#baf4ff","#48b8df","#3157aa"], skin_purple:["#eed2ff","#ab68e6","#6630a5"],
+        skin_shadow:["#8586a4","#41445f","#1c2038"], skin_candy:["#ffd3ed","#ff76b2","#a93686"],
+        skin_gold:["#fff1a8","#eeb947","#a56a22"], skin_frost:["#ffffff","#b9e4f4","#618cb7"],
+        skin_moss:["#d7e68e","#7eac55","#3f663a"], skin_void:["#6975c5","#2f326f","#15162f"],
+        skin_corral:["#ffd0bd","#ed8e78","#a94c55"], skin_neon:["#baffdc","#36e7b0","#148778"],
+        skin_peach:["#ffd9c7","#f3a98f","#a85f55"], skin_lemon:["#fff5a8","#e9d94d","#9b8422"],
+        skin_lilac:["#eadcff","#b89bea","#6c579e"], skin_aqua:["#c8fff5","#67d9cb","#2a8d83"],
+        skin_rose:["#ffd1df","#ef87aa","#a94e70"], skin_ink:["#9aa0c9","#555b91","#292d59"],
+        skin_milk:["#fffdf4","#e7dfcc","#9c927f"], skin_amber:["#ffe0a8","#e89c42","#995927"],
+        skin_mintcream:["#e4fff1","#8ce5bd","#3e9271"], skin_plum:["#f2ceff","#c472d7","#71377f"],
+        skin_sunset:["#ffd0a4","#ff8c69","#ad4350"], skin_cloudblue:["#e5f3ff","#9ec8ed","#507cae"],
+        skin_choco:["#ecc9a4","#b8774d","#6e402c"],
+        skin_light:["#eaff7a","#94df43","#3c8f3d"], skin_warm:["#fff1a8","#eeb947","#a56a22"],
+        skin_tan:["#ffd3ed","#ff76b2","#a93686"], skin_deep:["#eed2ff","#ab68e6","#6630a5"],
+        skin_mint:["#baffdc","#36e7b0","#148778"], skin_sky:["#baf4ff","#48b8df","#3157aa"],
+        skin_cream:["#fff1d4","#e6c59b","#a57855"], skin_cocoa:["#d8ad82","#996743","#5b3929"],
+        skin_gray:["#d7dae4","#969dad","#555c70"], skin_charcoal:["#8586a4","#41445f","#1c2038"],
+        skin_orange:["#ffd18a","#ff8a4c","#b34b34"], skin_red:["#ffb0aa","#eb555f","#9e293e"],
+        skin_blue:["#c1d5ff","#6e8fe8","#3650a4"], skin_white:["#ffffff","#dceaf1","#8da8b6"], skin_dark:["#6975c5","#2f326f","#15162f"]
+    };
+    const [light, mid, dark] = palettes[c.skin] || palettes.skin_purple;
+    const glow = {skin_lava:'#ffdd55',skin_ocean:'#89f5ff',skin_purple:'#f2a6ff',skin_shadow:'#9ca7ff',skin_candy:'#fff0fa',skin_gold:'#fff3a0',skin_frost:'#e9ffff',skin_moss:'#d8ff8c',skin_void:'#897cff',skin_corral:'#ffe0bd',skin_neon:'#9affdd'}[c.skin] || light;
+
+    const bgMap={
+      bg_garden:['#a9e8ff','#8fd468','#e7c98c'],
+      bg_showcase:['#e6ddff','#ffd9ed','#dff7ff'],
+      bg_arcade:['#5b21b6','#06b6d4','#f472b6'],
+      bg_candy:['#ff7ac8','#ff4fa3','#ffe45e'],
+      bg_skyisland:['#38bdf8','#60a5fa','#ffffff'],
+      bg_toycity:['#facc15','#fb7185','#22d3ee'],
+      bg_magicroom:['#7c3aed','#d946ef','#fde047'],
+      bg_rainbowpark:['#8b5cf6','#38bdf8','#facc15'],
+      bg_space:['#17132f','#080718','#5f48a8']
+    };
+    const bg=bgMap[c.background]||bgMap.bg_space;
+    const backgroundScene={
+      bg_garden:`<rect width="360" height="430" fill="#a9e8ff"/><g fill="#fff" opacity=".75"><circle cx="72" cy="74" r="26"/><circle cx="102" cy="70" r="34"/><circle cx="282" cy="94" r="29"/></g><path d="M0 280 Q100 240 180 276 T360 276 V430 H0Z" fill="#8fd468"/><path d="M130 430 Q145 338 180 302 Q215 338 230 430Z" fill="#e7c98c" opacity=".92"/><g><circle cx="42" cy="300" r="7" fill="#f472b6"/><circle cx="318" cy="292" r="7" fill="#facc15"/><circle cx="75" cy="325" r="6" fill="#a855f7"/></g>`,
+      bg_showcase:`<defs><linearGradient id="${uid}showcase" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d9d3ff"/><stop offset=".5" stop-color="#ffd5ed"/><stop offset="1" stop-color="#d9f5ff"/></linearGradient></defs><rect width="360" height="430" fill="url(#${uid}showcase)"/><g fill="#fff" opacity=".9"><path d="M55 70l7 14 14 7-14 7-7 14-7-14-14-7 14-7Z"/><path d="M302 124l5 10 10 5-10 5-5 10-5-10-10-5 10-5Z"/><circle cx="88" cy="170" r="4"/><circle cx="280" cy="66" r="4"/></g><path d="M0 365Q90 338 180 365T360 365V430H0Z" fill="#f3e9ff" opacity=".9"/>`,
+      bg_arcade:`<rect x="25" y="52" width="78" height="126" rx="12" fill="#6d28d9"/><rect x="35" y="64" width="58" height="55" rx="8" fill="#22d3ee"/><circle cx="49" cy="143" r="7" fill="#ff6ea8"/><rect x="61" y="137" width="24" height="10" rx="5" fill="#ffe45e"/><rect x="257" y="52" width="78" height="126" rx="12" fill="#ec4899"/><rect x="267" y="64" width="58" height="55" rx="8" fill="#fde047"/><circle cx="281" cy="143" r="7" fill="#6fe5a8"/><rect x="293" y="137" width="24" height="10" rx="5" fill="#8b5cf6"/><path d="M0 340Q90 300 180 335T360 340V430H0Z" fill="#8b5cf6"/>`,
+      bg_candy:`<path d="M0 322Q88 276 180 319T360 322V430H0Z" fill="#fbbf24"/><circle cx="58" cy="120" r="30" fill="#f472b6"/><rect x="51" y="120" width="14" height="85" rx="7" fill="#fff"/><circle cx="304" cy="110" r="34" fill="#38bdf8"/><rect x="297" y="110" width="14" height="95" rx="7" fill="#fff"/><path d="M120 210Q180 150 240 210V300H120Z" fill="#fde68a" stroke="#ff9ccf" stroke-width="7"/>`,
+      bg_skyisland:`<g fill="#fff" opacity=".9"><ellipse cx="70" cy="95" rx="45" ry="22"/><ellipse cx="295" cy="115" rx="50" ry="24"/></g><path d="M62 300Q110 244 158 300L135 355H85Z" fill="#4ade80"/><path d="M202 285Q260 220 320 285L294 350H225Z" fill="#38bdf8"/><path d="M0 368Q90 340 180 366T360 368V430H0Z" fill="#bae6fd"/>`,
+      bg_toycity:`<rect x="25" y="175" width="70" height="150" rx="10" fill="#fb7185"/><rect x="105" y="130" width="80" height="195" rx="10" fill="#facc15"/><rect x="195" y="160" width="65" height="165" rx="10" fill="#22d3ee"/><rect x="270" y="115" width="65" height="210" rx="10" fill="#8b5cf6"/><g fill="#fff"><rect x="40" y="195" width="18" height="22"/><rect x="65" y="195" width="18" height="22"/><rect x="125" y="155" width="18" height="22"/><rect x="150" y="155" width="18" height="22"/></g><path d="M0 325H360V430H0Z" fill="#c4b5fd"/>`,
+      bg_magicroom:`<rect x="28" y="55" width="76" height="120" rx="16" fill="#7c3aed"/><path d="M42 90Q66 55 90 90Q66 122 42 90Z" fill="#ffe56f"/><rect x="260" y="55" width="72" height="120" rx="16" fill="#ec4899"/><path d="M274 85L296 66L318 85L296 105Z" fill="#8ef0ff"/><path d="M0 335Q100 305 180 335T360 335V430H0Z" fill="#a78bfa"/><g fill="#fde047"><circle cx="55" cy="230" r="6"/><circle cx="310" cy="245" r="8"/><path d="M180 70l7 15 15 7-15 7-7 15-7-15-15-7 15-7Z"/></g>`,
+      bg_rainbowpark:`<path d="M0 318Q90 270 180 315T360 318V430H0Z" fill="#4ade80"/><path d="M60 210Q180 70 300 210" fill="none" stroke="#f43f5e" stroke-width="22"/><path d="M72 210Q180 92 288 210" fill="none" stroke="#facc15" stroke-width="20"/><path d="M85 210Q180 115 275 210" fill="none" stroke="#22d3ee" stroke-width="18"/><g fill="#fff"><ellipse cx="65" cy="220" rx="42" ry="21"/><ellipse cx="295" cy="220" rx="42" ry="21"/></g>`
+    }[c.background] || '';
+
+
+    const bodies={
+      monster_orb:`<ellipse cx="180" cy="238" rx="105" ry="117"/>`,
+      monster_slime:`<path d="M77 282 C70 177 111 111 180 113 C249 111 290 177 283 282 C280 330 254 360 226 348 Q204 378 180 347 Q151 381 129 348 C99 360 80 330 77 282Z"/>`,
+      monster_dragon:`<path d="M180 89 C226 90 252 123 257 166 C294 184 293 221 268 241 C280 287 257 348 210 365 L180 337 L150 365 C103 348 80 287 92 241 C67 221 66 184 103 166 C108 123 134 90 180 89Z"/>`,
+      monster_mushroom:`<path d="M67 181 Q81 95 180 91 Q279 95 293 181 Q253 162 180 164 Q107 162 67 181Z"/><path d="M119 166 C104 225 105 332 180 363 C255 332 256 225 241 166Z"/>`,
+      monster_pumpkin:`<path d="M180 112 C143 80 100 111 91 177 C54 201 67 260 102 276 C89 329 130 364 180 347 C230 364 271 329 258 276 C293 260 306 201 269 177 C260 111 217 80 180 112Z"/><path d="M180 116 C151 130 139 185 143 240 C147 296 160 330 180 347 C200 330 213 296 217 240 C221 185 209 130 180 116Z" opacity=".18"/>`,
+      monster_bat:`<path d="M180 106 C221 83 254 113 251 156 C294 166 302 207 270 231 C284 292 250 352 180 365 C110 352 76 292 90 231 C58 207 66 166 109 156 C106 113 139 83 180 106Z"/>`,
+      monster_crystal:`<path d="M180 66 L263 151 L247 312 L180 373 L113 312 L97 151Z"/>`,
+      monster_cloud:`<path d="M180 115 C149 82 105 101 105 143 C65 145 51 188 78 215 C54 251 77 295 111 300 C107 343 143 367 180 348 C217 367 253 343 249 300 C283 295 306 251 282 215 C309 188 295 145 255 143 C255 101 211 82 180 115Z"/>`,
+      monster_spider:`<ellipse cx="180" cy="239" rx="91" ry="116"/>`,
+      monster_wisp:`<path d="M180 75 C235 122 271 169 255 227 C243 271 207 281 225 326 C193 320 178 346 180 372 C157 345 137 321 107 327 C124 287 91 268 94 222 C98 162 132 119 180 75Z"/>`,
+      monster_cube:`<path d="M91 125 Q91 96 120 96 H240 Q269 96 269 125 V329 Q269 358 240 358 H120 Q91 358 91 329Z"/>`,
+      monster_axolotl:`<path d="M180 105 C238 105 271 155 263 229 C285 254 268 296 239 303 C226 347 204 365 180 365 C156 365 134 347 121 303 C92 296 75 254 97 229 C89 155 122 105 180 105Z"/>`,
+      monster_moon:`<path d="M214 92 C148 82 99 130 95 218 C91 304 139 362 205 353 C158 324 145 268 157 211 C169 153 188 121 214 92Z"/>`,
+      monster_fish:`<path d="M102 149 C142 107 220 108 260 159 L315 125 L299 210 L317 290 L259 258 C218 315 141 318 99 273 C61 232 62 188 102 149Z"/>`,
+      monster_bunny:`<path d="M134 132 C102 87 110 42 137 39 C161 64 164 98 157 128 C171 119 189 119 203 128 C196 98 199 64 223 39 C250 42 258 87 226 132 C267 160 277 224 258 287 C244 338 216 365 180 365 C144 365 116 338 102 287 C83 224 93 160 134 132Z"/>`,
+      monster_puff:`<path d="M180 108 C211 79 251 99 251 137 C292 134 310 174 287 205 C316 233 298 282 262 288 C269 331 225 365 180 345 C135 365 91 331 98 288 C62 282 44 233 73 205 C50 174 68 134 109 137 C109 99 149 79 180 108Z"/>`,
+      monster_snail:`<path d="M112 272 C93 212 109 147 162 127 C221 105 267 150 262 208 C258 251 224 279 187 273 C163 269 148 251 151 229 C154 209 170 197 188 200 C204 203 211 218 205 230 C199 241 186 243 179 235 C190 242 203 231 198 218 C192 201 166 198 151 212 C125 237 143 285 184 299 C213 309 245 303 269 285 C253 338 221 365 180 365 C142 365 116 337 112 272Z"/>`,
+      monster_egg:`<path d="M180 79 C229 79 264 145 269 228 C274 315 238 370 180 370 C122 370 86 315 91 228 C96 145 131 79 180 79Z"/>`,
+      monster_ghost:`<path d="M180 91 C238 91 272 138 269 211 V347 L238 326 L210 350 L180 326 L150 350 L122 326 L91 347 V211 C88 138 122 91 180 91Z"/>`,
+      monster_drop:`<path d="M180 60 C227 125 271 178 267 249 C263 324 226 368 180 368 C134 368 97 324 93 249 C89 178 133 125 180 60Z"/>`,
+      monster_cake:`<path d="M102 145 Q180 103 258 145 V317 Q258 360 215 360 H145 Q102 360 102 317Z"/><path d="M102 166 Q126 195 150 166 Q174 198 198 166 Q222 194 258 166 V132 Q180 92 102 132Z"/>`,
+      monster_golem:`<path d="M126 111 L180 82 L234 111 L269 172 L252 247 L270 310 L218 365 L142 365 L90 310 L108 247 L91 172Z"/>`
+    };
+
+    const limbs={
+      monster_spider:`<g fill="none" stroke="${dark}" stroke-width="12" stroke-linecap="round"><path d="M103 204L48 170L27 192"/><path d="M95 236L37 231L20 257"/><path d="M103 274L50 306L35 337"/><path d="M257 204L312 170L333 192"/><path d="M265 236L323 231L340 257"/><path d="M257 274L310 306L325 337"/></g>`,
+      monster_bat:`<g fill="${mid}" stroke="${dark}" stroke-width="6"><path d="M103 178 C58 137 35 158 29 204 C49 190 66 201 73 224 C82 205 94 193 113 199Z"/><path d="M257 178 C302 137 325 158 331 204 C311 190 294 201 287 224 C278 205 266 193 247 199Z"/></g>`,
+      monster_dragon:`<g fill="${mid}" stroke="${dark}" stroke-width="6"><path d="M111 195 C61 155 41 196 58 239 C73 220 91 219 112 239Z"/><path d="M249 195 C299 155 319 196 302 239 C287 220 269 219 248 239Z"/></g>`,
+      monster_cloud:`<g fill="${mid}"><ellipse cx="74" cy="255" rx="35" ry="18"/><ellipse cx="286" cy="255" rx="35" ry="18"/></g>`,
+      monster_pumpkin:`<g fill="none" stroke="${dark}" stroke-width="14" stroke-linecap="round"><path d="M99 248Q62 259 48 292"/><path d="M261 248Q298 259 312 292"/></g><path d="M176 119Q176 83 194 62Q207 84 191 122Z" fill="#55763b" stroke="${dark}" stroke-width="6"/>`,
+      monster_ghost:`<g fill="none" stroke="${mid}" stroke-width="14" stroke-linecap="round"><path d="M101 229Q66 237 44 266"/><path d="M259 229Q294 237 316 266"/></g>`,
+      monster_golem:`<g fill="none" stroke="${dark}" stroke-width="18" stroke-linecap="square"><path d="M103 238L48 278"/><path d="M257 238L312 278"/></g>`,
+      default:`<g fill="none" stroke="${dark}" stroke-width="15" stroke-linecap="round"><path d="M104 255Q70 273 56 302"/><path d="M256 255Q290 273 304 302"/></g>`
+    };
+
+    const features={
+      feature_horns:`<g fill="${glow}" stroke="${dark}" stroke-width="5"><path d="M123 137 Q86 83 121 53 Q117 91 149 118Z"/><path d="M237 137 Q274 83 239 53 Q243 91 211 118Z"/></g>`,
+      feature_antlers:`<g fill="none" stroke="${dark}" stroke-width="10" stroke-linecap="round"><path d="M133 128Q98 93 103 49M104 74L78 55M108 88L134 60"/><path d="M227 128Q262 93 257 49M256 74L282 55M252 88L226 60"/></g>`,
+      feature_ears:`<g fill="${mid}" stroke="${dark}" stroke-width="6"><path d="M119 143Q66 114 77 69Q123 83 145 124Z"/><path d="M241 143Q294 114 283 69Q237 83 215 124Z"/></g>`,
+      feature_tentacles:`<g fill="none" stroke="${mid}" stroke-width="13" stroke-linecap="round"><path d="M145 126Q126 81 151 50Q170 29 184 52"/><path d="M183 117Q207 80 225 91Q244 103 226 121"/><path d="M165 119Q173 83 160 67"/></g>`,
+      feature_flame:`<path d="M180 126 C143 98 151 65 177 35 C175 65 208 64 199 24 C241 70 224 112 180 126Z" fill="url(#${uid}flame)" stroke="${dark}" stroke-width="5"/>`,
+      feature_crystals:`<g fill="url(#${uid}crystal)" stroke="${dark}" stroke-width="4"><path d="M139 135L117 81L149 54L163 121Z"/><path d="M180 121L164 52L181 25L198 52Z"/><path d="M221 135L197 121L211 54L243 81Z"/></g>`,
+      feature_crown:`<path d="M123 126L113 61L151 88L180 42L209 88L247 61L237 126Z" fill="${glow}" stroke="${dark}" stroke-width="6"/>`,
+      feature_eye_stalks:`<g stroke="${dark}" stroke-width="8" stroke-linecap="round"><path d="M148 139Q127 82 142 58"/><path d="M212 139Q233 82 218 58"/></g><g fill="white" stroke="${dark}" stroke-width="5"><circle cx="142" cy="52" r="18"/><circle cx="218" cy="52" r="18"/></g><g fill="${dark}"><circle cx="142" cy="52" r="7"/><circle cx="218" cy="52" r="7"/></g>`,
+      feature_mushrooms:`<g><path d="M145 130V84M215 130V72" stroke="#f0d8b4" stroke-width="12"/><path d="M113 85Q145 44 177 85Z" fill="#ef5964" stroke="${dark}" stroke-width="5"/><path d="M184 73Q215 31 246 73Z" fill="#8b72e8" stroke="${dark}" stroke-width="5"/></g>`,
+      feature_spikes:`<g fill="${glow}" stroke="${dark}" stroke-width="4"><path d="M116 147L86 98L137 120Z"/><path d="M149 119L143 55L174 112Z"/><path d="M184 110L210 46L215 121Z"/><path d="M225 126L271 87L246 151Z"/></g>`,
+      feature_halo:`<g fill="none" stroke="${glow}" stroke-width="10"><ellipse cx="180" cy="66" rx="69" ry="22"/></g>`,
+      feature_bunnyears:`<g fill="${mid}" stroke="${dark}" stroke-width="6"><path d="M143 132Q102 74 124 29Q158 54 161 121Z"/><path d="M217 132Q258 74 236 29Q202 54 199 121Z"/></g>`,
+      feature_fins:`<g fill="${glow}" stroke="${dark}" stroke-width="5"><path d="M125 145Q74 116 75 78Q119 87 148 126Z"/><path d="M235 145Q286 116 285 78Q241 87 212 126Z"/></g>`,
+      feature_antenna:`<g fill="none" stroke="${dark}" stroke-width="8" stroke-linecap="round"><path d="M155 132Q135 86 145 48"/><path d="M205 132Q225 86 215 48"/></g><g fill="${glow}" stroke="${dark}" stroke-width="4"><circle cx="145" cy="42" r="13"/><circle cx="215" cy="42" r="13"/></g>`,
+      feature_flowers:`<g stroke="${dark}" stroke-width="4"><path d="M180 128V72"/><g fill="#ff9fc6"><circle cx="180" cy="50" r="12"/><circle cx="162" cy="57" r="12"/><circle cx="198" cy="57" r="12"/><circle cx="168" cy="38" r="12"/><circle cx="192" cy="38" r="12"/></g><circle cx="180" cy="49" r="9" fill="#ffe36f"/></g>`,
+      feature_moon:`<path d="M180 126 C145 105 147 61 179 35 C166 72 193 93 224 74 C219 108 202 126 180 126Z" fill="${glow}" stroke="${dark}" stroke-width="5"/>`,
+      feature_bow:`<g fill="#ff89b4" stroke="${dark}" stroke-width="5"><path d="M177 89Q133 55 126 91Q133 126 177 101Z"/><path d="M183 89Q227 55 234 91Q227 126 183 101Z"/><circle cx="180" cy="95" r="14"/></g>`,
+      feature_cat_ears:`<g fill="${mid}" stroke="${dark}" stroke-width="6"><path d="M122 140L91 66L157 116Z"/><path d="M238 140L269 66L203 116Z"/></g>`,
+      feature_leaf_crown:`<g fill="#73c95b" stroke="${dark}" stroke-width="4"><path d="M180 126Q152 92 158 58Q183 70 184 104Q197 68 226 61Q228 97 190 126Z"/></g>`,
+      feature_bubbles:`<g fill="${glow}" fill-opacity=".65" stroke="${dark}" stroke-width="4"><circle cx="151" cy="72" r="15"/><circle cx="190" cy="48" r="19"/><circle cx="225" cy="79" r="12"/></g>`,
+      feature_feathers:`<g fill="${glow}" stroke="${dark}" stroke-width="4"><path d="M155 128Q117 84 144 47Q166 80 171 120Z"/><path d="M180 119Q164 66 196 35Q209 80 194 124Z"/><path d="M203 126Q207 77 240 59Q241 104 217 137Z"/></g>`,
+      feature_sweets:`<g stroke="${dark}" stroke-width="4"><path d="M180 128V77"/><circle cx="180" cy="57" r="22" fill="#ff93bd"/><path d="M159 57L142 44V70Z" fill="#ffe16c"/><path d="M201 57L218 44V70Z" fill="#86ddff"/></g>`,
+      feature_none:``
+    };
+
+    const faces={
+      eyes_cyclops:`<g><ellipse cx="180" cy="216" rx="37" ry="43" fill="white" stroke="${dark}" stroke-width="7"/><circle cx="180" cy="220" r="17" fill="${dark}"/><circle cx="171" cy="209" r="6" fill="white"/><path d="M151 281Q180 309 209 281" fill="#481f46" stroke="${dark}" stroke-width="6"/></g>`,
+      eyes_three:`<g fill="white" stroke="${dark}" stroke-width="6"><circle cx="137" cy="220" r="22"/><circle cx="180" cy="196" r="22"/><circle cx="223" cy="220" r="22"/></g><g fill="${dark}"><circle cx="137" cy="222" r="9"/><circle cx="180" cy="198" r="9"/><circle cx="223" cy="222" r="9"/></g><path d="M147 276Q180 303 213 276" fill="#5e244e" stroke="${dark}" stroke-width="6"/>`,
+      eyes_many:`<g fill="white" stroke="${dark}" stroke-width="5"><circle cx="130" cy="207" r="17"/><circle cx="165" cy="194" r="17"/><circle cx="200" cy="194" r="17"/><circle cx="232" cy="209" r="17"/></g><g fill="${dark}"><circle cx="130" cy="209" r="7"/><circle cx="165" cy="196" r="7"/><circle cx="200" cy="196" r="7"/><circle cx="232" cy="211" r="7"/></g><path d="M158 267Q180 286 202 267" fill="none" stroke="${dark}" stroke-width="7"/>`,
+      eyes_fangs:`<g><ellipse cx="145" cy="216" rx="19" ry="25" fill="white"/><ellipse cx="215" cy="216" rx="19" ry="25" fill="white"/><circle cx="145" cy="220" r="9" fill="${dark}"/><circle cx="215" cy="220" r="9" fill="${dark}"/><path d="M145 270Q180 312 215 270Z" fill="#632041" stroke="${dark}" stroke-width="6"/><path d="M157 274L168 294L176 273M184 273L192 294L203 274" fill="white"/></g>`,
+      eyes_sleepy:`<g fill="none" stroke="${dark}" stroke-width="8" stroke-linecap="round"><path d="M126 219Q146 235 166 219"/><path d="M194 219Q214 235 234 219"/></g><path d="M165 278Q180 268 195 278" fill="none" stroke="${dark}" stroke-width="6"/>`,
+      eyes_angry:`<g fill="white" stroke="${dark}" stroke-width="6"><path d="M122 211Q145 190 170 216Q145 242 122 211Z"/><path d="M238 211Q215 190 190 216Q215 242 238 211Z"/></g><g fill="${dark}"><circle cx="148" cy="216" r="8"/><circle cx="212" cy="216" r="8"/></g><path d="M151 287Q180 260 209 287" fill="none" stroke="${dark}" stroke-width="7"/>`,
+      eyes_happy:`<g fill="none" stroke="${dark}" stroke-width="8" stroke-linecap="round"><path d="M125 220Q145 196 165 220"/><path d="M195 220Q215 196 235 220"/></g><path d="M146 268Q180 310 214 268" fill="#ff769b" stroke="${dark}" stroke-width="6"/>`,
+      eyes_void:`<g fill="${dark}"><ellipse cx="145" cy="216" rx="25" ry="32"/><ellipse cx="215" cy="216" rx="25" ry="32"/></g><g fill="${glow}"><circle cx="145" cy="216" r="8"/><circle cx="215" cy="216" r="8"/></g><path d="M157 279Q180 291 203 279" fill="none" stroke="${dark}" stroke-width="7"/>`,
+      eyes_sparkle:`<g><ellipse cx="145" cy="218" rx="20" ry="27" fill="white"/><ellipse cx="215" cy="218" rx="20" ry="27" fill="white"/><circle cx="145" cy="221" r="10" fill="${dark}"/><circle cx="215" cy="221" r="10" fill="${dark}"/><path d="M151 276Q180 304 209 276" fill="none" stroke="${dark}" stroke-width="7"/></g>`,
+      eyes_round:`<g><circle cx="145" cy="218" r="19" fill="${dark}"/><circle cx="215" cy="218" r="19" fill="${dark}"/><path d="M159 278Q180 290 201 278" fill="none" stroke="${dark}" stroke-width="7"/></g>`,
+      eyes_wink:`<g><circle cx="145" cy="218" r="19" fill="${dark}"/><path d="M194 220Q215 198 236 220" fill="none" stroke="${dark}" stroke-width="8"/><path d="M151 276Q180 304 209 276" fill="none" stroke="${dark}" stroke-width="7"/></g>`,
+      eyes_star:`<g fill="${dark}"><path d="M145 193l7 15 17 2-13 12 4 17-15-8-15 8 4-17-13-12 17-2Z"/><path d="M215 193l7 15 17 2-13 12 4 17-15-8-15 8 4-17-13-12 17-2Z"/></g><path d="M146 268Q180 310 214 268" fill="#ff769b" stroke="${dark}" stroke-width="6"/>`,
+      eyes_shy:`<g fill="${dark}"><ellipse cx="145" cy="220" rx="15" ry="20"/><ellipse cx="215" cy="220" rx="15" ry="20"/></g><path d="M162 281Q180 270 198 281" fill="none" stroke="${dark}" stroke-width="6"/>`,
+      eyes_surprised:`<g fill="white" stroke="${dark}" stroke-width="6"><circle cx="145" cy="216" r="22"/><circle cx="215" cy="216" r="22"/></g><g fill="${dark}"><circle cx="145" cy="216" r="9"/><circle cx="215" cy="216" r="9"/><ellipse cx="180" cy="281" rx="15" ry="21"/></g>`,
+      eyes_kawaii:`<g fill="${dark}"><ellipse cx="145" cy="216" rx="18" ry="24"/><ellipse cx="215" cy="216" rx="18" ry="24"/></g><g fill="white"><circle cx="139" cy="208" r="6"/><circle cx="209" cy="208" r="6"/></g><path d="M160 276Q180 294 200 276" fill="#ff8fab" stroke="${dark}" stroke-width="6"/>`,
+      eyes_teary:`<g fill="white" stroke="${dark}" stroke-width="6"><ellipse cx="145" cy="216" rx="22" ry="27"/><ellipse cx="215" cy="216" rx="22" ry="27"/></g><g fill="${dark}"><circle cx="145" cy="218" r="9"/><circle cx="215" cy="218" r="9"/></g><g fill="#38bdf8"><path d="M126 237Q119 253 130 260Q141 252 134 238Z"/><path d="M226 238Q219 253 230 260Q241 252 234 237Z"/></g><path d="M164 282Q180 269 196 282" fill="none" stroke="${dark}" stroke-width="6"/>`,
+      eyes_tongue:`<g fill="${dark}"><circle cx="145" cy="216" r="18"/><circle cx="215" cy="216" r="18"/></g><path d="M147 267Q180 306 213 267Z" fill="#5e244e" stroke="${dark}" stroke-width="6"/><path d="M174 288Q180 309 190 287" fill="#ff7fa0"/>`,
+      eyes_glasses:`<g fill="white" stroke="${dark}" stroke-width="6"><circle cx="145" cy="216" r="25"/><circle cx="215" cy="216" r="25"/><path d="M170 216H190"/></g><g fill="${dark}"><circle cx="145" cy="216" r="8"/><circle cx="215" cy="216" r="8"/></g><path d="M160 278Q180 293 200 278" fill="none" stroke="${dark}" stroke-width="6"/>`,
+      eyes_heart:`<g fill="#ff5f87" stroke="${dark}" stroke-width="4"><path d="M145 238C119 218 125 192 145 201C165 192 171 218 145 238Z"/><path d="M215 238C189 218 195 192 215 201C235 192 241 218 215 238Z"/></g><path d="M148 269Q180 309 212 269" fill="#ff8fab" stroke="${dark}" stroke-width="6"/>`,
+      eyes_dizzy:`<g fill="none" stroke="${dark}" stroke-width="7" stroke-linecap="round"><path d="M125 204L165 232M165 204L125 232M195 204L235 232M235 204L195 232"/></g><path d="M160 282Q180 266 200 282" fill="none" stroke="${dark}" stroke-width="6"/>`,
+      eyes_robot:`<g fill="#b8f4ff" stroke="${dark}" stroke-width="6"><rect x="117" y="196" width="56" height="42" rx="11"/><rect x="187" y="196" width="56" height="42" rx="11"/></g><g fill="${dark}"><rect x="137" y="208" width="16" height="16" rx="4"/><rect x="207" y="208" width="16" height="16" rx="4"/></g><path d="M158 276H202" stroke="${dark}" stroke-width="7" stroke-linecap="round"/>`,
+      eyes_smug:`<g fill="none" stroke="${dark}" stroke-width="8" stroke-linecap="round"><path d="M123 214Q145 202 167 217"/><path d="M193 217Q215 202 237 214"/></g><path d="M157 277Q183 294 207 270" fill="none" stroke="${dark}" stroke-width="7"/>`
+    };
+
+    const body=bodies[c.hairStyle]||bodies.monster_orb;
+    const limb=limbs[c.hairStyle]||limbs.default;
+    const feature=features[c.hairColor] ?? features.feature_horns;
+    const face=faces[c.eyes]||faces.eyes_cyclops;
+    const bodyOffset={monster_pumpkin:8,monster_mushroom:10,monster_wisp:8,monster_crystal:12}[c.hairStyle]||0;
+    const feet=c.hairStyle==='monster_spider'||c.hairStyle==='monster_wisp'||c.hairStyle==='monster_cloud'?'':`<g fill="${dark}"><ellipse cx="139" cy="358" rx="35" ry="17"/><ellipse cx="221" cy="358" rx="35" ry="17"/></g>`;
+
+    const backItems={
+      back_bat:`<g fill="#7c5bd6" stroke="${dark}" stroke-width="6"><path d="M105 205C55 159 29 196 47 244C65 225 82 230 104 257Z"/><path d="M255 205C305 159 331 196 313 244C295 225 278 230 256 257Z"/></g>`,
+      back_fairy:`<g fill="#bff8ff" stroke="#7b65d8" stroke-width="5"><path d="M103 211C42 171 35 241 91 280C70 243 91 218 103 211Z"/><path d="M257 211C318 171 325 241 269 280C290 243 269 218 257 211Z"/></g>`,
+      back_jetpack:`<g><rect x="76" y="218" width="48" height="92" rx="18" fill="#7d6ce6" stroke="${dark}" stroke-width="6"/><rect x="236" y="218" width="48" height="92" rx="18" fill="#ff83b5" stroke="${dark}" stroke-width="6"/><path d="M88 307L100 347L114 307M248 307L260 347L272 307" fill="#ffe56f"/></g>`,
+      back_sword:`<g transform="translate(265 250) rotate(35)"><rect x="-8" y="-78" width="16" height="130" rx="8" fill="#8fe7ff" stroke="${dark}" stroke-width="5"/><rect x="-28" y="38" width="56" height="14" rx="7" fill="#ffd65c" stroke="${dark}" stroke-width="5"/></g>`,
+      back_controller:`<g><rect x="236" y="250" width="78" height="55" rx="20" fill="#8b7ae8" stroke="${dark}" stroke-width="6"/><circle cx="258" cy="278" r="9" fill="#fff"/><circle cx="291" cy="270" r="6" fill="#ff7ca8"/><circle cx="304" cy="284" r="6" fill="#6fe5c1"/></g>`,
+      back_balloon:`<g><path d="M270 120Q250 205 258 280" fill="none" stroke="#7b5b8e" stroke-width="5"/><circle cx="282" cy="90" r="34" fill="#ff82b7" stroke="${dark}" stroke-width="6"/><circle cx="294" cy="78" r="8" fill="#fff" opacity=".7"/></g>`
+    };
+    const headItems={
+      hat_witch:`<g><path d="M116 145Q180 120 244 145L231 163H129Z" fill="#50358c" stroke="${dark}" stroke-width="6"/><path d="M139 143L164 58L218 139Z" fill="#2e245a" stroke="${dark}" stroke-width="6"/><path d="M150 122H218" stroke="#ff73b3" stroke-width="10"/><path d="M181 79l7 14 15 2-11 11 3 15-14-8-14 8 3-15-11-11 15-2Z" fill="#ffe65c"/></g>`,
+      hat_crown:`<path d="M125 145L116 84L151 111L180 69L209 111L244 84L235 145Z" fill="#ffd34e" stroke="${dark}" stroke-width="7"/>`,
+      hat_frog:`<g><path d="M122 143Q180 103 238 143L229 165H131Z" fill="#69d76f" stroke="${dark}" stroke-width="6"/><circle cx="147" cy="119" r="17" fill="white" stroke="${dark}" stroke-width="5"/><circle cx="213" cy="119" r="17" fill="white" stroke="${dark}" stroke-width="5"/></g>`,
+      hat_gamer:`<g><path d="M121 143Q180 104 239 143L230 164H130Z" fill="#8a72ec" stroke="${dark}" stroke-width="6"/><path d="M143 126Q180 92 217 126" fill="#fff" stroke="#ff79b0" stroke-width="12"/><path d="M180 112v24M168 124h24" stroke="#6f55d6" stroke-width="7"/></g>`,
+      hat_sleep:`<g><path d="M123 146Q180 102 237 146L229 164H131Z" fill="#8fdcff" stroke="${dark}" stroke-width="6"/><path d="M150 137Q187 52 225 118Q231 145 203 152Z" fill="#7455c5" stroke="${dark}" stroke-width="6"/><circle cx="226" cy="117" r="15" fill="#fff"/></g>`,
+      hat_cat:`<g><path d="M124 149Q180 108 236 149L228 165H132Z" fill="#ff9ac6" stroke="${dark}" stroke-width="6"/><path d="M136 126L148 80L171 125M189 125L212 80L224 126" fill="#ffb8d6" stroke="${dark}" stroke-width="6"/></g>`,
+      hat_headphone:`<g fill="none" stroke="${dark}" stroke-width="10"><path d="M122 142Q180 70 238 142"/><rect x="105" y="128" width="35" height="58" rx="15" fill="#72ddff"/><rect x="220" y="128" width="35" height="58" rx="15" fill="#ff78b7"/></g>`,
+      hat_party:`<g><path d="M153 143L180 65L210 143Z" fill="#ff70b7" stroke="${dark}" stroke-width="6"/><circle cx="180" cy="62" r="11" fill="#ffe261"/><path d="M160 116L199 99M166 92L192 126" stroke="#7be5ff" stroke-width="7"/></g>`
+    };
+    const faceItems={
+      face_pixel:`<g fill="#24223a"><path d="M112 201H173V231H159V242H126V231H112Z"/><path d="M187 201H248V231H234V242H201V231H187Z"/><rect x="171" y="208" width="18" height="8"/></g>`,
+      face_star:`<g fill="#ffe367" stroke="#553f75" stroke-width="5"><path d="M145 188L154 207L175 210L160 225L164 246L145 236L126 246L130 225L115 210L136 207Z"/><path d="M215 188L224 207L245 210L230 225L234 246L215 236L196 246L200 225L185 210L206 207Z"/></g>`,
+      face_patch:`<g><path d="M112 202Q145 185 178 204L169 239Q143 252 118 235Z" fill="#2c2942"/><path d="M117 193L226 248" stroke="#2c2942" stroke-width="8"/></g>`,
+      face_mask:`<path d="M112 196Q180 170 248 196L234 244Q180 271 126 244Z" fill="#fff4e2" stroke="#e15d78" stroke-width="6" opacity=".95"/>`,
+      face_visor:`<g><rect x="105" y="193" width="150" height="48" rx="22" fill="#292354" stroke="${dark}" stroke-width="6"/><path d="M124 219L145 205L165 225L186 201L207 221L232 206" fill="none" stroke="#62f0ff" stroke-width="7"/></g>`,
+      face_heart:`<g fill="#ff73aa" stroke="#6b3f72" stroke-width="5"><path d="M145 237C117 219 120 193 136 193C145 193 149 202 149 202C149 202 153 193 162 193C178 193 181 219 145 237Z"/><path d="M215 237C187 219 190 193 206 193C215 193 219 202 219 202C219 202 223 193 232 193C248 193 251 219 215 237Z"/></g>`
+    };
+    const runes={
+      chest_bow:`<g><path d="M180 286C158 264 132 269 132 292C132 315 158 318 180 300C202 318 228 315 228 292C228 269 202 264 180 286Z" fill="#ff79b1" stroke="${dark}" stroke-width="5"/><circle cx="180" cy="293" r="13" fill="#ffe36f" stroke="${dark}" stroke-width="4"/></g>`,
+      chest_scarf:`<g><path d="M126 274Q180 301 234 274" fill="none" stroke="#67dfff" stroke-width="18" stroke-linecap="round"/><path d="M219 282L242 335L215 326Z" fill="#67dfff" stroke="${dark}" stroke-width="5"/></g>`,
+      chest_gem:`<path d="M180 265L211 291L180 330L149 291Z" fill="#75edff" stroke="${dark}" stroke-width="6"/>`,
+      chest_controller:`<g><rect x="142" y="276" width="76" height="48" rx="18" fill="#795fd8" stroke="${dark}" stroke-width="5"/><path d="M160 298h20M170 288v20" stroke="#fff" stroke-width="6"/><circle cx="199" cy="293" r="5" fill="#ff7bad"/><circle cx="209" cy="306" r="5" fill="#7ff1bc"/></g>`,
+      chest_badge:`<g><circle cx="180" cy="296" r="28" fill="#ffe16b" stroke="${dark}" stroke-width="5"/><circle cx="170" cy="289" r="4" fill="${dark}"/><circle cx="190" cy="289" r="4" fill="${dark}"/><path d="M168 304Q180 314 192 304" fill="none" stroke="${dark}" stroke-width="5" stroke-linecap="round"/></g>`
+    };
+    const auras={
+      aura_sparkle:`<g fill="#fff07a"><path d="M59 183l5 11 11 5-11 5-5 11-5-11-11-5 11-5Z"/><path d="M301 267l5 11 11 5-11 5-5 11-5-11-11-5 11-5Z"/><circle cx="291" cy="154" r="7"/><circle cx="69" cy="310" r="7"/></g>`,
+      aura_bubble:`<g fill="none" stroke="#8beaff" stroke-width="5"><circle cx="64" cy="205" r="16"/><circle cx="295" cy="267" r="22"/><circle cx="80" cy="318" r="10"/><circle cx="278" cy="151" r="11"/></g>`,
+      aura_music:`<g fill="#ff7db4"><text x="45" y="190" font-size="42">♪</text><text x="290" y="250" font-size="48">♫</text><text x="65" y="330" font-size="34">♪</text></g>`,
+      aura_pixel:`<g fill="#77eaff"><rect x="48" y="190" width="14" height="14"/><rect x="64" y="174" width="10" height="10"/><rect x="294" y="234" width="14" height="14"/><rect x="278" y="254" width="10" height="10"/></g>`,
+      aura_rainbow:`<g fill="none" stroke-linecap="round"><path d="M45 300Q80 245 111 275" stroke="#ff7aa2" stroke-width="11"/><path d="M249 275Q280 245 315 300" stroke="#76dfff" stroke-width="11"/><path d="M52 312Q80 270 105 292" stroke="#ffe165" stroke-width="8"/><path d="M255 292Q280 270 308 312" stroke="#8ee59d" stroke-width="8"/></g>`
+    };
+    const trails={
+      trail_star:`<g fill="#ffe261"><path d="M116 373l6 12 13 2-10 9 3 13-12-7-12 7 3-13-10-9 13-2Z"/><path d="M244 373l6 12 13 2-10 9 3 13-12-7-12 7 3-13-10-9 13-2Z"/></g>`,
+      trail_heart:`<g fill="#ff7cae"><path d="M116 407C88 389 92 366 108 366C116 366 120 375 120 375C120 375 124 366 132 366C148 366 152 389 116 407Z"/><path d="M244 407C216 389 220 366 236 366C244 366 248 375 248 375C248 375 252 366 260 366C276 366 280 389 244 407Z"/></g>`,
+      trail_leaf:`<g fill="#76d879"><path d="M95 390Q119 368 137 387Q116 403 95 390Z"/><path d="M225 387Q243 368 267 390Q246 403 225 387Z"/></g>`,
+      trail_rainbow:`<g fill="none" stroke-linecap="round"><path d="M91 400Q115 377 139 400" stroke="#ff6f91" stroke-width="16"/><path d="M221 400Q245 377 269 400" stroke="#6fe6ff" stroke-width="16"/></g>`,
+      trail_pixel:`<g fill="#8b7af0"><rect x="95" y="380" width="16" height="16"/><rect x="115" y="397" width="12" height="12"/><rect x="235" y="380" width="16" height="16"/><rect x="255" y="397" width="12" height="12"/></g>`
+    };
+    const backItem=backItems[c.accessory]||'';
+    const headItem=headItems[c.hat]||'';
+    const faceItem=faceItems[c.glasses]||'';
+    const runeItem=runes[c.shirt]||'';
+    const auraItem=auras[c.pants]||'';
+    const trailItem=trails[c.shoes]||'';
+
+    container.innerHTML=`<svg viewBox="0 0 360 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="มอนสเตอร์แฟนตาซี">
+      <defs>
+        <linearGradient id="${uid}body" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${light}"/><stop offset=".58" stop-color="${mid}"/><stop offset="1" stop-color="${dark}"/></linearGradient>
+        <linearGradient id="${uid}flame" x1="0" y1="1" x2="0" y2="0"><stop stop-color="#ff4e42"/><stop offset=".55" stop-color="#ffb02e"/><stop offset="1" stop-color="#fff27b"/></linearGradient>
+        <linearGradient id="${uid}crystal"><stop stop-color="${glow}"/><stop offset="1" stop-color="${mid}"/></linearGradient>
+        <radialGradient id="${uid}portal"><stop stop-color="${glow}" stop-opacity=".5"/><stop offset="1" stop-color="${bg[1]}" stop-opacity="0"/></radialGradient>
+        <filter id="${uid}shadow" x="-25%" y="-25%" width="150%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#101225" flood-opacity=".28"/></filter>
+      </defs>
+      <rect width="360" height="430" rx="28" fill="${bg[0]}"/>
+      ${backgroundScene}
+      <g fill="#fff" opacity=".65"><circle cx="38" cy="55" r="3"/><circle cx="311" cy="69" r="4"/><path d="M45 206l4 8 8 4-8 4-4 8-4-8-8-4 8-4Z"/></g>
+      <ellipse cx="180" cy="379" rx="105" ry="21" fill="#6d4fa3" opacity=".16"/>
+      ${auraItem}<g filter="url(#${uid}shadow)">${backItem}${limb}<g transform="translate(0 ${bodyOffset})" fill="url(#${uid}body)" stroke="${dark}" stroke-width="7" stroke-linejoin="round">${body}</g><path d="M117 164 C137 126 170 111 207 119 C174 128 147 151 132 188Z" fill="#fff" opacity=".18"/>${feet}${feature}${face}${runeItem}${faceItem}${headItem}${trailItem}
+      <g fill="#ff8fab" opacity=".9"><ellipse cx="112" cy="267" rx="16" ry="9"/><ellipse cx="248" cy="267" rx="16" ry="9"/></g><g fill="#fff" opacity=".35"><ellipse cx="107" cy="264" rx="5" ry="3"/><ellipse cx="243" cy="264" rx="5" ry="3"/></g>
+      </g></svg>`;
+    const svg=container.querySelector('svg'); if(svg) svg.style.animation='avatarPop .22s ease-out';
+}
+window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; window.DEFAULT_CHARACTER = DEFAULT_CHARACTER;
+
+</script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getFirestore, collection, addDoc, doc, updateDoc, increment, onSnapshot, query, orderBy,
+      serverTimestamp, runTransaction, getDoc, setDoc
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey:"AIzaSyDfBIp5gujB9cE2twLz483hllYOubgYuks",
+      authDomain:"codingplant-f19fc.firebaseapp.com",
+      projectId:"codingplant-f19fc",
+      storageBucket:"codingplant-f19fc.firebasestorage.app",
+      messagingSenderId:"194545106875",
+      appId:"1:194545106875:web:d4b7ca3dd6b57f46cc8e9e"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    let knowledgePosts = [];
+    let answersByPost = {};
+    let teacherGuidanceByPost = {};
+    let selectedPostId = null;
+    let currentUser = null;
+    let walletUnsubscribe = null;
+    let pendingQuestionImage = '';
+    let pendingQuestionImageName = '';
+    let pendingQuestionScratchId = '';
+    let selectedWorkRoom = '';
+    let sharedWorksSnapshot = [];
+    const helpingClaimedLocally = new Set();
+
+    let reflectionMembers = [];
+    let reflectionMemberIndex = 0;
+    let reflectionMissionId = "";
+    let reflectionMissionTitle = "";
+    let reflectionWorkId = "";
+    
+
+    const currentGroupId = () => localStorage.getItem('currentGroupId') || '';
+    const currentRoom = () => localStorage.getItem('currentRoom') || '';
+    const currentNames = () => JSON.parse(localStorage.getItem('currentGroupNames') || '[]');
+    const displayName = () => currentNames().join(', ') || currentUser?.displayName || localStorage.getItem('currentUserName') || '';
+    const roleText = () => (localStorage.getItem('currentRole') || localStorage.getItem('role') || '').toLowerCase();
+    const isTeacher = () => ['teacher','admin','ครู','ผู้ดูแล'].includes(roleText()) || localStorage.getItem('isAdmin') === 'true';
+    const escapeHtml = (value='') => String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+    const millis = ts => ts?.toMillis ? ts.toMillis() : 0;
+    const extractScratchId = url => { const match=String(url||'').match(/projects\/(\d+)/); return match?match[1]:''; };
+    async function compressImage(file,maxSize=1000,quality=.78){
+      if(!file) return '';
+      if(file.size>8*1024*1024) throw new Error('ภาพต้องมีขนาดไม่เกิน 8 MB');
+      const dataUrl=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=reject;r.readAsDataURL(file);});
+      const img=await new Promise((resolve,reject)=>{const i=new Image();i.onload=()=>resolve(i);i.onerror=reject;i.src=dataUrl;});
+      const scale=Math.min(1,maxSize/Math.max(img.width,img.height));
+      const canvas=document.createElement('canvas'); canvas.width=Math.round(img.width*scale); canvas.height=Math.round(img.height*scale);
+      canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+      const compressed=canvas.toDataURL('image/jpeg',quality);
+      if(compressed.length>850000) throw new Error('ภาพยังมีขนาดใหญ่เกินไป กรุณาครอปภาพเฉพาะส่วนบล็อกคำสั่งแล้วลองใหม่');
+      return compressed;
+    }
+    window.previewQuestionScratch=function(){
+      const link=document.getElementById('questionScratchLink').value.trim(); pendingQuestionScratchId=extractScratchId(link);
+      const box=document.getElementById('scratchAttachmentPreview');
+      if(!pendingQuestionScratchId){box.classList.remove('show');box.innerHTML='';return;}
+      box.innerHTML=`<div class="attachment-label">🔗 ตัวอย่างโปรเจกต์ Scratch</div><iframe src="https://scratch.mit.edu/projects/${pendingQuestionScratchId}/embed" allowtransparency="true" scrolling="no" allowfullscreen></iframe>`;box.classList.add('show');
+    };
+    window.previewQuestionImage=async function(event){
+      const file=event.target.files?.[0]; const box=document.getElementById('imageAttachmentPreview');
+      if(!file){pendingQuestionImage='';pendingQuestionImageName='';box.classList.remove('show');box.innerHTML='';return;}
+      try{pendingQuestionImage=await compressImage(file);pendingQuestionImageName=file.name;box.innerHTML=`<div class="attachment-label">📷 ภาพประกอบปัญหา</div><img src="${pendingQuestionImage}" alt="ภาพปัญหา Scratch">`;box.classList.add('show');}
+      catch(e){alert(e.message||'อ่านภาพไม่สำเร็จ');event.target.value='';}
+    };
+    window.clearQuestionAttachments=function(){
+      pendingQuestionImage='';pendingQuestionImageName='';pendingQuestionScratchId='';
+      const link=document.getElementById('questionScratchLink'),file=document.getElementById('questionImage');if(link)link.value='';if(file)file.value='';
+      ['scratchAttachmentPreview','imageAttachmentPreview'].forEach(id=>{const b=document.getElementById(id);if(b){b.innerHTML='';b.classList.remove('show');}});
+    };
+    function renderQuestionAttachments(p){
+      let html='';
+      if(p.scratchId) html+=`<div class="question-attachment"><div class="attachment-label">🐱 โปรเจกต์ Scratch ที่แนบมา</div><iframe src="https://scratch.mit.edu/projects/${escapeHtml(p.scratchId)}/embed" allowtransparency="true" scrolling="no" allowfullscreen></iframe></div>`;
+      if(p.imageData) html+=`<div class="question-attachment"><div class="attachment-label">📷 ภาพหน้าจอปัญหา</div><img src="${p.imageData}" alt="ภาพประกอบคำถามของ ${escapeHtml(p.authorName||'ผู้ถาม')}"></div>`;
+      return html;
+    }
+
+    window.toggleUtilityMenu = () => {
+      document.getElementById('utilityDropdown').classList.toggle('show');
+      document.getElementById('hamburgerButton').classList.toggle('open');
+    };
+    document.addEventListener('click', e => {
+      const wrapper=document.querySelector('.hamburger-wrapper');
+      if(wrapper && !wrapper.contains(e.target)){document.getElementById('utilityDropdown').classList.remove('show');document.getElementById('hamburgerButton').classList.remove('open');}
+    });
+    window.switchSection = btn => {
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
+      btn.classList.add('active'); document.getElementById(btn.dataset.target).classList.add('active');
+    };
+    window.closeDialog = id => document.getElementById(id).classList.remove('show');
+    window.showToast = msg => { const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),3200); };
+
+    function loadTopMenuCoins(){
+      const el=document.getElementById('topCoinAmount'); const gid=currentGroupId();
+      if(walletUnsubscribe){walletUnsubscribe();walletUnsubscribe=null;}
+      if(!gid){el.textContent='0';return;}
+      walletUnsubscribe=onSnapshot(doc(db,'group_wallets',gid),snap=>{el.textContent=snap.exists()?(Number(snap.data().magicCoins)||0):'0';updateHelperProgress(snap.exists()?snap.data():{});},()=>el.textContent='--');
+    }
+    function updateHelperProgress(wallet={}){
+      const count=Number(wallet.helperApprovedCount)||0; const cycle=count%5; const rewardedCycles=Number(wallet.helperRewardCycles)||0;
+      document.getElementById('helperProgress').style.width=`${(cycle/5)*100}%`;
+      document.getElementById('helperStatus').textContent=`คำตอบผ่านครู ${count} ครั้ง • รอบนี้ ${cycle}/5 • รับรางวัลน้ำแล้ว ${rewardedCycles} รอบ`;
+    }
+
+    onAuthStateChanged(auth,user=>{
+      currentUser=user;
+      const nameEl=document.getElementById('questionName'); if(nameEl && !nameEl.value) nameEl.value=displayName();
+      const roomEl=document.getElementById('questionRoom'); if(roomEl && currentRoom()) roomEl.value=currentRoom();
+      loadTopMenuCoins();
+    });
+    loadTopMenuCoins();
+
+    /* ======================== กระดานภูมิปัญญา ======================== */
+    const postQuery=query(collection(db,'knowledge_posts'),orderBy('createdAt','desc'));
+    onSnapshot(postQuery,snapshot=>{
+      knowledgePosts=snapshot.docs.map(d=>({id:d.id,...d.data()}));
+      renderKnowledgePosts(); renderLeaderboard();
+      if(selectedPostId) renderPostDetail(selectedPostId);
+    },err=>{console.error(err);document.getElementById('notesGrid').innerHTML='<div class="empty-state">โหลดกระดานไม่สำเร็จ กรุณาตรวจ Firestore Rules</div>';});
+
+    const answerQuery=query(collection(db,'knowledge_answers'),orderBy('createdAt','asc'));
+    onSnapshot(answerQuery,snapshot=>{
+      answersByPost={};
+      snapshot.forEach(d=>{const a={id:d.id,...d.data()};(answersByPost[a.postId]??=[]).push(a);});
+      renderKnowledgePosts(); renderLeaderboard(); if(selectedPostId) renderPostDetail(selectedPostId);
+    });
+
+    const teacherGuidanceRef=collection(db,'knowledge_teacher_guidance');
+    onSnapshot(teacherGuidanceRef,snapshot=>{
+      teacherGuidanceByPost={};
+      snapshot.forEach(d=>{
+        const g={id:d.id,...d.data()};
+        teacherGuidanceByPost[g.postId||d.id]=g;
+      });
+      renderKnowledgePosts();
+      if(selectedPostId) renderPostDetail(selectedPostId);
+    },err=>console.error('โหลดคำแนะนำจากครูไม่สำเร็จ',err));
+
+    let currentPostFilter='all';
+
+    window.setPostFilter=function(filter,button){
+      currentPostFilter=filter;
+      document.querySelectorAll('.status-btn').forEach(btn=>btn.classList.remove('active'));
+      if(button) button.classList.add('active');
+      renderKnowledgePosts();
+    };
+
+    window.renderKnowledgePosts = function(){
+      const term=(document.getElementById('searchInput')?.value||'').trim().toLowerCase();
+      const now=Date.now();
+      let items=knowledgePosts.filter(p=>{
+        const searchable=`${p.title||''} ${p.body||''} ${p.authorName||''} ${p.room||''}`.toLowerCase();
+        if(term && !searchable.includes(term)) return false;
+        if(currentPostFilter==='open' && p.status==='solved') return false;
+        if(currentPostFilter==='solved' && p.status!=='solved') return false;
+        return true;
+      });
+      items.sort((a,b)=>(Number(b.isPinned)-Number(a.isPinned)) || (millis(b.createdAt)-millis(a.createdAt)));
+      const grid=document.getElementById('notesGrid');
+      if(!items.length){grid.innerHTML='<div class="empty-state">ยังไม่พบโพสต์ที่ตรงกับการค้นหา 🌱</div>'; updateSearchAI(term); return;}
+      grid.innerHTML=items.map((p,index)=>{
+        const answers=answersByPost[p.id]||[];
+        const unanswered=answers.length===0 && p.status!=='solved' && now-millis(p.createdAt)>30*60*1000;
+        const tilt=[-2,1.5,-1,2,-1.5][index%5];
+        return `<article class="sticky-note sticky-${escapeHtml(p.color||'yellow')} ${p.status==='solved'?'solved':''} ${p.isPinned?'pinned':''}" style="--tilt:${tilt}deg" onclick="openPostDetail('${p.id}')">
+          <div class="note-badges">
+            ${p.isPinned?'<span class="badge">📌 ครูปักหมุด</span>':''}
+            <span class="badge">🐱 ${escapeHtml(p.room||'ไม่ระบุห้อง')}</span>
+            ${(p.scratchId||p.imageData)?`<span class="badge">${p.scratchId?'🔗 Scratch ':''}${p.imageData?'📷 ภาพ':''}</span>`:''}
+            ${p.helpingName?`<span class="badge">🙋 ${escapeHtml(p.helpingName)} กำลังช่วย</span>`:''}
+            ${unanswered?'<span class="badge badge-alert">🔔 ยังไม่มีคนตอบ</span>':''}
+            ${teacherGuidanceByPost[p.id]?.text?'<span class="badge teacher-guidance-note-badge">👩‍🏫 ครูแนะนำแล้ว</span>':''}
+          </div>
+          <h3 class="note-title">❓ ${escapeHtml(p.title||'คำถาม')}</h3>
+          <div class="note-body">${escapeHtml((p.body||'').slice(0,180))}${(p.body||'').length>180?'…':''}</div>
+          <div class="note-meta"><span class="post-author-wrap"><span class="post-avatar-stack" data-group-avatar="${escapeHtml(p.authorGroupId||'')}"></span><span>${escapeHtml(p.authorName||'ไม่ระบุชื่อ')}</span></span><span>💬 ${answers.length}</span></div>
+        </article>`;
+      }).join('');
+      window.hydratePostAvatars?.();
+      updateSearchAI(term);
+    };
+
+    function updateSearchAI(term){
+      const box=document.getElementById('aiSuggestion');
+      if(!term){box.innerHTML='<strong>🤖 ผู้ช่วยคิดคำถาม:</strong> พิมพ์คำค้นหรือเปิดแบบฟอร์ม ระบบจะช่วยตรวจคำถามคล้ายกันและแนะนำให้เขียนคำถามชัดขึ้น';return;}
+      const matches=knowledgePosts.filter(p=>(`${p.title} ${p.body}`).toLowerCase().includes(term)).slice(0,3);
+      box.innerHTML=matches.length?`<strong>🤖 พบคำถามใกล้เคียง:</strong><div class="similar-list">${matches.map(p=>`<button onclick="openPostDetail('${p.id}')">${escapeHtml(p.title)}</button>`).join('')}</div>`:`<strong>🤖 ยังไม่พบคำถามเดิม:</strong> สามารถปักโพสต์ใหม่ได้ และควรบอกสิ่งที่ลองทำแล้วด้วย`;
+    }
+
+    window.openNewPostDialog=function(){
+      if(!currentGroupId()){alert('กรุณาเข้าสู่ระบบกลุ่มก่อนปักคำถาม');location.href='login.html';return;}
+      document.getElementById('questionName').value=displayName();
+      if(currentRoom()) document.getElementById('questionRoom').value=currentRoom();
+      document.getElementById('newPostDialog').classList.add('show'); checkQuestionQuality();
+    };
+    window.checkQuestionQuality=function(){
+      const title=document.getElementById('questionTitle').value.trim(); const body=document.getElementById('questionBody').value.trim();
+      const tips=[];
+      if(title.length<10) tips.push('ตั้งหัวข้อให้เห็นปัญหาชัดเจนอย่างน้อย 10 ตัวอักษร');
+      if(body.length<25) tips.push('เพิ่มรายละเอียดว่าเกิดอะไรขึ้นและลองทำอะไรแล้ว');
+      if(!/[?？ไหมอย่างไรทำไม]/.test(title+body)) tips.push('ลองเขียนให้เป็นคำถาม เช่น “ทำไม...” หรือ “แก้อย่างไร”');
+      const words=(title+' '+body).toLowerCase().split(/\s+/).filter(w=>w.length>2);
+      const similar=knowledgePosts.map(p=>({p,score:words.filter(w=>(`${p.title} ${p.body}`).toLowerCase().includes(w)).length})).filter(x=>x.score>=2).sort((a,b)=>b.score-a.score).slice(0,3);
+      document.getElementById('aiWritingHelp').innerHTML=`<strong>🤖 ผู้ช่วยตรวจคำถาม:</strong> ${tips.length?tips.join(' • '):'คำถามชัดเจนดีแล้ว พร้อมปักได้เลย ✅'}${similar.length?`<div class="similar-list">คำถามคล้ายกัน: ${similar.map(x=>`<button type="button" onclick="closeDialog('newPostDialog');openPostDetail('${x.p.id}')">${escapeHtml(x.p.title)}</button>`).join('')}</div>`:''}`;
+    };
+
+    window.submitQuestion=async function(){
+      const gid=currentGroupId(); if(!gid)return;
+      const title=document.getElementById('questionTitle').value.trim();
+      const body=document.getElementById('questionBody').value.trim();
+      const name=document.getElementById('questionName').value.trim();
+      const room=document.getElementById('questionRoom').value;
+
+      if(!name||!room||title.length<10||body.length<20){
+        alert('กรุณากรอกชื่อ ห้อง หัวข้ออย่างน้อย 10 ตัวอักษร และรายละเอียดอย่างน้อย 20 ตัวอักษร');
+        return;
+      }
+
+      /*
+        ป้องกันการสร้างคำถามจำนวนมาก:
+        1. กลุ่มหนึ่งมีคำถามที่ยังเปิดอยู่ได้ไม่เกิน 3 ข้อ
+        2. เว้นอย่างน้อย 2 นาทีระหว่างการปักคำถาม
+      */
+      const ownOpenPosts=knowledgePosts.filter(
+        p=>p.authorGroupId===gid && p.status!=='solved'
+      );
+      if(ownOpenPosts.length>=3){
+        alert('กลุ่มของหนูมีคำถามที่ยังรอคำตอบอยู่ 3 ข้อแล้ว\nกรุณารอคำตอบหรือปิดคำถามเดิมก่อนปักคำถามใหม่');
+        return;
+      }
+
+      const lastAskedAt=Number(localStorage.getItem('lastQuestionSubmittedAt')||0);
+      const waitMs=2*60*1000;
+      const remain=waitMs-(Date.now()-lastAskedAt);
+      if(remain>0){
+        alert('กรุณารออีกประมาณ '+Math.ceil(remain/1000)+' วินาที ก่อนปักคำถามใหม่');
+        return;
+      }
+
+      const btn=document.getElementById('submitQuestionBtn');
+      btn.disabled=true;btn.textContent='⏳ กำลังปัก...';
+      try{
+        await addDoc(collection(db,'knowledge_posts'),{
+          title,body,authorName:name,authorGroupId:gid,room,
+          color:document.getElementById('questionColor').value,
+          scratchId:pendingQuestionScratchId,
+          imageData:pendingQuestionImage,
+          imageName:pendingQuestionImageName,
+          status:'open',
+          isPinned:false,
+          helpingGroupId:'',
+          helpingName:'',
+          questionRewarded:false,
+          helpfulAnswerId:'',
+          helpfulAnswerSelected:false,
+          createdAt:serverTimestamp(),
+          updatedAt:serverTimestamp()
+        });
+        localStorage.setItem('lastQuestionSubmittedAt',String(Date.now()));
+        document.getElementById('questionTitle').value='';
+        document.getElementById('questionBody').value='';
+        clearQuestionAttachments();
+        closeDialog('newPostDialog');
+        showToast('📌 ปักคำถามแล้ว รอคำตอบที่ช่วยแก้ปัญหาก่อนจึงรับเหรียญได้');
+      }catch(e){
+        console.error(e);
+        alert('ปักคำถามไม่สำเร็จ กรุณาตรวจการเชื่อมต่อ Firebase');
+      }
+      btn.disabled=false;btn.textContent='📌 ปักคำถามบนกระดาน';
+    };
+
+    window.openPostDetail=function(postId){selectedPostId=postId;document.getElementById('postDetailDialog').classList.add('show');renderPostDetail(postId);};
+    function renderPostDetail(postId){
+      const p=knowledgePosts.find(x=>x.id===postId); if(!p)return;
+      const answers=answersByPost[postId]||[]; const owner=p.authorGroupId===currentGroupId(); const teacher=isTeacher();
+      const approvedAnswers=answers.filter(a=>a.isApproved);
+      const teacherGuidance=teacherGuidanceByPost[postId]||null;
+      const teacherGuidanceHtml=teacherGuidance&&teacherGuidance.text?`
+        <div class="teacher-guidance-box">
+          <div class="teacher-guidance-head">
+            <div class="teacher-guidance-title">👩‍🏫 คำแนะนำจากคุณครู</div>
+            <span class="teacher-guidance-badge">Scaffolding</span>
+          </div>
+          <div class="teacher-guidance-text">${escapeHtml(teacherGuidance.text)}</div>
+          ${owner&&p.status!=='solved'
+            ?`<button class="teacher-solved-btn" onclick="closeWithTeacherGuidance('${postId}')">✅ คำแนะนำครูช่วยแก้ปัญหาได้แล้ว</button>`
+            :''}
+        </div>
+      `:'';
+      const answerHtml=answers.length?answers.map(a=>`<div class="answer-card ${a.isBest?'best':a.isApproved?'approved':''}">
+        <div class="answer-top">
+          <div class="answer-author">
+            <span class="answer-avatar-stack" data-answer-group-avatar="${escapeHtml(a.authorGroupId||'')}"></span>
+            <span class="answer-author-text">
+              <span class="answer-author-name">${escapeHtml(a.authorName||'ผู้ช่วย')}</span>
+              <span class="answer-author-role">🤝 ผู้ช่วยเพื่อน</span>
+            </span>
+          </div>
+          <span class="answer-status">${a.isBest?'🏆 คำตอบดีที่สุด':a.isApproved?'✅ ครูอนุมัติแล้ว':'⏳ รอครูตรวจ'}</span>
+        </div>
+        <div class="answer-text">${escapeHtml(a.text||'')}</div>
+        <small>${escapeHtml(a.room||'')}</small>
+        ${owner&&p.status!=='solved'&&a.isApproved
+          ?`<button class="helpful-btn" onclick="selectHelpfulAnswer('${postId}','${a.id}')">✅ คำตอบนี้ช่วยแก้ปัญหาได้</button>`
+          :''}
+        ${p.helpfulAnswerId===a.id
+          ?'<div class="selected-helpful">🌟 เจ้าของคำถามเลือกคำตอบนี้ว่าเป็นคำตอบที่ช่วยได้</div>'
+          :''}
+        ${teacher?`<div style="margin-top:8px">${!a.isApproved?`<button class="teacher-btn" onclick="approveAnswer('${a.id}')">✅ อนุมัติ +5 เหรียญ</button>`:''}<button class="teacher-btn" onclick="markBestAnswer('${a.id}','${postId}')">🏆 เลือกดีที่สุด รวม 10 เหรียญ</button></div>`:''}
+      </div>`).join(''):'<div class="empty-state" style="margin-top:12px">ยังไม่มีคำตอบ ลองเป็นคนแรกที่ช่วยเพื่อนนะ 🙋</div>';
+      document.getElementById('postDetailContent').innerHTML=`
+        <div class="question-detail"><div class="note-badges">${p.isPinned?'<span class="badge">📌 ครูปักหมุด</span>':''}<span class="badge">${p.status==='solved'?'✔️ แก้แล้ว':'❓ รอความช่วยเหลือ'}</span></div><h2>${escapeHtml(p.title)}</h2><p style="white-space:pre-wrap">${escapeHtml(p.body)}</p>${renderQuestionAttachments(p)}<small>👤 ${escapeHtml(p.authorName)} • ${escapeHtml(p.room)}</small></div>
+        ${teacherGuidanceHtml}
+        ${p.helpingName?`<div class="helping-banner">🙋 ${escapeHtml(p.helpingName)} กำลังช่วยตอบคำถามนี้</div>`:''}
+        <div style="margin:10px 0">
+          ${owner&&p.status!=='solved'
+            ?(approvedAnswers.length
+              ?'<div class="waiting-approved">✅ มีคำตอบที่ครูอนุมัติแล้ว กรุณาเลือกปุ่ม “คำตอบนี้ช่วยแก้ปัญหาได้” ใต้คำตอบที่ช่วยจริง เพื่อปิดคำถามและรับ 1 เหรียญ</div>'
+              :'<div class="waiting-approved">⏳ ยังรับเหรียญไม่ได้ ต้องรอให้มีคำตอบและผ่านการอนุมัติจากครูก่อน</div>')
+            :''}
+          ${teacher?`<button class="teacher-btn" onclick="togglePin('${postId}',${!p.isPinned})">${p.isPinned?'📌 เลิกปักหมุด':'📌 ปักหมุด'}</button>`:''}
+        </div>
+        ${p.status!=='solved'&&!owner?`<div class="field"><label>💬 เขียนคำตอบหรือวิธีช่วยเพื่อน</label><textarea id="answerText" maxlength="700" placeholder="อธิบายขั้นตอน เหตุผล หรือตัวอย่างให้เพื่อนเข้าใจ" onfocus="autoClaimHelping('${postId}')" oninput="autoClaimHelping('${postId}')"></textarea></div><button class="primary-btn" onclick="submitAnswer('${postId}')">ส่งคำตอบให้ครูตรวจ</button>`:owner&&p.status!=='solved'?'<div class="ai-box"><strong>🔒 โพสต์ของคุณ:</strong> เจ้าของคำถามตอบโพสต์ของตนเองไม่ได้ และยังปิดคำถามเองทันทีไม่ได้ ต้องเลือกคำตอบที่ครูอนุมัติและช่วยแก้ปัญหาได้จริง</div>':''}
+        <h3 style="color:#4c1d95;margin-top:18px">คำตอบจากเพื่อน (${answers.length})</h3>${answerHtml}`;
+      setTimeout(()=>window.hydrateAnswerAvatars?.(),0);
+    }
+
+
+    window.closeWithTeacherGuidance=async function(postId){
+      const p=knowledgePosts.find(x=>x.id===postId);
+      const guidance=teacherGuidanceByPost[postId];
+      if(!p||p.status==='solved')return;
+      if(p.authorGroupId!==currentGroupId()){
+        alert('เฉพาะเจ้าของคำถามเท่านั้นที่ปิดคำถามนี้ได้');
+        return;
+      }
+      if(!guidance?.text){
+        alert('ยังไม่มีคำแนะนำจากครู');
+        return;
+      }
+      if(!confirm('คำแนะนำจากคุณครูช่วยแก้ปัญหาได้แล้วใช่ไหม?\\n\\nการปิดด้วยคำแนะนำครูจะไม่รับเหรียญจากระบบช่วยเพื่อน'))return;
+
+      try{
+        await updateDoc(doc(db,'knowledge_posts',postId),{
+          status:'solved',
+          solvedBy:'teacher_guidance',
+          teacherGuidanceSolved:true,
+          solvedAt:serverTimestamp(),
+          updatedAt:serverTimestamp()
+        });
+        showToast('✅ ปิดคำถามแล้ว เพราะคำแนะนำจากครูช่วยแก้ปัญหาได้');
+      }catch(e){
+        console.error(e);
+        alert('ปิดคำถามไม่สำเร็จ กรุณาลองใหม่');
+      }
+    };
+
+    window.autoClaimHelping=async function(postId){
+      const gid=currentGroupId(); if(!gid||helpingClaimedLocally.has(postId))return;
+      const p=knowledgePosts.find(x=>x.id===postId); if(!p||p.status==='solved'||p.authorGroupId===gid)return;
+      helpingClaimedLocally.add(postId);
+      try{
+        await updateDoc(doc(db,'knowledge_posts',postId),{helpingGroupId:gid,helpingName:displayName(),updatedAt:serverTimestamp()});
+      }catch(e){helpingClaimedLocally.delete(postId);console.error(e);}
+    };
+    window.claimHelping=window.autoClaimHelping;
+    window.submitAnswer=async postId=>{
+      const gid=currentGroupId(); if(!gid){alert('กรุณาเข้าสู่ระบบกลุ่มก่อนตอบ');return;}
+      const p=knowledgePosts.find(x=>x.id===postId); if(!p||p.status==='solved'){alert('คำถามนี้ปิดแล้ว');return;}
+      if(p.authorGroupId===gid){alert('เจ้าของโพสต์ไม่สามารถตอบคำถามของตนเองได้');return;}
+      const text=document.getElementById('answerText')?.value.trim(); if(!text||text.length<10){alert('กรุณาอธิบายคำตอบอย่างน้อย 10 ตัวอักษร');return;}
+      await autoClaimHelping(postId);
+      await addDoc(collection(db,'knowledge_answers'),{postId,text,authorName:displayName(),authorGroupId:gid,room:currentRoom(),isApproved:false,isBest:false,coinRewarded:false,bestBonusRewarded:false,createdAt:serverTimestamp()});
+      await updateDoc(doc(db,'knowledge_posts',postId),{helpingGroupId:'',helpingName:'',updatedAt:serverTimestamp()}); showToast('💬 ส่งคำตอบแล้ว รอครูอนุมัติเพื่อรับเหรียญ');
+    };
+
+    async function addWalletReward(groupId,coins=0,water=0,extra={}){
+      if(!groupId)return;
+      const ref=doc(db,'group_wallets',groupId);
+      await setDoc(ref,{magicCoins:increment(coins),water:increment(water),...extra},{merge:true});
+    }
+
+    window.approveAnswer=async answerId=>{
+      if(!isTeacher()){alert('เฉพาะบัญชีครูหรือผู้ดูแลเท่านั้น');return;}
+      const a=Object.values(answersByPost).flat().find(x=>x.id===answerId); if(!a)return;
+      const aRef=doc(db,'knowledge_answers',answerId); const walletRef=doc(db,'group_wallets',a.authorGroupId);
+      await runTransaction(db,async tx=>{
+        const aSnap=await tx.get(aRef); if(!aSnap.exists())return; const data=aSnap.data(); if(data.coinRewarded)return;
+        const wSnap=await tx.get(walletRef); const w=wSnap.exists()?wSnap.data():{}; const newCount=(Number(w.helperApprovedCount)||0)+1; const oldCycles=Number(w.helperRewardCycles)||0; const newCycles=Math.floor(newCount/5); const waterBonus=newCycles>oldCycles?10:0;
+        tx.set(walletRef,{magicCoins:(Number(w.magicCoins)||0)+5,water:(Number(w.water)||0)+waterBonus,helperApprovedCount:newCount,helperRewardCycles:newCycles},{merge:true});
+        tx.update(aRef,{isApproved:true,coinRewarded:true,approvedAt:serverTimestamp()});
+      });
+      showToast('✅ อนุมัติคำตอบแล้ว: +5 เหรียญ'+(a?' และตรวจรางวัลดาวผู้ช่วยแล้ว':''));
+    };
+
+    window.markBestAnswer=async(answerId,postId)=>{
+      if(!isTeacher()){alert('เฉพาะบัญชีครูหรือผู้ดูแลเท่านั้น');return;}
+      const all=answersByPost[postId]||[]; const target=all.find(x=>x.id===answerId); if(!target)return;
+      for(const a of all){if(a.isBest&&a.id!==answerId) await updateDoc(doc(db,'knowledge_answers',a.id),{isBest:false});}
+      const aRef=doc(db,'knowledge_answers',answerId); const walletRef=doc(db,'group_wallets',target.authorGroupId);
+      await runTransaction(db,async tx=>{
+        const aSnap=await tx.get(aRef); const wSnap=await tx.get(walletRef); if(!aSnap.exists())return;
+        const data=aSnap.data(),w=wSnap.exists()?wSnap.data():{};
+        let coinAdd=0,newCount=Number(w.helperApprovedCount)||0,newCycles=Number(w.helperRewardCycles)||0,waterAdd=0;
+        if(!data.coinRewarded){coinAdd+=5;newCount+=1;const cycles=Math.floor(newCount/5);if(cycles>newCycles){waterAdd+=10;newCycles=cycles;}}
+        if(!data.bestBonusRewarded)coinAdd+=5;
+        tx.set(walletRef,{magicCoins:(Number(w.magicCoins)||0)+coinAdd,water:(Number(w.water)||0)+waterAdd,helperApprovedCount:newCount,helperRewardCycles:newCycles},{merge:true});
+        tx.update(aRef,{isApproved:true,isBest:true,coinRewarded:true,bestBonusRewarded:true,approvedAt:data.approvedAt||serverTimestamp(),bestAt:serverTimestamp()});
+      });
+      showToast('🏆 เลือกคำตอบดีที่สุดแล้ว ผู้ตอบได้รับรวม 10 เหรียญ');
+    };
+
+    /*
+      เจ้าของคำถามจะได้รับ 1 เหรียญได้เมื่อ:
+      - มีคำตอบที่เลือกอยู่จริง
+      - คำตอบนั้นผ่านการอนุมัติจากครู
+      - คำตอบมาจากกลุ่มอื่น
+      - คำถามยังไม่เคยรับรางวัล
+    */
+    window.selectHelpfulAnswer=async(postId,answerId)=>{
+      const gid=currentGroupId();
+      const p=knowledgePosts.find(x=>x.id===postId);
+
+      if(!p)return;
+      if(p.authorGroupId!==gid){
+        alert('เฉพาะเจ้าของคำถามเท่านั้นที่เลือกคำตอบที่ช่วยได้');
+        return;
+      }
+      if(p.status==='solved'){
+        showToast('คำถามนี้ถูกปิดแล้ว');
+        return;
+      }
+
+      const answer=(answersByPost[postId]||[]).find(a=>a.id===answerId);
+      if(!answer||!answer.isApproved){
+        alert('คำตอบนี้ยังไม่ผ่านการอนุมัติจากครู');
+        return;
+      }
+      if(answer.authorGroupId===gid){
+        alert('ไม่สามารถเลือกคำตอบจากกลุ่มของตนเองได้');
+        return;
+      }
+
+      if(!confirm('ยืนยันว่าคำตอบนี้ช่วยให้กลุ่มแก้ปัญหาได้จริงหรือไม่?\n\nเมื่อยืนยัน คำถามจะถูกปิดและกลุ่มได้รับ 1 เหรียญเพียงครั้งเดียว')){
+        return;
+      }
+
+      const pRef=doc(db,'knowledge_posts',postId);
+      const aRef=doc(db,'knowledge_answers',answerId);
+      const walletRef=doc(db,'group_wallets',gid);
+
+      try{
+        await runTransaction(db,async tx=>{
+          const ps=await tx.get(pRef);
+          const as=await tx.get(aRef);
+          const ws=await tx.get(walletRef);
+
+          if(!ps.exists()||!as.exists()){
+            throw new Error('ไม่พบข้อมูลคำถามหรือคำตอบ');
+          }
+
+          const pd=ps.data();
+          const ad=as.data();
+          const w=ws.exists()?ws.data():{};
+
+          if(pd.authorGroupId!==gid){
+            throw new Error('ไม่ใช่เจ้าของคำถาม');
+          }
+          if(pd.status==='solved'||pd.questionRewarded){
+            throw new Error('คำถามนี้ปิดหรือรับรางวัลแล้ว');
+          }
+          if(!ad.isApproved){
+            throw new Error('คำตอบยังไม่ผ่านการอนุมัติ');
+          }
+          if(ad.postId!==postId){
+            throw new Error('คำตอบไม่ตรงกับคำถาม');
+          }
+          if(ad.authorGroupId===gid){
+            throw new Error('เลือกคำตอบของกลุ่มตนเองไม่ได้');
+          }
+
+          const after=(Number(w.magicCoins)||0)+1;
+
+          tx.set(walletRef,{
+            magicCoins:after,
+            updatedAt:serverTimestamp()
+          },{merge:true});
+
+          tx.update(pRef,{
+            status:'solved',
+            questionRewarded:true,
+            helpfulAnswerSelected:true,
+            helpfulAnswerId:answerId,
+            helpfulAnswerAuthorGroupId:ad.authorGroupId||'',
+            solvedAt:serverTimestamp(),
+            updatedAt:serverTimestamp()
+          });
+
+          tx.update(aRef,{
+            selectedHelpful:true,
+            selectedHelpfulAt:serverTimestamp()
+          });
+
+          const logRef=doc(collection(db,'group_wallets',gid,'transactions'));
+          tx.set(logRef,{
+            type:'QUESTION_SOLVED_WITH_APPROVED_ANSWER',
+            amount:1,
+            postId,
+            answerId,
+            balanceAfter:after,
+            createdAt:serverTimestamp()
+          });
+        });
+
+        showToast('✅ เลือกคำตอบที่ช่วยได้แล้ว กลุ่มได้รับ 1 เหรียญ');
+      }catch(error){
+        console.error(error);
+        alert('ไม่สามารถปิดคำถามได้\n\n'+error.message);
+      }
+    };
+
+    window.togglePin=async(postId,value)=>{if(!isTeacher())return;await updateDoc(doc(db,'knowledge_posts',postId),{isPinned:value,updatedAt:serverTimestamp()});showToast(value?'📌 ปักหมุดแล้ว':'เลิกปักหมุดแล้ว');};
+
+    function renderLeaderboard(){
+      const stats={};
+      Object.values(answersByPost).flat().filter(a=>a.isApproved).forEach(a=>{const key=a.authorGroupId||a.authorName;if(!stats[key])stats[key]={name:a.authorName||'ผู้ช่วย',count:0,best:0};stats[key].count++;if(a.isBest)stats[key].best++;});
+      const leaders=Object.values(stats).sort((a,b)=>(b.count*5+b.best*5)-(a.count*5+a.best*5)).slice(0,5);
+      document.getElementById('leaderList').innerHTML=leaders.length?leaders.map((x,i)=>`<li><span>${['🥇','🥈','🥉','🌟','🌟'][i]} ${escapeHtml(x.name)}</span><b>${x.count} คำตอบ</b></li>`).join(''):'<li><span>ยังไม่มีผู้ช่วยที่ผ่านการอนุมัติ</span><b>🌱</b></li>';
+    }
+
+
+    function safeReflectionDocId(groupId,userId,missionId){
+      return [groupId||'nogroup',userId||'nouser',missionId||'nomission']
+        .map(v=>encodeURIComponent(String(v))).join('__');
+    }
+
+    function getReflectionMembers(){
+      let ids=[];
+      let names=[];
+
+      try{
+        ids=JSON.parse(localStorage.getItem('loggedInUsers')||'[]');
+      }catch(e){ ids=[]; }
+
+      try{
+        names=JSON.parse(
+          localStorage.getItem('currentGroupNames') ||
+          localStorage.getItem('loggedInNames') ||
+          '[]'
+        );
+      }catch(e){ names=[]; }
+
+      const max=Math.max(ids.length,names.length,1);
+      const members=[];
+
+      for(let i=0;i<max;i++){
+        members.push({
+          userId:String(ids[i]||('member_'+i)),
+          nickname:String(names[i]||displayName()||('สมาชิก '+(i+1)))
+        });
+      }
+
+      return members;
+    }
+
+    function openSubmissionReflection(missionId,missionTitle,workId){
+      reflectionMembers=getReflectionMembers();
+      reflectionMemberIndex=0;
+      reflectionMissionId=missionId;
+      reflectionMissionTitle=missionTitle||missionId;
+      reflectionWorkId=workId||'';
+
+      document.getElementById('reflectionOverlay').classList.add('show');
+      document.body.style.overflow='hidden';
+      renderReflectionMember();
+    }
+
+    function renderReflectionMember(){
+      const member=reflectionMembers[reflectionMemberIndex];
+      if(!member)return;
+
+      document.getElementById('reflectionMemberName').textContent=
+        '👤 '+member.nickname;
+
+      document.getElementById('reflectionStepText').textContent=
+        'สมาชิก '+(reflectionMemberIndex+1)+'/'+reflectionMembers.length;
+
+      document.getElementById('reflectionMissionText').textContent=
+        reflectionMissionTitle;
+
+      document.getElementById('reflectionProgressBar').style.width=
+        ((reflectionMemberIndex+1)/reflectionMembers.length*100)+'%';
+
+      document.getElementById('submitReflectionDifficulty').value='พอดี';
+      document.getElementById('submitReflectionHelp').value='ทำด้วยตนเอง';
+      document.getElementById('submitReflectionLearned').value='';
+      document.getElementById('submitReflectionNext').value='';
+
+      const btn=document.getElementById('submitReflectionSaveBtn');
+      btn.disabled=false;
+      btn.textContent=
+        reflectionMemberIndex===reflectionMembers.length-1
+          ?'✅ บันทึก Reflection คนสุดท้าย'
+          :'📝 บันทึกและไปสมาชิกคนถัดไป';
+    }
+
+    window.saveSubmissionReflection=async()=>{
+      const member=reflectionMembers[reflectionMemberIndex];
+      if(!member)return;
+
+      const learned=
+        document.getElementById('submitReflectionLearned').value.trim();
+
+      const nextPlan=
+        document.getElementById('submitReflectionNext').value.trim();
+
+      if(learned.length<5){
+        alert('กรุณาเขียนสิ่งที่เข้าใจหรือค้นพบอย่างน้อย 5 ตัวอักษร');
+        return;
+      }
+
+      if(nextPlan.length<5){
+        alert('กรุณาเขียนสิ่งที่จะปรับปรุงครั้งหน้าอย่างน้อย 5 ตัวอักษร');
+        return;
+      }
+
+      const gid=currentGroupId();
+      const room=currentRoom()||'';
+      const btn=document.getElementById('submitReflectionSaveBtn');
+      btn.disabled=true;
+      btn.textContent='⏳ กำลังบันทึก...';
+
+      try{
+        const reflectionId=
+          safeReflectionDocId(gid,member.userId,reflectionMissionId);
+
+        await setDoc(doc(db,'reflections',reflectionId),{
+          groupId:gid,
+          room,
+          userId:member.userId,
+          nickname:member.nickname,
+          missionId:reflectionMissionId,
+          missionTitle:reflectionMissionTitle,
+          sharedWorkId:reflectionWorkId,
+          difficulty:
+            document.getElementById('submitReflectionDifficulty').value,
+          helpSource:
+            document.getElementById('submitReflectionHelp').value,
+          status:'completed',
+          learned,
+          nextPlan,
+          source:'after_submission',
+          updatedAt:serverTimestamp(),
+          createdAt:serverTimestamp()
+        },{merge:true});
+
+        reflectionMemberIndex++;
+
+        if(reflectionMemberIndex<reflectionMembers.length){
+          renderReflectionMember();
+        }else{
+          document.getElementById('reflectionOverlay').classList.remove('show');
+          document.body.style.overflow='';
+          showToast('🪞 สมาชิกทุกคนบันทึก Reflection เรียบร้อยแล้ว');
+        }
+      }catch(error){
+        console.error(error);
+        alert(
+          'บันทึก Reflection ไม่สำเร็จ\n\n'+
+          'กรุณาตรวจ Firestore Rules ของ collection reflections'
+        );
+        btn.disabled=false;
+        btn.textContent='📝 บันทึก Reflection';
+      }
+    };
+
+    /* ======================== ระบบส่งงานเดิม ======================== */
+    const themeColors=[
+      {border:'#f472b6',bg:'#fff5f5',shadow:'#fbcfe8',title:'#9d174d',dash:'#fca5a5'},
+      {border:'#a78bfa',bg:'#f5f3ff',shadow:'#ede9fe',title:'#5b21b6',dash:'#c4b5fd'},
+      {border:'#38bdf8',bg:'#f0f9ff',shadow:'#bae6fd',title:'#0369a1',dash:'#7dd3fc'},
+      {border:'#4ade80',bg:'#f0fdf4',shadow:'#bbf7d0',title:'#14532d',dash:'#86efac'}
+    ];
+    window.extractScratchId=url=>{const m=String(url).match(/projects\/(\d+)/);return m?m[1]:null;};
+    window.previewScratch=mId=>{const input=document.getElementById('link_'+mId),frame=document.getElementById('preview_'+mId),id=extractScratchId(input.value);frame.src=id?`https://scratch.mit.edu/projects/${id}/embed`:'';frame.style.display=id?'block':'none';};
+
+    function missionOrderOf(id,mission={}){
+      const explicit=Number(mission.missionOrder);
+      if(Number.isFinite(explicit)&&explicit>0)return explicit;
+      const match=`${id||''} ${mission.title||''}`.match(/(\d+)/);
+      return match?Number(match[1]):Number.MAX_SAFE_INTEGER;
+    }
+
+    const missionQuery=query(collection(db,'missions'));
+    onSnapshot(missionQuery,snapshot=>{
+      const container=document.getElementById('dynamicMissionContainer');container.innerHTML='';
+      if(snapshot.empty){container.innerHTML='<p>📭 ยังไม่มีภารกิจให้ส่งงาน</p>';return;}
+      const missionDocs=snapshot.docs.map(ds=>({id:ds.id,...ds.data()}));
+      missionDocs.sort((a,b)=>{
+        const diff=missionOrderOf(a.id,a)-missionOrderOf(b.id,b);
+        return diff||String(a.id).localeCompare(String(b.id),'th',{numeric:true});
+      });
+      const loginRoom=currentRoom()||'';
+      missionDocs.forEach((mission,i)=>{
+        const mId=mission.id,t=themeColors[i%themeColors.length];
+        container.insertAdjacentHTML('beforeend',`
+        <div class="mission-board" id="board_${mId}" style="border-color:${t.border};box-shadow:0 10px 0 ${t.shadow}"><h2 class="board-header" style="color:${t.title};border-color:${t.shadow}">🌟 ${escapeHtml(mission.title||mId)}</h2>
+        <div class="upload-form" style="background:${t.bg};border-color:${t.dash}"><input class="input-name input-name-text" id="name_${mId}" placeholder="ชื่อผู้ส่งงาน" value="${escapeHtml(displayName())}" readonly><input type="text" class="input-name" id="room_${mId}" value="${escapeHtml(loginRoom)}" readonly aria-label="ห้องเรียนจากการเข้าสู่ระบบ"><input type="url" class="input-name input-link" id="link_${mId}" placeholder="🔗 วางลิงก์ Scratch" oninput="previewScratch('${mId}')"><iframe class="preview-iframe" id="preview_${mId}" allowfullscreen></iframe><button class="btn-post" id="btnPost_${mId}" onclick="postWork('${mId}')">ส่งผลงานเวทมนตร์! 🚀</button></div><div class="post-grid" id="grid_${mId}"></div></div>`);
+      });
+    });
+
+    window.postWork=async missionId=>{
+      const name=document.getElementById('name_'+missionId).value.trim();
+      const room=currentRoom()||document.getElementById('room_'+missionId).value;
+      const id=extractScratchId(document.getElementById('link_'+missionId).value);
+      const gid=currentGroupId();
+      const btn=document.getElementById('btnPost_'+missionId);
+
+      if(!gid){
+        alert('กรุณาเข้าสู่ระบบกลุ่มก่อนส่งงาน');
+        location.href='login.html';
+        return;
+      }
+      if(!name){alert('กรุณากรอกชื่อผู้ส่งงาน');return;}
+      if(!room){alert('กรุณาเลือกห้องเรียน');return;}
+      if(!id){alert('กรุณาวางลิงก์ Scratch ให้ถูกต้อง');return;}
+
+      btn.disabled=true;
+      btn.textContent='⏳ กำลังส่ง...';
+
+      try{
+        let memberIds=[];
+        try{
+          memberIds=JSON.parse(localStorage.getItem('loggedInUsers')||'[]');
+        }catch(e){ memberIds=[]; }
+
+        const workRef=await addDoc(collection(db,'shared_works'),{
+          groupId:gid,
+          groupMemberIds:memberIds,
+          groupMemberNames:currentNames(),
+          groupRoom:currentRoom()||room,
+          studentName:name,
+          name,
+          roomName:room,
+          missionId,
+          mission:missionId,
+          scratchId:id,
+          isGraded:false,
+          coinRewarded:false,
+          coinRewardAmount:10,
+          reactions:{love:0,like:0},
+          timestamp:serverTimestamp()
+        });
+
+        document.getElementById('link_'+missionId).value='';
+        document.getElementById('preview_'+missionId).style.display='none';
+
+        const board=document.getElementById('board_'+missionId);
+        const title=
+          board?.querySelector('.board-header')?.textContent
+            ?.replace(/^🌟\s*/,'')
+            ?.trim() || missionId;
+
+        showToast('🎉 ส่งผลงานสำเร็จแล้ว กรุณาทำ Reflection ต่อ');
+        openSubmissionReflection(missionId,title,workRef.id);
+
+      }catch(e){
+        console.error(e);
+        alert('ส่งงานไม่สำเร็จ');
+      }
+
+      btn.disabled=false;
+      btn.textContent='ส่งผลงานเวทมนตร์! 🚀';
+    };
+
+    const sharesQuery=query(collection(db,'shared_works'),orderBy('timestamp','desc'));
+    onSnapshot(sharesQuery,snapshot=>{
+      sharedWorksSnapshot=snapshot.docs.map(ds=>({id:ds.id,...ds.data()}));
+      renderSharedWorks();
+    });
+    function renderSharedWorks(){
+      document.querySelectorAll('.post-grid').forEach(g=>g.innerHTML='');
+      const reacted=JSON.parse(localStorage.getItem('reactedDocs')||'{}');
+      sharedWorksSnapshot.forEach(d=>{
+        const id=d.id,missionId=d.missionId||d.mission,target=document.getElementById('grid_'+missionId);if(!target)return;
+        const name=d.studentName||d.name,room=d.roomName||d.groupRoom||'ไม่ระบุห้อง',love=d.reactions?.love||0,like=d.reactions?.like||0;
+        const preview=d.scratchId?`<iframe src="https://scratch.mit.edu/projects/${d.scratchId}/embed" allowfullscreen></iframe>`:d.imageUrl||d.image?`<img src="${escapeHtml(d.imageUrl||d.image)}" alt="ผลงาน">`:'';
+        target.insertAdjacentHTML('beforeend',`<div class="post-card ${d.isGraded?'graded-stamp':''}"><div class="post-project">${preview}</div><div class="post-name">${escapeHtml(name)}<small style="display:block;color:#64748b">(${escapeHtml(room)})</small></div><div class="reaction-bar"><button class="btn-react" ${reacted[id+'_❤️']?'disabled':''} onclick="addReaction(this,'${id}','❤️')">❤️ <span>${love}</span></button><button class="btn-fullscreen" type="button" onclick="event.stopPropagation();openWorkFullscreen(this)">⛶ เต็มจอ</button></div></div>`);
+      });
+    }
+    window.openWorkFullscreen=function(btn){const project=btn.closest('.post-card')?.querySelector('.post-project');if(!project)return;if(project.requestFullscreen)project.requestFullscreen();else if(project.webkitRequestFullscreen)project.webkitRequestFullscreen();else alert('เบราว์เซอร์นี้ยังไม่รองรับโหมดเต็มจอ');};
+    window.addReaction=async(btn,id,emoji)=>{const reacted=JSON.parse(localStorage.getItem('reactedDocs')||'{}');if(reacted[id+'_'+emoji])return;const card=btn.closest('.post-card');card?.classList.add('anim-wiggle');await updateDoc(doc(db,'shared_works',id),{[emoji==='❤️'?'reactions.love':'reactions.like']:increment(1)});reacted[id+'_'+emoji]=true;localStorage.setItem('reactedDocs',JSON.stringify(reacted));};
+  </script>
+
+<div class="study-buddy" aria-live="polite"><div class="study-buddy-bubble" id="studyBuddyBubble">เห็นโพสต์ที่ยังไม่แก้ ลองเข้าไปช่วยเพื่อนนะ</div><button type="button" class="study-buddy-char" id="studyBuddyChar" aria-label="คำแนะนำจากเพื่อนมอนสเตอร์" title="กดเพื่อดูคำแนะนำ">👾</button></div>
+<script>(function(){const tips=["เห็นโพสต์ที่ยังไม่แก้ ลองเข้าไปช่วยเพื่อนนะ", "โพสต์สีเขียวคือแก้ได้แล้ว!", "ชอบผลงานเพื่อน กดหัวใจให้กำลังใจได้"];let i=0;const b=document.getElementById('studyBuddyChar'),x=document.getElementById('studyBuddyBubble');if(b&&x)b.addEventListener('click',()=>{i=(i+1)%tips.length;x.textContent=tips[i];});})();</script>
+
+
+<script type="module">
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const avatarConfig={apiKey:"AIzaSyDfBIp5gujB9cE2twLz483hllYOubgYuks",authDomain:"codingplant-f19fc.firebaseapp.com",projectId:"codingplant-f19fc",storageBucket:"codingplant-f19fc.firebasestorage.app",messagingSenderId:"194545106875",appId:"1:194545106875:web:d4b7ca3dd6b57f46cc8e9e"};
+const avatarApp=getApps().length?getApp():initializeApp(avatarConfig);
+const avatarDb=getFirestore(avatarApp);
+const groupMemberCache=new Map();
+async function membersForGroup(groupId){
+  if(!groupId)return [];
+  if(groupMemberCache.has(groupId))return groupMemberCache.get(groupId);
+  const promise=(async()=>{
+    try{
+      const wallet=await getDoc(doc(avatarDb,'group_wallets',groupId));
+      const ids=wallet.exists()?(wallet.data().memberIds||[]):[];
+      const members=[];
+      for(const id of ids.slice(0,4)){
+        const u=await getDoc(doc(avatarDb,'users',id)); if(u.exists())members.push(u.data()||{});
+      }
+      return members;
+    }catch(e){console.warn('avatar group',e);return []}
+  })();
+  groupMemberCache.set(groupId,promise); return promise;
+}
+window.hydratePostAvatars=async function(){
+  const zones=[...document.querySelectorAll('[data-group-avatar]')];
+  await Promise.all(zones.map(async zone=>{
+    const gid=zone.dataset.groupAvatar; if(!gid||zone.dataset.loaded==='1')return;
+    zone.dataset.loaded='1'; const members=await membersForGroup(gid); zone.innerHTML='';
+    if(!members.length){zone.innerHTML='<span style="font-size:20px">👤</span>';return;}
+    members.slice(0,3).forEach(data=>{const mini=document.createElement('span');mini.className='post-avatar-mini';window.renderAvatar(mini,data.character||window.DEFAULT_CHARACTER);zone.appendChild(mini)});
+  }));
+};
+window.hydrateAnswerAvatars=async function(){
+  const zones=[...document.querySelectorAll('[data-answer-group-avatar]')];
+  await Promise.all(zones.map(async zone=>{
+    const gid=zone.dataset.answerGroupAvatar;
+    if(!gid||zone.dataset.loaded==='1')return;
+    zone.dataset.loaded='1';
+    const members=await membersForGroup(gid);
+    zone.innerHTML='';
+    if(!members.length){
+      zone.innerHTML='<span style="font-size:24px;line-height:42px">👤</span>';
+      return;
+    }
+    members.slice(0,3).forEach(data=>{
+      const mini=document.createElement('span');
+      mini.className='answer-avatar-mini';
+      window.renderAvatar(mini,data.character||window.DEFAULT_CHARACTER);
+      zone.appendChild(mini);
+    });
+  }));
+};
+async function loadShareMenuAvatar(){
+  const stack=document.getElementById('menuAvatarStack'),label=document.getElementById('menuProfileNames'); if(!stack)return;
+  let ids=[];try{ids=JSON.parse(localStorage.getItem('loggedInUsers')||'[]')}catch(e){}
+  if(!ids.length)return; stack.innerHTML=''; const names=[];
+  for(const id of ids.slice(0,3)){try{const u=await getDoc(doc(avatarDb,'users',id));if(!u.exists())continue;const d=u.data()||{};names.push(d.nickname||'ผู้พิทักษ์');const mini=document.createElement('span');mini.className='menu-avatar-mini';window.renderAvatar(mini,d.character||window.DEFAULT_CHARACTER);stack.appendChild(mini)}catch(e){}}
+  if(label&&names.length)label.textContent=names.join(' • ')+(ids.length>3?` +${ids.length-3}`:'');
+}
+loadShareMenuAvatar();
+setTimeout(()=>window.hydratePostAvatars?.(),600);
+</script>
+
+</body>
+</html>
