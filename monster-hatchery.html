@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="th">
 <head>
@@ -390,7 +390,7 @@
 </style></head>
 <body>
 <nav class="nav-menu">
-<div class="top-left-menu"><a aria-label="กลับหน้าแรก" class="btn-home-login" href="index.html" title="กลับหน้าแรก">🏠</a></div>
+<div class="top-left-menu"><a aria-label="กลับหน้าแรก" class="btn-home-login" href="home.html" title="กลับหน้าแรก">🏠</a></div>
 <div class="learning-menu"><a class="main-link" href="mission.html">⚔️ สถานการณ์ปัญหา</a>
 <a class="main-link" href="resource.html">📚 แหล่งเรียนรู้</a>
 <a class="main-link" href="hints.html">💡 ฐานการช่วยเหลือ</a>
@@ -403,7 +403,7 @@
 <div class="dropdown-coin"><span>🪙 เหรียญเวทมนตร์</span><strong id="topCoinAmount">--</strong></div>
 <a class="dropdown-link" href="monster-hatchery.html"><span class="dropdown-icon">🌱</span><span><strong>แปลงปลูกต้นไม้</strong><small>ดูคะแนนและการเติบโต</small></span></a>
 <a class="dropdown-link" href="profile.html"><span class="dropdown-icon">👤</span><span><strong>โปรไฟล์</strong><small>เปลี่ยนชื่อและอวตาร</small></span></a>
-<a class="dropdown-link logout-link" href="login.html"><span class="dropdown-icon">🚪</span><span><strong>ออกจากระบบ</strong><small>กลับหน้าเข้าสู่ระบบ</small></span></a>
+<a class="dropdown-link logout-link" href="index.html"><span class="dropdown-icon">🚪</span><span><strong>ออกจากระบบ</strong><small>กลับหน้าเข้าสู่ระบบ</small></span></a>
 </div></div></nav>
 <div class="top-bar">
 <div class="top-left">
@@ -504,7 +504,24 @@
 </div>
 </div>
 <script>
+        // =========================================================
+        // ☁️ Firebase: ใช้ Firestore เป็นข้อมูลหลักของแปลงปลูก
+        // =========================================================
+        const firebaseConfig = {
+            apiKey: "AIzaSyDfBIp5gujB9cE2twLz483hllYOubgYuks",
+            authDomain: "codingplant-f19fc.firebaseapp.com",
+            projectId: "codingplant-f19fc",
+            storageBucket: "codingplant-f19fc.firebasestorage.app",
+            messagingSenderId: "194545106875",
+            appId: "1:194545106875:web:d4b7ca3dd6b57f46cc8e9e",
+            measurementId: "G-Y6C9LXKJ1H"
+        };
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
         const STORAGE_KEY = 'multiRoomGardenData';
+        const DEFAULT_ROOMS = ['ป.4/1', 'ป.4/2', 'ป.4/3'];
+        let gardenUnsubscribe = null;
         
         // 🌟 อัปเดตตารางคะแนนน้ำ (LEVEL_THRESHOLDS) ให้เหมือน game.html 🌟
         const LEVEL_THRESHOLDS = [ 
@@ -552,6 +569,43 @@
             }
         }
 
+        function subscribeCurrentRoom() {
+            if (gardenUnsubscribe) gardenUnsubscribe();
+
+            const room = state.currentRoom || 'ป.4/1';
+            if (!state.rooms[room]) state.rooms[room] = [];
+            if (!state.history[room]) state.history[room] = [];
+
+            // อ่านเฉพาะห้องที่กำลังเปิดอยู่ เพื่อลดจำนวน Firestore reads ตอนเด็กเข้าเว็บพร้อมกันหลายเครื่อง
+            gardenUnsubscribe = db.collection('users')
+                .where('room', '==', room)
+                .onSnapshot(
+                    snapshot => {
+                        const students = [];
+                        snapshot.forEach(doc => {
+                            const data = doc.data() || {};
+                            const nickname = String(data.nickname || '').trim();
+                            if (!nickname) return;
+                            students.push({
+                                id: doc.id,
+                                name: nickname,
+                                water: Math.max(0, Number(data.waterDrops) || 0)
+                            });
+                        });
+
+                        students.sort((a,b) => a.name.localeCompare(b.name, 'th'));
+                        state.rooms[room] = students;
+                        populateRoomDropdown();
+                        renderAll();
+                    },
+                    error => {
+                        console.error('โหลดข้อมูลแปลงจาก Firestore ไม่สำเร็จ:', error);
+                        document.getElementById('room-subtitle').textContent =
+                            '⚠️ โหลดข้อมูลแปลงไม่สำเร็จ กรุณารีเฟรชหรือตรวจ Firestore Rules';
+                    }
+                );
+        }
+
         function loadData() {
             const savedTitle = localStorage.getItem('mainGardenTitle');
             if (savedTitle) {
@@ -559,21 +613,37 @@
                 document.getElementById('mainTitleInput').value = savedTitle;
             }
 
-            const savedData = localStorage.getItem(STORAGE_KEY);
-            if (savedData) {
-                state = JSON.parse(savedData);
-                if (!state.history) state.history = {};
-            } else {
-                state.rooms = { "ห้อง 1/1": [{ id: Date.now().toString(), name: "น้องมะม่วง", water: 0 }] };
-                state.currentRoom = "ห้อง 1/1";
-                state.history = { "ห้อง 1/1": [] };
-                saveData();
+            // ห้องที่นักเรียนเลือกตอน Login เป็นห้องเริ่มต้น
+            state.currentRoom = localStorage.getItem('currentRoom') || 'ป.4/1';
+            state.rooms = {};
+
+            // ประวัติการรดน้ำยังเก็บเฉพาะเครื่องเพื่อแสดงผลย้อนหลังแบบเบา ๆ
+            try {
+                const cache = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+                state.history = cache?.history || {};
+            } catch (e) {
+                state.history = {};
             }
+
+            DEFAULT_ROOMS.forEach(room => {
+                state.rooms[room] = [];
+                if (!state.history[room]) state.history[room] = [];
+            });
+            if (!state.rooms[state.currentRoom]) state.rooms[state.currentRoom] = [];
+            if (!state.history[state.currentRoom]) state.history[state.currentRoom] = [];
+
             populateRoomDropdown();
             renderAll();
+            subscribeCurrentRoom();
         }
 
-        function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+        function saveData() {
+            // เก็บเฉพาะ cache/history ไว้ในเครื่อง ไม่ใช้ localStorage เป็นฐานข้อมูลคะแนนอีกต่อไป
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({
+                currentRoom: state.currentRoom,
+                history: state.history
+            }));
+        }
         
         function saveMainTitle() {
             const newTitle = document.getElementById('mainTitleInput').value.trim();
@@ -633,7 +703,7 @@
             }
         }
 
-        function changeRoom() { state.currentRoom = document.getElementById('roomSelect').value; saveData(); renderAll(); }
+        function changeRoom() { state.currentRoom = document.getElementById('roomSelect').value; localStorage.setItem('currentRoom', state.currentRoom); saveData(); renderAll(); subscribeCurrentRoom(); }
         
         function filterStudents() {
             let input = document.getElementById('searchStudent').value.toLowerCase();
@@ -783,42 +853,96 @@
             setTimeout(() => bubble.classList.remove('show'), 2000);
         }
 
-        function updateWater(id, amount, event) {
-            const student = state.rooms[state.currentRoom].find(s => s.id === id); if (!student) return;
-            const oldLevel = getLevelInfo(student.water).lv;
-            student.water = Math.max(0, student.water + amount);
-            const newLevel = getLevelInfo(student.water).lv;
+        async function updateWater(id, amount, event) {
+            const student = (state.rooms[state.currentRoom] || []).find(s => s.id === id);
+            if (!student) return;
 
-            const timeStr = new Date().toLocaleTimeString('th-TH', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
-            if(!state.history[state.currentRoom]) state.history[state.currentRoom] = [];
-            state.history[state.currentRoom].push({ studentName: student.name, action: amount > 0 ? 'เพิ่ม' : 'ลด', amount: Math.abs(amount), newScore: student.water, time: timeStr });
-            
-            if (event) { const rect = event.target.getBoundingClientRect(); showFloatText((amount>0?'+':'')+amount, rect.left + 20, rect.top - 20, amount > 0); }
-            if (amount > 0) { playAddSound(); } else { playRemoveSound(); }
-            if (newLevel > oldLevel) { setTimeout(() => { shootConfetti(); playLevelUpSound(); }, 200); }
-            saveData(); renderAll();
+            const oldWater = student.water;
+            const oldLevel = getLevelInfo(oldWater).lv;
+            const newWater = Math.max(0, oldWater + amount);
+            const newLevel = getLevelInfo(newWater).lv;
+
+            // optimistic UI
+            student.water = newWater;
+            renderAll();
+
+            try {
+                await db.collection('users').doc(id).set({
+                    waterDrops: newWater,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true });
+
+                const timeStr = new Date().toLocaleTimeString('th-TH', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+                if (!state.history[state.currentRoom]) state.history[state.currentRoom] = [];
+                state.history[state.currentRoom].push({
+                    studentName: student.name,
+                    action: amount > 0 ? 'เพิ่ม' : 'ลด',
+                    amount: Math.abs(amount),
+                    newScore: newWater,
+                    time: timeStr
+                });
+                saveData();
+
+                if (event) {
+                    const rect = event.target.getBoundingClientRect();
+                    showFloatText((amount > 0 ? '+' : '') + amount, rect.left + 20, rect.top - 20, amount > 0);
+                }
+                if (amount > 0) playAddSound(); else playRemoveSound();
+                if (newLevel > oldLevel) setTimeout(() => { shootConfetti(); playLevelUpSound(); }, 200);
+            } catch (error) {
+                console.error('อัปเดตคะแนนไม่สำเร็จ:', error);
+                student.water = oldWater;
+                renderAll();
+                alert('บันทึกคะแนนไม่สำเร็จ กรุณาตรวจ Firestore Rules แล้วลองใหม่');
+            }
         }
 
-        function waterAll(amount) {
-            const students = state.rooms[state.currentRoom];
-            if (!students || students.length === 0) { alert("ไม่มีนักเรียนในห้องนี้เลยกั๊บ!"); return; }
+        async function waterAll(amount) {
+            const students = state.rooms[state.currentRoom] || [];
+            if (!students.length) { alert('ไม่มีนักเรียนในห้องนี้เลยกั๊บ!'); return; }
+
+            const batch = db.batch();
             let levelUpOccurred = false;
-            
+            const oldValues = new Map();
+
             students.forEach(student => {
+                oldValues.set(student.id, student.water);
                 const oldLevel = getLevelInfo(student.water).lv;
-                student.water = Math.max(0, student.water + amount);
-                if (getLevelInfo(student.water).lv > oldLevel) levelUpOccurred = true;
+                const newWater = Math.max(0, student.water + amount);
+                student.water = newWater;
+                if (getLevelInfo(newWater).lv > oldLevel) levelUpOccurred = true;
+                batch.set(db.collection('users').doc(student.id), {
+                    waterDrops: newWater,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true });
             });
 
-            const timeStr = new Date().toLocaleTimeString('th-TH', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
-            if(!state.history[state.currentRoom]) state.history[state.currentRoom] = [];
-            state.history[state.currentRoom].push({ studentName: "ทุกคนในห้อง", action: amount > 0 ? 'เพิ่ม' : 'ลด', amount: Math.abs(amount), newScore: 'ทุกคน', time: timeStr });
-            
-            if (amount > 0) {
-                playAddSound(); shootConfetti();
-                if (levelUpOccurred) { setTimeout(() => { playLevelUpSound(); }, 200); }
-            } else { playRemoveSound(); }
-            saveData(); renderAll();
+            renderAll();
+
+            try {
+                await batch.commit();
+                const timeStr = new Date().toLocaleTimeString('th-TH', {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+                if (!state.history[state.currentRoom]) state.history[state.currentRoom] = [];
+                state.history[state.currentRoom].push({
+                    studentName: 'ทุกคนในห้อง',
+                    action: amount > 0 ? 'เพิ่ม' : 'ลด',
+                    amount: Math.abs(amount),
+                    newScore: 'ทุกคน',
+                    time: timeStr
+                });
+                saveData();
+                if (amount > 0) {
+                    playAddSound(); shootConfetti();
+                    if (levelUpOccurred) setTimeout(() => playLevelUpSound(), 200);
+                } else {
+                    playRemoveSound();
+                }
+            } catch (error) {
+                console.error('อัปเดตทั้งห้องไม่สำเร็จ:', error);
+                students.forEach(student => { if (oldValues.has(student.id)) student.water = oldValues.get(student.id); });
+                renderAll();
+                alert('บันทึกคะแนนทั้งห้องไม่สำเร็จ กรุณาตรวจ Firestore Rules');
+            }
         }
 
         function openRankModal() {
@@ -898,30 +1022,15 @@
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
         
         function addNewRoom() {
-            const name = document.getElementById('newRoomName').value.trim();
-            if (!name) return;
-            if (!state.rooms[name]) { state.rooms[name] = []; state.history[name] = []; }
-            state.currentRoom = name; saveData(); populateRoomDropdown(); renderAll(); document.getElementById('newRoomName').value = '';
+            alert('ห้องเรียนในเวอร์ชัน Firebase จะเกิดขึ้นจากข้อมูลนักเรียนใน collection users กรุณาเพิ่มนักเรียนพร้อม room ผ่านหน้านำเข้าหรือหลังบ้าน');
         }
 
         function editCurrentRoom() {
-            const newName = prompt(`กรอกชื่อใหม่สำหรับห้อง "${state.currentRoom}":`, state.currentRoom);
-            if (newName !== null && newName.trim() !== "" && newName !== state.currentRoom) {
-                const finalName = newName.trim();
-                if (state.rooms[finalName]) { alert('ชื่อห้องนี้มีอยู่แล้วกั๊บ โปรดตั้งชื่ออื่น'); return; }
-                state.rooms[finalName] = state.rooms[state.currentRoom];
-                state.history[finalName] = state.history[state.currentRoom];
-                delete state.rooms[state.currentRoom]; delete state.history[state.currentRoom];
-                state.currentRoom = finalName; saveData(); populateRoomDropdown(); renderAll();
-            }
+            alert('เพื่อป้องกัน userId และกลุ่มเสียหาย ไม่ควรเปลี่ยนชื่อห้องจากหน้านี้ กรุณาแก้ผ่านข้อมูล users/หน้านำเข้า');
         }
 
         function deleteCurrentRoom() {
-            if(Object.keys(state.rooms).length <= 1) { alert('ต้องมีอย่างน้อย 1 ห้องนะกั๊บ ห้ามลบหมด!'); return; }
-            if(confirm(`แน่ใจหรือว่าต้องการลบห้อง ${state.currentRoom}?`)) {
-                delete state.rooms[state.currentRoom]; delete state.history[state.currentRoom];
-                state.currentRoom = Object.keys(state.rooms)[0]; saveData(); populateRoomDropdown(); renderAll();
-            }
+            alert('ไม่ลบห้องจากหน้านี้เพื่อป้องกันการลบข้อมูลนักเรียนทั้งห้องโดยไม่ตั้งใจ');
         }
 
         function renderAdminStudents() {
@@ -938,33 +1047,112 @@
             });
         }
 
-        function deleteStudent(id) {
-            if(confirm('ต้องการลบนักเรียนคนนี้ออกใช่ไหมกั๊บ?')) {
-                state.rooms[state.currentRoom] = state.rooms[state.currentRoom].filter(s => s.id !== id);
-                saveData(); renderAll(); renderAdminStudents();
+        async function deleteStudent(id) {
+            if (!confirm('ต้องการลบนักเรียนคนนี้ออกจาก Firebase ใช่ไหมกั๊บ?')) return;
+            try {
+                await db.collection('users').doc(id).delete();
+            } catch (error) {
+                console.error(error);
+                alert('ลบนักเรียนไม่สำเร็จ');
             }
         }
 
-        function editStudentName(id) {
-            const student = state.rooms[state.currentRoom].find(s => s.id === id); if(!student) return;
+        async function editStudentName(id) {
+            const student = (state.rooms[state.currentRoom] || []).find(s => s.id === id);
+            if (!student) return;
             const newName = prompt(`แก้ไขชื่อนักเรียน: ${student.name}`, student.name);
-            if(newName !== null && newName.trim() !== "") { student.name = newName.trim(); saveData(); renderAll(); renderAdminStudents(); }
+            if (newName === null || !newName.trim() || newName.trim() === student.name) return;
+
+            const finalName = newName.trim();
+            const newId = `${state.currentRoom.replace(/\//g, '-')}_${finalName}`;
+            const oldRef = db.collection('users').doc(id);
+            const newRef = db.collection('users').doc(newId);
+
+            try {
+                const [oldSnap, newSnap] = await Promise.all([oldRef.get(), newRef.get()]);
+                if (!oldSnap.exists) throw new Error('ไม่พบข้อมูลนักเรียนเดิม');
+                if (newSnap.exists && newId !== id) throw new Error('ชื่อนี้มีอยู่แล้วในห้อง');
+
+                const data = oldSnap.data() || {};
+                const batch = db.batch();
+                batch.set(newRef, {
+                    ...data,
+                    room: state.currentRoom,
+                    nickname: finalName,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true });
+
+                if (newId !== id) batch.delete(oldRef);
+
+                if (data.groupWalletId) {
+                    const walletRef = db.collection('group_wallets').doc(data.groupWalletId);
+                    const walletSnap = await walletRef.get();
+                    if (walletSnap.exists) {
+                        const wallet = walletSnap.data() || {};
+                        const ids = [...(wallet.memberIds || [])];
+                        const names = [...(wallet.memberNames || [])];
+                        const idx = ids.indexOf(id);
+                        if (idx >= 0) {
+                            ids[idx] = newId;
+                            names[idx] = finalName;
+                            batch.set(walletRef, {
+                                memberIds: ids,
+                                memberNames: names,
+                                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                            }, { merge: true });
+                        }
+                    }
+                }
+
+                await batch.commit();
+            } catch (error) {
+                console.error(error);
+                alert('แก้ชื่อไม่สำเร็จ: ' + (error.message || error));
+            }
         }
 
-        function addNewStudent() {
-            const textarea = document.getElementById('newStudentName'); const rawText = textarea.value.trim();
-            if(!rawText) { alert('กรุณากรอกชื่อนักเรียนก่อนกั๊บ'); return; }
-            const names = rawText.split(/[\n,]+/).map(n => n.trim()).filter(n => n.length > 0);
-            if(names.length === 0) return;
-            if(!state.rooms[state.currentRoom]) state.rooms[state.currentRoom] = [];
-            names.forEach(name => { state.rooms[state.currentRoom].push({ id: Date.now().toString() + Math.random().toString(36).substr(2, 5), name: name, water: 0 }); });
-            saveData(); renderAll(); renderAdminStudents(); textarea.value = ''; alert(`เพิ่มสำเร็จ ${names.length} คนกั๊บ!`);
+        async function addNewStudent() {
+            const textarea = document.getElementById('newStudentName');
+            const rawText = textarea.value.trim();
+            if (!rawText) { alert('กรุณากรอกชื่อนักเรียนก่อนกั๊บ'); return; }
+            const names = rawText.split(/[\n,]+/).map(n => n.trim()).filter(Boolean);
+            if (!names.length) return;
+
+            try {
+                const batch = db.batch();
+                names.forEach(name => {
+                    const id = `${state.currentRoom.replace(/\//g, '-')}_${name}`;
+                    batch.set(db.collection('users').doc(id), {
+                        room: state.currentRoom,
+                        nickname: name,
+                        waterDrops: 0,
+                        avatar: '👤',
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    }, { merge: true });
+                });
+                await batch.commit();
+                textarea.value = '';
+                alert(`เพิ่มสำเร็จ ${names.length} คนกั๊บ!`);
+            } catch (error) {
+                console.error(error);
+                alert('เพิ่มนักเรียนไม่สำเร็จ');
+            }
         }
 
-        function deleteAllStudents() {
-            if(confirm(`⚠️ ยืนยันที่จะลบรายชื่อนักเรียน 'ทั้งหมด' ในห้อง ${state.currentRoom} หรือไม่? (กู้คืนไม่ได้นะกั๊บ!)`)) {
-                state.rooms[state.currentRoom] = []; state.history[state.currentRoom] = [];
-                saveData(); renderAll(); renderAdminStudents(); alert('ลบรายชื่อนักเรียนทั้งหมดในห้องนี้เรียบร้อยแล้วกั๊บ!');
+        async function deleteAllStudents() {
+            if (!confirm(`⚠️ ยืนยันลบนักเรียนทั้งหมดใน ${state.currentRoom} ออกจาก Firebase?`)) return;
+            const students = state.rooms[state.currentRoom] || [];
+            if (!students.length) return;
+            try {
+                const batch = db.batch();
+                students.forEach(s => batch.delete(db.collection('users').doc(s.id)));
+                await batch.commit();
+                state.history[state.currentRoom] = [];
+                saveData();
+                alert('ลบรายชื่อนักเรียนทั้งหมดในห้องนี้เรียบร้อยแล้ว');
+            } catch (error) {
+                console.error(error);
+                alert('ลบรายชื่อทั้งหมดไม่สำเร็จ');
             }
         }
 
@@ -988,10 +1176,23 @@
             reader.readAsText(file);
         }
 
-        function clearCurrentRoomData() {
-            if (confirm('⚠️ ต้องการล้างคะแนนรดน้ำให้เป็น 0 💧 ทั้งห้อง?')) {
-                const students = state.rooms[state.currentRoom] || []; students.forEach(s => s.water = 0);
-                saveData(); renderAll(); renderAdminStudents(); alert('รีเซ็ตคะแนนเป็น 0 ทั้งห้องเรียบร้อยกั๊บ!');
+        async function clearCurrentRoomData() {
+            if (!confirm('⚠️ ต้องการล้างคะแนนรดน้ำให้เป็น 0 💧 ทั้งห้องใน Firebase?')) return;
+            const students = state.rooms[state.currentRoom] || [];
+            if (!students.length) return;
+            try {
+                const batch = db.batch();
+                students.forEach(s => batch.set(db.collection('users').doc(s.id), {
+                    waterDrops: 0,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true }));
+                await batch.commit();
+                state.history[state.currentRoom] = [];
+                saveData();
+                alert('รีเซ็ตคะแนนเป็น 0 ทั้งห้องเรียบร้อยกั๊บ!');
+            } catch (error) {
+                console.error(error);
+                alert('รีเซ็ตคะแนนไม่สำเร็จ');
             }
         }
 
