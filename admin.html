@@ -422,12 +422,68 @@
     box-shadow:0 3px 0 #fca5a5;
 }
 
+
+        /* ===== Admin: มอนสเตอร์โค้ช ===== */
+        .coach-admin-intro { background:#faf5ff; border:3px dashed #c084fc; border-radius:16px; padding:14px 16px; color:#5b21b6; line-height:1.7; }
+        .coach-admin-form { background:#fff7ed; border:3px solid #fdba74; border-radius:20px; padding:18px; margin:18px 0 24px; box-shadow:0 6px 0 #ffedd5; }
+        .coach-admin-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px 16px; }
+        .coach-enabled-row { display:flex; align-items:center; gap:10px; background:#f0fdf4; border:2px solid #86efac; border-radius:14px; padding:10px 12px; font-weight:800; color:#166534; }
+        .coach-enabled-row input { width:20px; height:20px; }
+        .coach-admin-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+        .btn-gray { background:#e2e8f0 !important; color:#334155 !important; }
+        .coach-admin-list-head { display:flex; align-items:center; justify-content:space-between; gap:14px; margin:24px 0 12px; text-align:left; }
+        .coach-admin-list-head select { min-width:220px; }
+        .coach-admin-list { display:grid; gap:14px; }
+        .coach-admin-empty { background:#faf5ff; border:3px dashed #c4b5fd; border-radius:18px; padding:26px; color:#6d28d9; font-weight:800; text-align:center; }
+        .coach-admin-card { display:grid; grid-template-columns:66px 1fr auto; gap:14px; align-items:start; background:white; border:3px solid #ddd6fe; border-radius:20px; padding:15px; box-shadow:0 5px 0 #ede9fe; text-align:left; }
+        .coach-admin-card.coach-disabled { opacity:.62; filter:grayscale(.15); }
+        .coach-admin-card-icon { width:58px; height:58px; display:flex; align-items:center; justify-content:center; font-size:31px; background:#faf5ff; border:2px solid #d8b4fe; border-radius:18px; }
+        .coach-admin-card-body h4 { margin:6px 0; color:#4c1d95; font-size:19px; }
+        .coach-admin-card-body p { margin:0; color:#475569; white-space:pre-wrap; line-height:1.65; }
+        .coach-admin-badges { display:flex; gap:6px; flex-wrap:wrap; }
+        .coach-admin-badges span { background:#f1f5f9; border-radius:999px; padding:3px 8px; font-size:12px; font-weight:800; color:#475569; }
+        .coach-admin-badges .badge-on { background:#dcfce7; color:#166534; }
+        .coach-admin-badges .badge-off { background:#fee2e2; color:#991b1b; }
+        .coach-admin-card-actions { display:flex; gap:6px; flex-direction:column; min-width:105px; }
+        @media(max-width:760px){.coach-admin-grid{grid-template-columns:1fr}.coach-admin-card{grid-template-columns:58px 1fr}.coach-admin-card-actions{grid-column:1/-1;flex-direction:row;flex-wrap:wrap}.coach-admin-list-head{display:block}.coach-admin-list-head select{margin-top:10px;width:100%}}
+
+
+/* =========================================================
+   📊 REPORT / RESEARCH DASHBOARD
+   ========================================================= */
+.report-hero{background:linear-gradient(135deg,#eff6ff,#faf5ff 45%,#ecfdf5);border:3px solid #bfdbfe;border-radius:24px;padding:20px;box-shadow:0 7px 0 #dbeafe;margin-bottom:18px;text-align:left;position:relative;overflow:hidden}
+.report-hero:after{content:"📊  ✨  🌱";position:absolute;right:20px;top:14px;font-size:34px;opacity:.13;letter-spacing:8px;pointer-events:none}
+.report-hero h2{margin:0 0 7px;color:#1e3a8a;font-size:27px}.report-hero p{margin:0;color:#475569;font-weight:650;line-height:1.7;max-width:850px}
+.report-toolbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0}.report-toolbar label{display:block;font-size:12px;font-weight:800;color:#475569;margin-bottom:5px;text-align:left}.report-toolbar select,.report-toolbar input{width:100%;box-sizing:border-box;border:2px solid #cbd5e1;border-radius:12px;padding:10px;font-family:'Kanit',sans-serif;background:#fff}.report-actions{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0 18px}.report-action{border:0;border-radius:12px;padding:10px 14px;font-family:'Kanit',sans-serif;font-weight:800;cursor:pointer;box-shadow:0 4px 0 rgba(15,23,42,.15)}.report-action:active{transform:translateY(3px);box-shadow:none}.report-action.blue{background:#3b82f6;color:white}.report-action.green{background:#22c55e;color:#14532d}.report-action.purple{background:#a78bfa;color:#3b0764}.report-action.orange{background:#fbbf24;color:#78350f}.report-action.gray{background:#e2e8f0;color:#334155}
+.report-note{background:#fffbeb;border:2px solid #fde68a;border-radius:14px;padding:10px 12px;color:#92400e;font-weight:700;line-height:1.6;text-align:left;margin-bottom:15px}
+.report-kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:16px 0}.report-kpi{border-radius:18px;padding:15px 12px;text-align:left;border:3px solid #e2e8f0;background:white;box-shadow:0 5px 0 #f1f5f9;min-height:96px}.report-kpi .ico{font-size:24px}.report-kpi strong{display:block;font-size:28px;line-height:1.15;margin-top:4px;color:#0f172a}.report-kpi span{font-size:12px;color:#64748b;font-weight:800}.report-kpi.blue{background:#eff6ff;border-color:#bfdbfe}.report-kpi.green{background:#f0fdf4;border-color:#bbf7d0}.report-kpi.yellow{background:#fffbeb;border-color:#fde68a}.report-kpi.purple{background:#faf5ff;border-color:#ddd6fe}.report-kpi.pink{background:#fdf2f8;border-color:#fbcfe8}
+.report-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;margin:18px 0}.report-panel{background:white;border:3px solid #e2e8f0;border-radius:20px;padding:16px;text-align:left;box-shadow:0 5px 0 #f1f5f9}.report-panel h3{margin:0 0 12px;color:#334155;font-size:20px}.research-summary-box{background:linear-gradient(145deg,#f5f3ff,#eff6ff);border:3px solid #c4b5fd;border-radius:18px;padding:16px;color:#3f3f66;line-height:1.8;font-weight:650}.research-summary-box strong{color:#5b21b6}.research-summary-copy{margin-top:10px;font-size:12px;color:#64748b}
+.mission-progress-row{display:grid;grid-template-columns:minmax(120px,1fr) 2fr 64px;gap:10px;align-items:center;margin:10px 0}.mission-progress-name{font-size:13px;font-weight:800;color:#475569;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mission-progress-track{height:16px;border-radius:999px;background:#e2e8f0;overflow:hidden;border:1px solid #cbd5e1}.mission-progress-fill{height:100%;background:linear-gradient(90deg,#60a5fa,#8b5cf6);border-radius:999px;min-width:0}.mission-progress-value{text-align:right;font-size:12px;font-weight:900;color:#4338ca}
+.report-alert-list{display:grid;gap:9px}.report-alert-item{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff7ed;border:2px solid #fed7aa;border-radius:13px;padding:9px 11px}.report-alert-item strong{color:#9a3412}.report-alert-item small{color:#7c2d12}.report-empty{padding:22px;border:2px dashed #cbd5e1;border-radius:14px;text-align:center;color:#64748b;font-weight:800}
+.report-spotlight-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}.student-watch-panel,.student-star-panel{position:relative;overflow:hidden}.student-watch-panel{border-color:#fecaca;background:linear-gradient(145deg,#fff7ed,#fff)}.student-star-panel{border-color:#fde68a;background:linear-gradient(145deg,#fffbeb,#fff)}.student-watch-panel:after,.student-star-panel:after{position:absolute;right:14px;top:8px;font-size:54px;opacity:.08;pointer-events:none}.student-watch-panel:after{content:'🚨'}.student-star-panel:after{content:'🌟'}.student-card-list{display:grid;gap:10px}.student-insight-card{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border-radius:16px;padding:11px 12px;background:white;border:2px solid #e2e8f0;box-shadow:0 3px 0 #f1f5f9}.student-insight-rank{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;font-weight:900;font-size:18px}.student-insight-card.watch .student-insight-rank{background:#fee2e2;color:#991b1b}.student-insight-card.star .student-insight-rank{background:#fef3c7;color:#92400e}.student-insight-main{min-width:0}.student-insight-main strong{display:block;color:#0f172a;font-size:15px}.student-insight-main small{display:block;color:#64748b;font-weight:700;line-height:1.45;margin-top:2px}.student-insight-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}.insight-tag{display:inline-flex;align-items:center;border-radius:999px;padding:3px 7px;font-size:10px;font-weight:900;background:#f1f5f9;color:#475569}.insight-tag.red{background:#fee2e2;color:#991b1b}.insight-tag.orange{background:#ffedd5;color:#9a3412}.insight-tag.green{background:#dcfce7;color:#166534}.insight-tag.gold{background:#fef3c7;color:#92400e}.insight-tag.purple{background:#ede9fe;color:#5b21b6}.student-score-pill{min-width:66px;text-align:center;border-radius:14px;padding:7px 8px;font-weight:900}.student-insight-card.watch .student-score-pill{background:#fff1f2;color:#be123c}.student-insight-card.star .student-score-pill{background:#fffbeb;color:#b45309}.spotlight-help{font-size:11px;color:#64748b;font-weight:700;line-height:1.55;margin:-4px 0 10px}.spotlight-kpi-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.spotlight-kpi{border-radius:999px;padding:5px 9px;font-size:11px;font-weight:900;background:#f8fafc;border:1px solid #e2e8f0;color:#475569}.report-detail-btn{border:0;border-radius:10px;padding:5px 8px;font-family:'Kanit',sans-serif;font-size:10px;font-weight:900;cursor:pointer;background:#e0e7ff;color:#3730a3;margin-top:6px}.student-detail-overlay{position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:9999;display:none;align-items:center;justify-content:center;padding:18px}.student-detail-overlay.show{display:flex}.student-detail-card{width:min(760px,96vw);max-height:88vh;overflow:auto;background:white;border-radius:24px;border:4px solid #c4b5fd;box-shadow:0 14px 0 rgba(91,33,182,.18);padding:20px;text-align:left}.student-detail-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.student-detail-head h3{margin:0;color:#4338ca}.student-detail-close{border:0;border-radius:10px;background:#fee2e2;color:#991b1b;font-size:20px;font-weight:900;cursor:pointer;width:38px;height:38px}.student-detail-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:14px 0}.student-detail-stat{background:#f8fafc;border:2px solid #e2e8f0;border-radius:13px;padding:9px;text-align:center}.student-detail-stat strong{display:block;font-size:20px;color:#334155}.student-detail-stat small{font-size:10px;color:#64748b;font-weight:800}.student-detail-section{margin-top:14px}.student-detail-section h4{margin:0 0 8px;color:#475569}.detail-timeline{display:grid;gap:7px}.detail-event{border-left:4px solid #a78bfa;background:#faf5ff;border-radius:10px;padding:8px 10px}.detail-event strong{font-size:12px;color:#5b21b6}.detail-event small{display:block;color:#64748b;font-size:11px;margin-top:2px}@media(max-width:1000px){.report-spotlight-grid{grid-template-columns:1fr}}@media(max-width:650px){.student-detail-grid{grid-template-columns:repeat(2,1fr)}.student-insight-card{grid-template-columns:auto 1fr}.student-score-pill{grid-column:1/-1}}
+.report-table-wrap{overflow:auto;border:2px solid #e2e8f0;border-radius:16px;margin-top:14px}.report-table{width:100%;border-collapse:collapse;min-width:1180px;font-size:12px}.report-table th{position:sticky;top:0;background:#eef2ff;color:#3730a3;padding:10px 8px;border-bottom:2px solid #c7d2fe;z-index:2}.report-table td{padding:9px 8px;border-bottom:1px solid #e2e8f0;vertical-align:middle}.report-table tr:hover td{background:#f8fafc}.report-student{font-weight:900;color:#0f172a}.report-room{display:inline-block;border-radius:999px;background:#e0f2fe;color:#075985;padding:2px 7px;font-weight:800}.report-status{display:inline-block;border-radius:999px;padding:3px 8px;font-weight:900}.report-status.good{background:#dcfce7;color:#166534}.report-status.mid{background:#fef3c7;color:#92400e}.report-status.low{background:#fee2e2;color:#991b1b}.report-muted{color:#94a3b8}
+.activity-list{display:grid;gap:8px;max-height:430px;overflow:auto;padding-right:4px}.activity-item{display:grid;grid-template-columns:86px 1fr auto;gap:10px;align-items:start;padding:10px;border:2px solid #e2e8f0;border-radius:13px;background:#fff}.activity-time{font-size:11px;color:#64748b;font-weight:800}.activity-main strong{display:block;color:#334155}.activity-main small{color:#64748b}.activity-type{font-size:11px;background:#f1f5f9;border-radius:999px;padding:3px 7px;font-weight:800;color:#475569;white-space:nowrap}
+.report-loading{padding:50px 20px;text-align:center;color:#4f46e5;font-size:18px;font-weight:900}.report-loading .spinner{display:inline-block;width:24px;height:24px;border:4px solid #c7d2fe;border-top-color:#4f46e5;border-radius:50%;animation:reportSpin .8s linear infinite;vertical-align:middle;margin-right:8px}@keyframes reportSpin{to{transform:rotate(360deg)}}
+.report-warning{background:#fef2f2;border:2px solid #fecaca;color:#991b1b;border-radius:14px;padding:12px;margin:10px 0;text-align:left;font-weight:700}
+@media(max-width:1000px){.report-kpis{grid-template-columns:repeat(2,1fr)}.report-grid{grid-template-columns:1fr}.report-toolbar{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.report-kpis,.report-toolbar{grid-template-columns:1fr}.report-hero h2{font-size:23px}.report-actions{display:grid;grid-template-columns:1fr 1fr}.report-action{width:100%}}
+@media print{body{background:white!important}.header,.tabs,.report-toolbar,.report-actions,.report-note{display:none!important}#report-tab{display:block!important}.container{max-width:none!important;width:100%!important}.report-panel,.report-hero,.report-kpi{box-shadow:none!important;break-inside:avoid}.activity-list{max-height:none!important;overflow:visible!important}.report-table-wrap{overflow:visible!important}.report-table{min-width:0!important;font-size:9px!important}}
+
 </style>
 </head>
 <body>
+<script id="admin-session-guard">
+(function(){
+  const role=String(localStorage.getItem('currentRole')||localStorage.getItem('role')||'').toLowerCase();
+  if(localStorage.getItem('isAdmin')!=='true' && role!=='admin' && role!=='teacher'){
+    alert('กรุณาเข้าสู่ระบบคุณครูก่อน');
+    location.replace('index.html');
+  }
+})();
+</script>
     
     <div class="header">
-        <a href="login.html" class="btn-home-login" title="กลับหน้าเข้าสู่ระบบ">🏠</a>
+        <a href="index.html" class="btn-home-login" title="กลับหน้าเข้าสู่ระบบ">🏠</a>
         <h1 style="margin: 0;">👨‍🏫 ระบบจัดการหลังบ้าน (Admin)</h1>
     </div>
 
@@ -436,29 +492,82 @@
         <button class="tab-btn" onclick="switchTab('resource-tab', this)">📚 จัดการสื่อ</button>
         <button class="tab-btn" onclick="switchTab('grading-tab', this, 'active-green')">📥 ตรวจผลงาน</button>
         <button class="tab-btn" onclick="switchTab('answers-tab', this, 'active-purple')">💬 อนุมัติคำตอบ <span id="pendingAnswerBadge" class="answer-count-badge">0</span></button>
-        <button class="tab-btn" onclick="switchTab('coach-tab', this, 'active-orange')">💬 ส่งข้อความโค้ช</button>
+        <button class="tab-btn" onclick="switchTab('coach-tab', this, 'active-orange')">🧑‍🏫 จัดการโค้ช</button>
+        <button class="tab-btn" onclick="switchTab('report-tab', this, 'active-purple')">📊 รายงานผล</button>
     </div>
 
     <div class="container" id="mainContainer">
         
-        <!-- แท็บระบบโค้ชนางฟ้า -->
+        <!-- ระบบมอนสเตอร์โค้ช: คำแนะนำแบบไม่ต้องรอเด็กถาม -->
         <div id="coach-tab" class="tab-content">
-            <h2 style="color: #f59e0b; margin-top: 0;">🧚‍♀️ โค้ชนางฟ้า (กระซิบเวทมนตร์)</h2>
-            <div class="form-group">
-                <label>ส่งข้อความไปที่ห้อง:</label>
-                <!-- 💡 แก้ไขรหัสห้องตรงนี้ ไม่ให้มีเครื่องหมายทับ (/) -->
-                <select id="coachRoomSelect">
-                    <option value="ALL">📢 ประกาศทุกห้อง (ทุกคนจะเห็น)</option>
-                    <option value="P4-1">ห้อง ป.4/1</option>
-                    <option value="P4-2">ห้อง ป.4/2</option>
-                    <option value="P4-3">ห้อง ป.4/3</option>
+            <h2 style="color:#7c3aed; margin-top:0;">🧑‍🏫 จัดการมอนสเตอร์โค้ช</h2>
+            <p class="coach-admin-intro">
+                เพิ่มคำแนะนำที่โค้ชจะเป็นฝ่ายบอกเด็กเอง แยกตาม <strong>ภารกิจ</strong> และ 3 ช่วง
+                <strong>ก่อนลงมือ • ระหว่างทำ • ก่อนส่ง</strong> โดยไม่ใช่คำถาม-ตอบและไม่ควรเฉลยตรง ๆ
+            </p>
+
+            <form id="coachTipForm" onsubmit="saveCoachTip(event)" class="coach-admin-form">
+                <input type="hidden" id="coachTipId">
+                <div class="coach-admin-grid">
+                    <div class="form-group">
+                        <label>🎯 ใช้กับภารกิจ:</label>
+                        <select id="coachMissionSelect" required>
+                            <option value="GENERAL">🌈 ภารกิจรวม</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>🧭 ช่วงของการโค้ช:</label>
+                        <select id="coachPhaseSelect" required>
+                            <option value="before">🚦 1. ก่อนลงมือ</option>
+                            <option value="during">🧠 2. ระหว่างทำ</option>
+                            <option value="before_submit">✅ 3. ก่อนส่ง</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>😀 ไอคอน:</label>
+                        <input type="text" id="coachIconInput" maxlength="8" value="👾" placeholder="เช่น 👾 🧠 🔍 ✅">
+                    </div>
+                    <div class="form-group">
+                        <label>🔢 ลำดับการแสดง:</label>
+                        <input type="number" id="coachOrderInput" min="0" step="1" value="1">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>✨ หัวข้อสั้น ๆ:</label>
+                    <input type="text" id="coachTitleInput" maxlength="100" required placeholder="เช่น ก่อนต่อบล็อก ลองวางแผนก่อนนะ">
+                </div>
+
+                <div class="form-group">
+                    <label>💬 ข้อความที่โค้ชจะบอกเด็ก:</label>
+                    <textarea id="coachMessageInput" rows="4" maxlength="1000" required placeholder="เช่น ลองอ่านโจทย์อีกครั้ง แล้วหาว่าโจทย์ต้องการให้ตัวละครทำอะไรเป็นอย่างแรก"></textarea>
+                    <small style="color:#64748b;line-height:1.6;">ควรเป็นการสะกิดวิธีคิด ไม่เฉลยคำตอบหรือบอกบล็อกทั้งหมดตรง ๆ</small>
+                </div>
+
+                <label class="coach-enabled-row">
+                    <input type="checkbox" id="coachEnabledInput" checked>
+                    <span>👀 เปิดให้เด็กเห็นคำแนะนำนี้</span>
+                </label>
+
+                <div class="coach-admin-actions">
+                    <button type="submit" class="btn-save btn-save-orange" id="btnSaveCoachTip">💾 บันทึกคำแนะนำ</button>
+                    <button type="button" class="btn-action btn-gray" id="btnCancelCoachEdit" onclick="resetCoachTipForm()" style="display:none;">↩️ ยกเลิกแก้ไข</button>
+                </div>
+            </form>
+
+            <div class="coach-admin-list-head">
+                <div>
+                    <h3 style="margin:0;color:#5b21b6;">📚 คำแนะนำที่มีอยู่</h3>
+                    <small style="color:#64748b;">แก้ไข ลบ เปิด/ปิด ได้จากตรงนี้</small>
+                </div>
+                <select id="coachListFilter" onchange="renderCoachTipsAdmin()">
+                    <option value="ALL">ทั้งหมด</option>
+                    <option value="GENERAL">🌈 ภารกิจรวม</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label>ข้อความแนะนำ / คำใบ้เพิ่มเติม:</label>
-                <textarea id="coachMessageInput" rows="3" placeholder="พิมพ์ข้อความแนะนำ หรือให้กำลังใจเด็กๆ ตรงนี้เลยกั๊บ..."></textarea>
+            <div id="coachTipsAdminList" class="coach-admin-list">
+                <div class="coach-admin-empty">⏳ กำลังโหลดคำแนะนำ...</div>
             </div>
-            <button type="button" class="btn-save btn-save-orange" onclick="sendCoachMessage()">✨ ส่งข้อความกระซิบ</button>
         </div>
 
         <div id="mission-tab" class="tab-content active">
@@ -542,10 +651,10 @@
             <h2 style="color: #3b82f6; margin-top: 0;">📚 เพิ่ม / แก้ไข แหล่งเรียนรู้</h2>
             <form id="resourceForm" onsubmit="saveResource(event)">
                 <div class="form-group">
-                    <label>📘 เลือกภารกิจ:</label>
-                    <select id="r_mission_select" required><option value="" disabled selected>-- เลือกภารกิจ --</option></select>
+                    <label>📘 เลือกภารกิจ / แหล่งเรียนรู้รวม:</label>
+                    <select id="r_mission_select" required><option value="" disabled selected>-- เลือกหมวด --</option></select>
                 </div>
-                <div class="form-group"><label>🎥 ลิงก์ YouTube:</label><input type="url" id="r_video"></div>
+                <div class="form-group"><label>🎥 ลิงก์ YouTube:</label><input type="url" id="r_video" placeholder="วางลิงก์ YouTube ได้เลย เช่น https://youtu.be/..."><small style="color:#64748b;line-height:1.6;">วิดีโอ YouTube จะแสดงและเล่นภายในหน้าแหล่งเรียนรู้ ไม่พาเด็กออกจากเว็บไซต์</small></div>
                 <div class="form-group">
                     <label style="color:#10b981;">📜 PDF / สไลด์ / ใบความรู้:</label>
                     <input type="file" id="r_file_upload" accept="application/pdf,.pdf" style="margin-bottom:10px;">
@@ -578,7 +687,7 @@
         <div id="answers-tab" class="tab-content">
             <h2 style="color:#7c3aed; margin-top:0; text-align:center;">💬 อนุมัติคำตอบจากกระดานแห่งภูมิปัญญา</h2>
             <p style="text-align:center;color:#64748b;font-weight:600;">
-                อนุมัติคำตอบที่ดีเพื่อมอบ 5 เหรียญ หรือเลือกเป็นคำตอบดีที่สุดเพื่อให้ผู้ตอบได้รับรวม 10 เหรียญ
+                อนุมัติคำตอบที่ดีเพื่อมอบ 5 หยดน้ำ + 5 เหรียญ หรือเลือกเป็นคำตอบดีที่สุดเพื่อรับโบนัสเพิ่ม 5 หยดน้ำ + 10 เหรียญ
             </p>
 
 
@@ -739,6 +848,112 @@
 
         </div>
 
+        <!-- =========================================================
+             📊 รายงานผลและติดตามความก้าวหน้าสำหรับงานวิจัย
+             ========================================================= -->
+        <div id="report-tab" class="tab-content">
+            <div class="report-hero">
+                <h2>📊 รายงานผลการเรียนรู้และความก้าวหน้า</h2>
+                <p>ติดตามการทำภารกิจ การใช้คำใบ้ การซื้อของ การถาม–ตอบ การช่วยเพื่อน Reflection คะแนนน้ำ เหรียญกลุ่ม และกิจกรรมการเข้าใช้งาน เพื่อใช้ทั้งติดตามรายบุคคล/รายกลุ่มและสรุปข้อมูลประกอบงานวิจัย</p>
+            </div>
+
+            <div class="report-note">
+                ℹ️ ข้อมูลบางประเภทเป็น <b>กิจกรรมระดับกลุ่ม</b> เช่น การส่งภารกิจ การเปิดคำใบ้ และเหรียญเวทมนตร์ จึงจะแสดงให้สมาชิกในกลุ่มเห็นร่วมกัน ส่วนของที่ซื้อ Reflection และหยดน้ำสามารถติดตามรายบุคคลได้ละเอียดกว่า
+            </div>
+
+            <div class="report-toolbar">
+                <div><label>🏫 ห้องเรียน</label><select id="reportRoomFilter" onchange="applyResearchReportFilters()"><option value="ALL">ทุกห้อง</option></select></div>
+                <div><label>👤 นักเรียน</label><select id="reportStudentFilter" onchange="applyResearchReportFilters()"><option value="ALL">นักเรียนทุกคน</option></select></div>
+                <div><label>📅 ตั้งแต่วันที่</label><input type="date" id="reportDateFrom" onchange="applyResearchReportFilters()"></div>
+                <div><label>📅 ถึงวันที่</label><input type="date" id="reportDateTo" onchange="applyResearchReportFilters()"></div>
+            </div>
+
+            <div class="report-actions">
+                <button class="report-action blue" onclick="loadResearchReport(true)">🔄 รีเฟรชข้อมูล</button>
+                <button class="report-action green" onclick="exportStudentProgressCsv()">⬇️ CSV รายบุคคล</button>
+                <button class="report-action purple" onclick="exportActivityCsv()">🧾 CSV กิจกรรม</button>
+                <button class="report-action orange" onclick="copyResearchSummary()">📋 คัดลอกสรุปวิจัย</button>
+                <button class="report-action gray" onclick="window.print()">🖨️ พิมพ์ / บันทึก PDF</button>
+            </div>
+
+            <div id="reportWarningHost"></div>
+            <div id="reportLoading" class="report-loading"><span class="spinner"></span>กำลังรวบรวมข้อมูลจาก Firebase...</div>
+            <div id="reportContent" style="display:none;">
+                <div class="report-kpis">
+                    <div class="report-kpi blue"><div class="ico">👥</div><strong id="kpiStudents">0</strong><span>นักเรียนที่อยู่ในรายงาน</span></div>
+                    <div class="report-kpi green"><div class="ico">🎯</div><strong id="kpiMissionRate">0%</strong><span>ความคืบหน้าภารกิจเฉลี่ย</span></div>
+                    <div class="report-kpi yellow"><div class="ico">💡</div><strong id="kpiHints">0</strong><span>การเปิดคำใบ้ของกลุ่ม</span></div>
+                    <div class="report-kpi purple"><div class="ico">🤝</div><strong id="kpiPeerHelp">0</strong><span>คำตอบช่วยเพื่อนที่ผ่านครู</span></div>
+                    <div class="report-kpi pink"><div class="ico">🪞</div><strong id="kpiReflections">0</strong><span>Reflection รายบุคคล</span></div>
+                </div>
+
+                <div class="report-grid">
+                    <section class="report-panel">
+                        <h3>🎯 ความคืบหน้ารายภารกิจ</h3>
+                        <div id="missionProgressReport"></div>
+                    </section>
+                    <section class="report-panel">
+                        <h3>📚 ภาพรวมสถานะผู้เรียน</h3>
+                        <div id="progressBandReport"></div>
+                    </section>
+                </div>
+
+                <div class="report-spotlight-grid">
+                    <section class="report-panel student-watch-panel">
+                        <h3>🚨 นักเรียนที่ควรติดตาม</h3>
+                        <p class="spotlight-help">ระบบพิจารณาจากความก้าวหน้าต่ำกว่า 50%, ยังไม่เริ่มภารกิจ, ไม่มีกิจกรรมเกิน 7 วัน หรือ Reflection ยังไม่ต่อเนื่อง โดยแสดงเหตุผลให้ครูพิจารณา ไม่ได้ตัดสินความสามารถของผู้เรียน</p>
+                        <div id="followUpKpis" class="spotlight-kpi-row"></div>
+                        <div id="followUpReport" class="student-card-list"></div>
+                    </section>
+                    <section class="report-panel student-star-panel">
+                        <h3>🌟 นักเรียนดีเด่น</h3>
+                        <p class="spotlight-help">คัดจากหลายมิติ ไม่ดูแค่คะแนนน้ำ ได้แก่ ความก้าวหน้า การช่วยเพื่อน Reflection ความสม่ำเสมอ และการมีส่วนร่วม</p>
+                        <div id="starKpis" class="spotlight-kpi-row"></div>
+                        <div id="outstandingStudentsReport" class="student-card-list"></div>
+                    </section>
+                </div>
+
+                <section class="report-panel" style="margin:18px 0;">
+                    <h3>🔬 สรุปข้อมูลสำหรับรายงานผลการวิจัย</h3>
+                    <div id="researchNarrative" class="research-summary-box"></div>
+                    <div class="research-summary-copy">* เป็นสถิติเชิงพรรณนาจากพฤติกรรมที่ระบบบันทึก ไม่ใช่ผลทดสอบนัยสำคัญทางสถิติ</div>
+                </section>
+
+                <section class="report-panel" style="margin:18px 0;">
+                    <h3>👩‍🎓 ตารางความก้าวหน้ารายบุคคล</h3>
+                    <div class="report-table-wrap">
+                        <table class="report-table">
+                            <thead><tr>
+                                <th>นักเรียน</th><th>ห้อง</th><th>กลุ่ม</th><th>💧 น้ำ</th><th>LV</th><th>🎯 ภารกิจ</th><th>✅ ตรวจผ่าน</th><th>💡 คำใบ้ (กลุ่ม)</th><th>🛍️ ของที่ซื้อ</th><th>❓ ตั้งคำถาม (กลุ่ม)</th><th>🤝 ตอบผ่านครู (กลุ่ม)</th><th>🏆 Best (กลุ่ม)</th><th>🪞 Reflection</th><th>👀 เข้าใช้หน้า</th><th>🕒 ล่าสุด</th><th>สถานะ</th>
+                            </tr></thead>
+                            <tbody id="studentProgressBody"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <div class="report-grid">
+                    <section class="report-panel">
+                        <h3>📈 สถิติกิจกรรมรวม</h3>
+                        <div id="activityStatsReport"></div>
+                    </section>
+                    <section class="report-panel">
+                        <h3>🕒 กิจกรรมล่าสุด</h3>
+                        <div id="activityTimeline" class="activity-list"></div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+    <div id="studentDetailOverlay" class="student-detail-overlay" onclick="closeStudentReportDetail(event)">
+        <div class="student-detail-card" onclick="event.stopPropagation()">
+            <div class="student-detail-head">
+                <div><h3 id="studentDetailTitle">รายละเอียดนักเรียน</h3><div id="studentDetailSub" class="report-muted"></div></div>
+                <button class="student-detail-close" onclick="closeStudentReportDetail()" aria-label="ปิด">×</button>
+            </div>
+            <div id="studentDetailBody"></div>
+        </div>
+    </div>
+
     <script>
         // ตั้งค่า Firebase
         const firebaseConfig = {
@@ -760,35 +975,185 @@
             document.querySelectorAll('.tab-btn').forEach(btn => { btn.classList.remove('active'); btn.classList.remove('active-green'); btn.classList.remove('active-orange'); btn.classList.remove('active-purple'); });
             document.getElementById(tabId).classList.add('active');
             btnElement.classList.add(activeClass);
-            document.getElementById('mainContainer').style.maxWidth = (tabId === 'grading-tab' || tabId === 'answers-tab') ? "1100px" : "900px";
+            document.getElementById('mainContainer').style.maxWidth = (tabId === 'grading-tab' || tabId === 'answers-tab' || tabId === 'report-tab') ? "1280px" : "900px";
+            if (tabId === 'report-tab') ensureResearchReportLoaded();
         }
 
-        // 🧚‍♀️ ฟังก์ชันส่งข้อความ
-        function sendCoachMessage() {
-            const room = document.getElementById("coachRoomSelect").value;
-            const msg = document.getElementById("coachMessageInput").value.trim();
-            
-            if(!msg) { 
-                alert("กรุณาพิมพ์ข้อความก่อนกดส่งนะกั๊บ!"); 
-                return; 
-            }
-            
-            db.collection("coach_messages").doc(room).set({
-                message: msg,
-                time: Date.now()
-            }).then(() => {
-                let roomText = room;
-                if(room === 'ALL') roomText = 'ทุกห้อง';
-                if(room === 'P4-1') roomText = 'ป.4/1';
-                if(room === 'P4-2') roomText = 'ป.4/2';
-                if(room === 'P4-3') roomText = 'ป.4/3';
-                
-                alert(`✅ ส่งข้อความกระซิบถึง ${roomText} เรียบร้อยแล้ว!`);
-                document.getElementById("coachMessageInput").value = "";
-            }).catch(err => {
-                alert("เกิดข้อผิดพลาด: " + err.message);
-            });
+        // =========================================================
+        // 🧑‍🏫 ระบบจัดการมอนสเตอร์โค้ช
+        // เก็บเป็น collection: coach_tips
+        // missionId: GENERAL หรือ id ของภารกิจ
+        // phase: before | during | before_submit
+        // =========================================================
+        let coachTipsAdminData = [];
+
+        function escapeCoachAdminHtml(value) {
+            return String(value ?? "").replace(/[&<>"']/g, ch => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+            }[ch]));
         }
+
+        function coachPhaseLabel(phase) {
+            if (phase === "during") return "🧠 ระหว่างทำ";
+            if (phase === "before_submit") return "✅ ก่อนส่ง";
+            return "🚦 ก่อนลงมือ";
+        }
+
+        function coachMissionLabel(missionId) {
+            if (!missionId || missionId === "GENERAL") return "🌈 ภารกิจรวม";
+            return missionTitlesMap[missionId] || missionId;
+        }
+
+        async function saveCoachTip(event) {
+            event.preventDefault();
+            const id = document.getElementById("coachTipId").value.trim();
+            const missionId = document.getElementById("coachMissionSelect").value || "GENERAL";
+            const phase = document.getElementById("coachPhaseSelect").value || "before";
+            const icon = document.getElementById("coachIconInput").value.trim() || "👾";
+            const title = document.getElementById("coachTitleInput").value.trim();
+            const message = document.getElementById("coachMessageInput").value.trim();
+            const order = Math.max(0, parseInt(document.getElementById("coachOrderInput").value || "0", 10) || 0);
+            const enabled = document.getElementById("coachEnabledInput").checked;
+            const btn = document.getElementById("btnSaveCoachTip");
+
+            if (!title || !message) {
+                alert("กรุณากรอกหัวข้อและข้อความคำแนะนำให้ครบ");
+                return;
+            }
+
+            try {
+                btn.disabled = true;
+                btn.textContent = "⏳ กำลังบันทึก...";
+                const payload = {
+                    missionId,
+                    missionTitle: missionId === "GENERAL" ? "ภารกิจรวม" : (missionTitlesMap[missionId] || missionId),
+                    phase,
+                    icon,
+                    title,
+                    message,
+                    order,
+                    enabled,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                if (id) {
+                    await db.collection("coach_tips").doc(id).set(payload, { merge: true });
+                } else {
+                    payload.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+                    await db.collection("coach_tips").add(payload);
+                }
+
+                alert(id ? "✅ แก้ไขคำแนะนำเรียบร้อยแล้ว" : "✅ เพิ่มคำแนะนำให้มอนสเตอร์โค้ชแล้ว");
+                resetCoachTipForm();
+            } catch (error) {
+                console.error("saveCoachTip", error);
+                alert("บันทึกคำแนะนำไม่สำเร็จ\n\n" + (error.message || error));
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "💾 บันทึกคำแนะนำ";
+            }
+        }
+
+        function resetCoachTipForm() {
+            document.getElementById("coachTipForm").reset();
+            document.getElementById("coachTipId").value = "";
+            document.getElementById("coachMissionSelect").value = "GENERAL";
+            document.getElementById("coachPhaseSelect").value = "before";
+            document.getElementById("coachIconInput").value = "👾";
+            document.getElementById("coachOrderInput").value = "1";
+            document.getElementById("coachEnabledInput").checked = true;
+            document.getElementById("btnCancelCoachEdit").style.display = "none";
+            document.getElementById("btnSaveCoachTip").textContent = "💾 บันทึกคำแนะนำ";
+        }
+
+        function editCoachTip(id) {
+            const tip = coachTipsAdminData.find(item => item.id === id);
+            if (!tip) return;
+            document.getElementById("coachTipId").value = tip.id;
+            document.getElementById("coachMissionSelect").value = tip.missionId || "GENERAL";
+            document.getElementById("coachPhaseSelect").value = tip.phase || "before";
+            document.getElementById("coachIconInput").value = tip.icon || "👾";
+            document.getElementById("coachTitleInput").value = tip.title || "";
+            document.getElementById("coachMessageInput").value = tip.message || "";
+            document.getElementById("coachOrderInput").value = Number(tip.order) || 0;
+            document.getElementById("coachEnabledInput").checked = tip.enabled !== false;
+            document.getElementById("btnCancelCoachEdit").style.display = "inline-block";
+            document.getElementById("btnSaveCoachTip").textContent = "💾 บันทึกการแก้ไข";
+            document.getElementById("coachTipForm").scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        async function deleteCoachTip(id) {
+            const tip = coachTipsAdminData.find(item => item.id === id);
+            if (!confirm(`ลบคำแนะนำ “${tip?.title || "รายการนี้"}” ใช่หรือไม่?`)) return;
+            try {
+                await db.collection("coach_tips").doc(id).delete();
+            } catch (error) {
+                console.error("deleteCoachTip", error);
+                alert("ลบคำแนะนำไม่สำเร็จ\n\n" + (error.message || error));
+            }
+        }
+
+        async function toggleCoachTip(id, enabled) {
+            try {
+                await db.collection("coach_tips").doc(id).set({
+                    enabled,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true });
+            } catch (error) {
+                console.error("toggleCoachTip", error);
+                alert("เปลี่ยนสถานะคำแนะนำไม่สำเร็จ");
+            }
+        }
+
+        function renderCoachTipsAdmin() {
+            const host = document.getElementById("coachTipsAdminList");
+            if (!host) return;
+            const filter = document.getElementById("coachListFilter")?.value || "ALL";
+            let list = coachTipsAdminData.filter(tip => filter === "ALL" || (tip.missionId || "GENERAL") === filter);
+            list.sort((a, b) => {
+                const missionCompare = String(a.missionId || "GENERAL").localeCompare(String(b.missionId || "GENERAL"), "th", { numeric: true });
+                if (missionCompare) return missionCompare;
+                const phaseOrder = { before: 1, during: 2, before_submit: 3 };
+                const phaseCompare = (phaseOrder[a.phase] || 9) - (phaseOrder[b.phase] || 9);
+                if (phaseCompare) return phaseCompare;
+                return (Number(a.order) || 0) - (Number(b.order) || 0);
+            });
+
+            if (!list.length) {
+                host.innerHTML = '<div class="coach-admin-empty">👾 ยังไม่มีคำแนะนำในหมวดนี้<br><small>เพิ่มรายการแรกจากแบบฟอร์มด้านบนได้เลย</small></div>';
+                return;
+            }
+
+            host.innerHTML = list.map(tip => `
+                <article class="coach-admin-card ${tip.enabled === false ? "coach-disabled" : ""}">
+                    <div class="coach-admin-card-icon">${escapeCoachAdminHtml(tip.icon || "👾")}</div>
+                    <div class="coach-admin-card-body">
+                        <div class="coach-admin-badges">
+                            <span>${escapeCoachAdminHtml(coachMissionLabel(tip.missionId))}</span>
+                            <span>${escapeCoachAdminHtml(coachPhaseLabel(tip.phase))}</span>
+                            <span>ลำดับ ${Number(tip.order) || 0}</span>
+                            <span class="${tip.enabled === false ? "badge-off" : "badge-on"}">${tip.enabled === false ? "🙈 ปิด" : "👀 เปิด"}</span>
+                        </div>
+                        <h4>${escapeCoachAdminHtml(tip.title || "ไม่มีหัวข้อ")}</h4>
+                        <p>${escapeCoachAdminHtml(tip.message || "")}</p>
+                    </div>
+                    <div class="coach-admin-card-actions">
+                        <button type="button" class="btn-action btn-blue" onclick="editCoachTip('${tip.id}')">📝 แก้ไข</button>
+                        <button type="button" class="btn-action btn-gray" onclick="toggleCoachTip('${tip.id}', ${tip.enabled === false ? "true" : "false"})">${tip.enabled === false ? "👀 เปิด" : "🙈 ปิด"}</button>
+                        <button type="button" class="btn-action btn-red" onclick="deleteCoachTip('${tip.id}')">🗑️ ลบ</button>
+                    </div>
+                </article>
+            `).join("");
+        }
+
+        db.collection("coach_tips").onSnapshot(snapshot => {
+            coachTipsAdminData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            renderCoachTipsAdmin();
+        }, error => {
+            console.error("coach_tips listener", error);
+            const host = document.getElementById("coachTipsAdminList");
+            if (host) host.innerHTML = `<div class="coach-admin-empty">⚠️ โหลดคำแนะนำไม่ได้<br><small>${escapeCoachAdminHtml(error.message || "กรุณาตรวจ Firestore Rules")}</small></div>`;
+        });
 
         // =========================================================
         // 👥 โหลดกระเป๋าและรายชื่อทุกกลุ่ม
@@ -1209,9 +1574,9 @@
                             ? work.groupMemberNames
                             : [];
                     const savedWaterReward =
-                        Number(work.waterRewardAmount) || 5;
+                        Number(work.waterRewardAmount) || 10;
                     const savedCoinReward =
-                        Number(work.coinRewardAmount) || 10;
+                        Number(work.coinRewardAmount) || 50;
                     let timeStr = work.timestamp && work.timestamp.toDate ? work.timestamp.toDate().toLocaleString('th-TH') : 'ไม่ระบุเวลา';
                     const card = document.createElement('div');
                     card.className = `work-card ${isGraded ? 'graded' : ''}`;
@@ -2208,8 +2573,12 @@
         db.collection("missions").orderBy("updatedAt", "asc").onSnapshot((snapshot) => {
             const tableBody = document.getElementById("missionTableBody");
             const resourceSelect = document.getElementById("r_mission_select");
+            const coachMissionSelect = document.getElementById("coachMissionSelect");
+            const coachListFilter = document.getElementById("coachListFilter");
             tableBody.innerHTML = "";
-            resourceSelect.innerHTML = '<option value="" disabled selected>-- เลือกภารกิจ --</option>';
+            resourceSelect.innerHTML = '<option value="" disabled selected>-- เลือกหมวด --</option><option value="GENERAL">🌈 ภารกิจรวม / ความรู้ทั่วไป</option>';
+            if (coachMissionSelect) coachMissionSelect.innerHTML = '<option value="GENERAL">🌈 ภารกิจรวม</option>';
+            if (coachListFilter) coachListFilter.innerHTML = '<option value="ALL">ทั้งหมด</option><option value="GENERAL">🌈 ภารกิจรวม</option>';
             if (snapshot.empty) {
                 tableBody.innerHTML = '<tr><td colspan="4">ยังไม่มีข้อมูลภารกิจ</td></tr>';
                 return;
@@ -2236,33 +2605,102 @@
                         </div>
                     </td>
                     <td>
-                        <button class="btn-action btn-blue" onclick="editMission('${doc.id}', '${encodeURIComponent(m.title || "")}', '${encodeURIComponent(m.detail || "")}', '${encodeURIComponent(JSON.stringify(m.hints || []))}', '${encodeURIComponent(m.imageUrl || "")}', '${encodeURIComponent(m.scratchLink || (m.scratchId ? `https://scratch.mit.edu/projects/${m.scratchId}/` : ""))}')">📝 แก้ไข</button>
-                        <button class="btn-action btn-red" onclick="deleteResource('${doc.id}')">🗑️</button>
+                        <button
+                            type="button"
+                            class="btn-action btn-blue"
+                            data-mission-id="${encodeURIComponent(doc.id)}"
+                            onclick="editMissionById(this.dataset.missionId)">
+                            📝 แก้ไข
+                        </button>
+                        <button
+                            type="button"
+                            class="btn-action btn-red"
+                            data-mission-id="${encodeURIComponent(doc.id)}"
+                            onclick="deleteMissionById(this.dataset.missionId)">
+                            🗑️
+                        </button>
                     </td>
                 </tr>`;
                 resourceSelect.innerHTML += `<option value="${doc.id}">${doc.id} : ${m.title}</option>`;
+                if (coachMissionSelect) coachMissionSelect.innerHTML += `<option value="${doc.id}">${doc.id} : ${m.title}</option>`;
+                if (coachListFilter) coachListFilter.innerHTML += `<option value="${doc.id}">${doc.id} : ${m.title}</option>`;
             });
         });
 
-        function editMission(id, title, detail, hints, imageUrl, scratchLink) {
-            document.getElementById("m_id").value = id;
-            document.getElementById("m_title").value = decodeURIComponent(title);
-            document.getElementById("m_detail").value = decodeURIComponent(detail);
-            const decodedImage = decodeURIComponent(imageUrl || "");
-            document.getElementById("m_image_link").value = decodedImage;
-            previewMissionImageLink();
+        async function editMissionById(encodedId) {
+            const id = decodeURIComponent(encodedId || "");
+            if (!id) {
+                alert("ไม่พบรหัสภารกิจ");
+                return;
+            }
 
-            document.getElementById("m_scratch_link").value = decodeURIComponent(scratchLink || "");
-            previewMissionScratch();
+            try {
+                const snap = await db.collection("missions").doc(id).get();
 
-            document.getElementById("hintsList").innerHTML = "";
-            const decodedHints = JSON.parse(decodeURIComponent(hints || "%5B%5D"));
-            if (decodedHints.length) decodedHints.forEach(hint => addHintField(hint));
-            else addHintField();
+                if (!snap.exists) {
+                    alert(`ไม่พบข้อมูลภารกิจ ${id}`);
+                    return;
+                }
 
-            document.getElementById("mission-tab").scrollIntoView({ behavior: "smooth", block: "start" });
+                const m = snap.data() || {};
+
+                document.getElementById("m_id").value = id;
+                document.getElementById("m_title").value = m.title || "";
+                document.getElementById("m_detail").value = m.detail || "";
+
+                document.getElementById("m_image_link").value =
+                    m.imageOriginalLink || m.imageUrl || "";
+                previewMissionImageLink();
+
+                document.getElementById("m_scratch_link").value =
+                    m.scratchLink ||
+                    (m.scratchId
+                        ? `https://scratch.mit.edu/projects/${m.scratchId}/`
+                        : "");
+                previewMissionScratch();
+
+                const hintsList = document.getElementById("hintsList");
+                hintsList.innerHTML = "";
+
+                const hints = Array.isArray(m.hints) ? m.hints : [];
+                if (hints.length) {
+                    hints.forEach(hint => addHintField(hint));
+                } else {
+                    addHintField();
+                }
+
+                document.getElementById("mission-tab").scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            } catch (error) {
+                console.error("Edit mission error:", error);
+                alert("เปิดข้อมูลภารกิจเพื่อแก้ไขไม่สำเร็จ\n\n" + error.message);
+            }
         }
-        function deleteMission(id) { if (confirm(`ลบ ${id}?`)) { db.collection("missions").doc(id).delete(); db.collection("resources").doc(id).delete(); } }
+
+        async function deleteMissionById(encodedId) {
+            const id = decodeURIComponent(encodedId || "");
+            if (!id) return;
+
+            if (!confirm(`ยืนยันลบภารกิจ ${id} หรือไม่?`)) return;
+
+            try {
+                await db.collection("missions").doc(id).delete();
+
+                const resourceRef = db.collection("resources").doc(id);
+                const resourceSnap = await resourceRef.get();
+                if (resourceSnap.exists) {
+                    await resourceRef.delete();
+                }
+
+                alert(`ลบ ${id} เรียบร้อยแล้ว`);
+            } catch (error) {
+                console.error("Delete mission error:", error);
+                alert("ลบภารกิจไม่สำเร็จ\n\n" + error.message);
+            }
+        }
         function isGoogleDriveLink(url) {
             return /drive\.google\.com/i.test(url || "");
         }
@@ -2344,6 +2782,9 @@
                     slideLink ? "document" : "";
 
                 await db.collection("resources").doc(missionId).set({
+                    missionId,
+                    missionTitle: missionId === "GENERAL" ? "ภารกิจรวม" : (missionTitlesMap[missionId] || missionId),
+                    isGeneral: missionId === "GENERAL",
                     videoLink,
                     slideLink,
                     resourceType,
@@ -2369,7 +2810,7 @@
             document.getElementById("resourcesTableBody").innerHTML = "";
             snapshot.forEach(doc => {
                 const r = doc.data();
-                document.getElementById("resourcesTableBody").innerHTML += `<tr><td><strong>${doc.id}</strong></td><td>${r.videoLink?'📺':'-'}</td><td>${r.slideLink?'📜':'-'}</td><td>${r.note||'-'}</td>
+                document.getElementById("resourcesTableBody").innerHTML += `<tr><td><strong>${doc.id === 'GENERAL' ? '🌈 ภารกิจรวม' : doc.id}</strong></td><td>${r.videoLink?'📺':'-'}</td><td>${r.slideLink?'📜':'-'}</td><td>${r.note||'-'}</td>
                     <td><button class="btn-action btn-blue" onclick="editResource('${doc.id}', '${encodeURIComponent(r.videoLink||'')}', '${encodeURIComponent(r.slideLink||'')}', '${encodeURIComponent(r.note||'')}')">📝</button><button class="btn-action btn-red" onclick="deleteResource('${doc.id}')">🗑️</button></td></tr>`;
             });
         });
@@ -2648,7 +3089,7 @@
                                 ${answer.coinRewarded ? '✅ มอบ 5 เหรียญแล้ว' : '✅ อนุมัติ +5 เหรียญ'}
                             </button>
                             <button class="btn-best-answer" onclick="markBestKnowledgeAnswerAdmin('${answer.id}', '${answer.postId}')" ${answer.isBest ? 'disabled' : ''}>
-                                ${answer.isBest ? '🏆 เป็นคำตอบดีที่สุดแล้ว' : '🏆 เลือกดีที่สุด รวม 10 เหรียญ'}
+                                ${answer.isBest ? '🏆 เป็นคำตอบดีที่สุดแล้ว' : '🏆 เลือกดีที่สุด +5 น้ำ +10 เหรียญ'}
                             </button>
                             ${post.id ? `<button class="btn-view-question" onclick="openKnowledgeQuestionAdmin('${post.id}')">👁 ดูคำถามเต็ม</button>` : ''}
                         </div>
@@ -2667,22 +3108,36 @@
                     const answer = answerSnapshot.data();
                     if (answer.coinRewarded) return;
                     if (!answer.authorGroupId) throw new Error('คำตอบนี้ไม่มีข้อมูลกลุ่มของผู้ตอบ');
+                    if (answer.authorGroupId === 'KRU_MILD_HELPER') {
+                        transaction.update(answerRef, {
+                            isApproved: true,
+                            coinRewarded: true,
+                            approvedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                        return;
+                    }
 
                     const walletRef = db.collection('group_wallets').doc(answer.authorGroupId);
                     const walletSnapshot = await transaction.get(walletRef);
                     const wallet = walletSnapshot.exists ? walletSnapshot.data() : {};
+                    const memberIds = Array.isArray(wallet.memberIds) ? wallet.memberIds : [];
 
                     const approvedCount = (Number(wallet.helperApprovedCount) || 0) + 1;
-                    const oldCycles = Number(wallet.helperRewardCycles) || 0;
-                    const newCycles = Math.floor(approvedCount / 5);
-                    const waterBonus = newCycles > oldCycles ? 10 : 0;
-                    const newCoins = (Number(wallet.magicCoins) || 0) + 5;
+                    const waterReward = 5;
+                    const coinReward = 5;
+                    const newCoins = (Number(wallet.magicCoins) || 0) + coinReward;
+
+                    for (const userId of memberIds) {
+                        transaction.update(db.collection('users').doc(userId), {
+                            waterDrops: firebase.firestore.FieldValue.increment(waterReward),
+                            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                    }
 
                     transaction.set(walletRef, {
                         magicCoins: newCoins,
-                        water: (Number(wallet.water) || 0) + waterBonus,
+                        water: (Number(wallet.water) || 0) + waterReward,
                         helperApprovedCount: approvedCount,
-                        helperRewardCycles: newCycles,
                         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
                     }, { merge: true });
 
@@ -2695,8 +3150,8 @@
                     const historyRef = walletRef.collection('transactions').doc();
                     transaction.set(historyRef, {
                         type: 'KNOWLEDGE_ANSWER_REWARD',
-                        amount: 5,
-                        waterAmount: waterBonus,
+                        amount: coinReward,
+                        waterAmount: waterReward,
                         answerId,
                         postId: answer.postId || '',
                         reason: 'ครูอนุมัติคำตอบจากกระดานแห่งภูมิปัญญา',
@@ -2705,7 +3160,7 @@
                     });
                 });
 
-                alert('✅ อนุมัติคำตอบและมอบ 5 เหรียญแล้ว\n\nหากเป็นคำตอบที่ผ่านการอนุมัติครบครั้งที่ 5 ระบบจะเพิ่มน้ำ 10 หยดให้อัตโนมัติ');
+                alert('✅ อนุมัติคำตอบแล้ว\n\n💧 +5 หยดน้ำให้สมาชิกแต่ละคน\n🪙 +5 เหรียญเข้ากระเป๋ากลุ่ม');
             } catch (error) {
                 console.error('Approve answer error:', error);
                 alert('อนุมัติคำตอบไม่สำเร็จ\n\n' + error.message);
@@ -2713,7 +3168,7 @@
         }
 
         async function markBestKnowledgeAnswerAdmin(answerId, postId) {
-            if (!confirm('เลือกคำตอบนี้เป็นคำตอบดีที่สุดใช่หรือไม่?\nผู้ตอบจะได้รับรวม 10 เหรียญ')) return;
+            if (!confirm('เลือกคำตอบนี้เป็นคำตอบดีที่สุดใช่หรือไม่?\n\nโบนัสคำตอบดีที่สุด: +5 หยดน้ำ +10 เหรียญ')) return;
 
             const targetRef = db.collection('knowledge_answers').doc(answerId);
             try {
@@ -2729,38 +3184,66 @@
                 });
                 await batch.commit();
 
+                let result = { coinAdd: 0, waterAdd: 0, baseAdded: false, bestAdded: false };
+
                 await db.runTransaction(async transaction => {
                     const answerSnapshot = await transaction.get(targetRef);
                     if (!answerSnapshot.exists) throw new Error('ไม่พบคำตอบนี้');
                     const answer = answerSnapshot.data();
                     if (!answer.authorGroupId) throw new Error('คำตอบนี้ไม่มีข้อมูลกลุ่มของผู้ตอบ');
+                    if (answer.authorGroupId === 'KRU_MILD_HELPER') {
+                        transaction.update(targetRef, {
+                            isApproved: true,
+                            isBest: true,
+                            coinRewarded: true,
+                            bestBonusRewarded: true,
+                            approvedAt: answer.approvedAt || firebase.firestore.FieldValue.serverTimestamp(),
+                            bestAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                        return;
+                    }
 
                     const walletRef = db.collection('group_wallets').doc(answer.authorGroupId);
                     const walletSnapshot = await transaction.get(walletRef);
                     const wallet = walletSnapshot.exists ? walletSnapshot.data() : {};
+                    const memberIds = Array.isArray(wallet.memberIds) ? wallet.memberIds : [];
 
                     let coinAdd = 0;
+                    let waterAdd = 0;
                     let approvedCount = Number(wallet.helperApprovedCount) || 0;
-                    let cycles = Number(wallet.helperRewardCycles) || 0;
-                    let waterBonus = 0;
+                    let baseAdded = false;
+                    let bestAdded = false;
 
+                    // ถ้ายังไม่เคยอนุมัติ ให้รางวัลตอบผ่านก่อน +5 น้ำ +5 เหรียญ
                     if (!answer.coinRewarded) {
                         coinAdd += 5;
+                        waterAdd += 5;
                         approvedCount += 1;
-                        const nextCycles = Math.floor(approvedCount / 5);
-                        if (nextCycles > cycles) {
-                            waterBonus = 10;
-                            cycles = nextCycles;
-                        }
+                        baseAdded = true;
                     }
-                    if (!answer.bestBonusRewarded) coinAdd += 5;
+
+                    // โบนัสคำตอบดีที่สุด เพิ่มอีก +5 น้ำ +10 เหรียญ
+                    if (!answer.bestBonusRewarded) {
+                        coinAdd += 10;
+                        waterAdd += 5;
+                        bestAdded = true;
+                    }
 
                     const newCoins = (Number(wallet.magicCoins) || 0) + coinAdd;
+
+                    if (waterAdd > 0) {
+                        for (const userId of memberIds) {
+                            transaction.update(db.collection('users').doc(userId), {
+                                waterDrops: firebase.firestore.FieldValue.increment(waterAdd),
+                                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                            });
+                        }
+                    }
+
                     transaction.set(walletRef, {
                         magicCoins: newCoins,
-                        water: (Number(wallet.water) || 0) + waterBonus,
+                        water: (Number(wallet.water) || 0) + waterAdd,
                         helperApprovedCount: approvedCount,
-                        helperRewardCycles: cycles,
                         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
                     }, { merge: true });
 
@@ -2773,12 +3256,12 @@
                         bestAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
 
-                    if (coinAdd > 0 || waterBonus > 0) {
+                    if (coinAdd > 0 || waterAdd > 0) {
                         const historyRef = walletRef.collection('transactions').doc();
                         transaction.set(historyRef, {
                             type: 'BEST_KNOWLEDGE_ANSWER_REWARD',
                             amount: coinAdd,
-                            waterAmount: waterBonus,
+                            waterAmount: waterAdd,
                             answerId,
                             postId,
                             reason: 'ครูเลือกเป็นคำตอบดีที่สุด',
@@ -2786,9 +3269,15 @@
                             createdAt: firebase.firestore.FieldValue.serverTimestamp()
                         });
                     }
+
+                    result = { coinAdd, waterAdd, baseAdded, bestAdded };
                 });
 
-                alert('🏆 เลือกคำตอบดีที่สุดแล้ว ผู้ตอบได้รับรวม 10 เหรียญ');
+                if (result.coinAdd > 0 || result.waterAdd > 0) {
+                    alert(`🏆 เลือกคำตอบดีที่สุดแล้ว\n\n💧 +${result.waterAdd} หยดน้ำให้สมาชิกแต่ละคน\n🪙 +${result.coinAdd} เหรียญเข้ากระเป๋ากลุ่ม`);
+                } else {
+                    alert('🏆 คำตอบนี้ได้รับรางวัลคำตอบดีที่สุดไปแล้ว');
+                }
             } catch (error) {
                 console.error('Best answer error:', error);
                 alert('เลือกคำตอบดีที่สุดไม่สำเร็จ\n\n' + error.message);
@@ -2820,6 +3309,292 @@
                 (media ? `
 ${media}` : '')
             );
+        }
+
+
+        // =========================================================
+        // 📊 REPORT / RESEARCH DASHBOARD
+        // อ่านข้อมูลเดิมจากหลาย collection โดยไม่แก้ไขคะแนน
+        // =========================================================
+        let researchReportLoaded = false;
+        let researchReportRaw = null;
+        let researchReportView = null;
+        const REPORT_LEVEL_THRESHOLDS = [0,10,20,30,40,50,65,80];
+
+        function reportTimestampMs(v){
+            if(!v) return 0;
+            if(typeof v.toMillis === 'function') return v.toMillis();
+            if(typeof v.seconds === 'number') return v.seconds*1000;
+            const d = new Date(v); return Number.isNaN(d.getTime()) ? 0 : d.getTime();
+        }
+        function reportDateText(ms){
+            if(!ms) return '-';
+            try{return new Intl.DateTimeFormat('th-TH',{day:'2-digit',month:'short',year:'2-digit',hour:'2-digit',minute:'2-digit'}).format(new Date(ms));}catch(e){return new Date(ms).toLocaleString();}
+        }
+        function reportEscape(v){return String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));}
+        function reportLevel(water){
+            const w=Math.max(0,Number(water)||0); let lv=1;
+            REPORT_LEVEL_THRESHOLDS.forEach((t,i)=>{if(w>=t)lv=i+1}); return lv;
+        }
+        function reportPercent(a,b){return b>0 ? Math.round((a/b)*100) : 0;}
+        function reportSafeArray(v){return Array.isArray(v)?v:[];}
+        function reportUnique(arr){return Array.from(new Set(arr.filter(Boolean)));}
+        function reportRoomNorm(v){return String(v||'ไม่ระบุห้อง').trim()||'ไม่ระบุห้อง';}
+
+        async function reportGetCollection(name){
+            try{
+                const snap=await db.collection(name).get();
+                return {ok:true,items:snap.docs.map(d=>({id:d.id,...(d.data()||{})}))};
+            }catch(error){
+                console.warn('Report collection failed:',name,error);
+                return {ok:false,items:[],error};
+            }
+        }
+        async function reportGetTransactions(wallets){
+            const all=[]; const warnings=[];
+            for(const wallet of wallets){
+                try{
+                    const snap=await db.collection('group_wallets').doc(wallet.id).collection('transactions').get();
+                    snap.forEach(d=>all.push({id:d.id,groupId:wallet.id,...(d.data()||{})}));
+                }catch(error){warnings.push(`transactions/${wallet.id}: ${error.message||error}`);}
+            }
+            return {items:all,warnings};
+        }
+        function ensureResearchReportLoaded(){ if(!researchReportLoaded) loadResearchReport(false); }
+
+        async function loadResearchReport(force=false){
+            if(researchReportLoaded && !force){ applyResearchReportFilters(); return; }
+            const loading=document.getElementById('reportLoading'), content=document.getElementById('reportContent'), warn=document.getElementById('reportWarningHost');
+            if(loading) loading.style.display='block'; if(content) content.style.display='none'; if(warn) warn.innerHTML='';
+            try{
+                const names=['users','missions','shared_works','group_wallets','purchase_history','knowledge_posts','knowledge_answers','reflections','learning_reflections','activity_logs'];
+                const results=await Promise.all(names.map(reportGetCollection));
+                const data={}; const warnings=[];
+                names.forEach((name,i)=>{data[name]=results[i].items;if(!results[i].ok)warnings.push(`${name}: ${results[i].error?.message||'อ่านไม่ได้'}`)});
+                const tx=await reportGetTransactions(data.group_wallets);
+                data.transactions=tx.items; warnings.push(...tx.warnings);
+                researchReportRaw=data; researchReportLoaded=true;
+                populateResearchFilters();
+                if(warnings.length && warn){
+                    warn.innerHTML=`<div class="report-warning">⚠️ มีข้อมูลบางส่วนที่อ่านไม่ได้ (${warnings.length} จุด) รายงานส่วนอื่นยังใช้งานได้<br><small>${reportEscape(warnings.slice(0,4).join(' • '))}</small></div>`;
+                }
+                applyResearchReportFilters();
+            }catch(error){
+                console.error('loadResearchReport',error);
+                if(warn) warn.innerHTML=`<div class="report-warning">โหลดรายงานไม่สำเร็จ: ${reportEscape(error.message||error)}</div>`;
+            }finally{
+                if(loading) loading.style.display='none'; if(content) content.style.display='block';
+            }
+        }
+
+        function populateResearchFilters(){
+            if(!researchReportRaw)return;
+            const roomEl=document.getElementById('reportRoomFilter'); const studentEl=document.getElementById('reportStudentFilter');
+            const prevRoom=roomEl?.value||'ALL', prevStudent=studentEl?.value||'ALL';
+            const rooms=reportUnique(researchReportRaw.users.map(u=>reportRoomNorm(u.room))).sort((a,b)=>a.localeCompare(b,'th',{numeric:true}));
+            if(roomEl){roomEl.innerHTML='<option value="ALL">ทุกห้อง</option>'+rooms.map(r=>`<option value="${reportEscape(r)}">${reportEscape(r)}</option>`).join('');roomEl.value=rooms.includes(prevRoom)?prevRoom:'ALL';}
+            if(studentEl){
+                const users=[...researchReportRaw.users].sort((a,b)=>String(a.nickname||a.id).localeCompare(String(b.nickname||b.id),'th'));
+                studentEl.innerHTML='<option value="ALL">นักเรียนทุกคน</option>'+users.map(u=>`<option value="${reportEscape(u.id)}">${reportEscape(u.nickname||u.id)} • ${reportEscape(reportRoomNorm(u.room))}</option>`).join('');
+                studentEl.value=users.some(u=>u.id===prevStudent)?prevStudent:'ALL';
+            }
+        }
+
+        function buildResearchModel(){
+            const d=researchReportRaw||{};
+            const users=d.users||[], missions=d.missions||[], works=d.shared_works||[], wallets=d.group_wallets||[], txs=d.transactions||[], purchases=d.purchase_history||[], posts=d.knowledge_posts||[], answers=d.knowledge_answers||[], activity=d.activity_logs||[];
+            const reflectionsRaw=[...(d.reflections||[]),...(d.learning_reflections||[])];
+            const reflectionMap=new Map();
+            reflectionsRaw.forEach(r=>{const key=[r.userId||r.nickname||'',r.missionId||'',r.groupId||''].join('|');const old=reflectionMap.get(key);if(!old||reportTimestampMs(r.updatedAt||r.createdAt)>reportTimestampMs(old.updatedAt||old.createdAt))reflectionMap.set(key,r)});
+            const reflections=[...reflectionMap.values()];
+            const walletMap=new Map(wallets.map(w=>[w.id,w]));
+            const membership=new Map(); wallets.forEach(w=>reportSafeArray(w.memberIds).forEach(uid=>{if(!membership.has(uid))membership.set(uid,w.id)}));
+            const missionIds=missions.map(m=>m.id); const totalMissions=missionIds.length;
+
+            const rows=users.map(u=>{
+                const groupId=u.groupWalletId||membership.get(u.id)||''; const wallet=walletMap.get(groupId)||{};
+                const memberIds=reportSafeArray(wallet.memberIds); const memberNames=reportSafeArray(wallet.memberNames);
+                const groupWorks=works.filter(w=>w.groupId===groupId || reportSafeArray(w.groupMemberIds).includes(u.id));
+                const completedMissions=reportUnique(groupWorks.map(w=>String(w.missionId||w.mission||'').trim()));
+                const gradedMissions=reportUnique(groupWorks.filter(w=>w.isGraded).map(w=>String(w.missionId||w.mission||'').trim()));
+                const groupTx=txs.filter(t=>t.groupId===groupId);
+                const hints=groupTx.filter(t=>t.type==='BUY_HINT');
+                const userPurchases=purchases.filter(p=>p.userId===u.id);
+                const groupPosts=posts.filter(p=>p.authorGroupId===groupId);
+                const groupAnswers=answers.filter(a=>a.authorGroupId===groupId);
+                const approvedAnswers=groupAnswers.filter(a=>a.isApproved);
+                const bestAnswers=groupAnswers.filter(a=>a.isBest);
+                const userReflections=reflections.filter(r=>r.userId===u.id || (!r.userId && String(r.nickname||'').trim()===String(u.nickname||'').trim()));
+                const pageViews=activity.filter(a=>a.type==='PAGE_VIEW' && (reportSafeArray(a.userIds).includes(u.id)||a.groupId===groupId));
+                const relevantTimes=[reportTimestampMs(u.lastLoginAt),reportTimestampMs(u.updatedAt)];
+                groupWorks.forEach(x=>relevantTimes.push(reportTimestampMs(x.gradedAt||x.timestamp||x.createdAt)));
+                userPurchases.forEach(x=>relevantTimes.push(reportTimestampMs(x.purchasedAt||x.createdAt)));
+                groupPosts.forEach(x=>relevantTimes.push(reportTimestampMs(x.updatedAt||x.createdAt)));
+                groupAnswers.forEach(x=>relevantTimes.push(reportTimestampMs(x.bestAt||x.approvedAt||x.createdAt)));
+                userReflections.forEach(x=>relevantTimes.push(reportTimestampMs(x.updatedAt||x.createdAt)));
+                pageViews.forEach(x=>relevantTimes.push(reportTimestampMs(x.createdAt)));
+                const lastActivity=Math.max(0,...relevantTimes);
+                const water=Math.max(0,Number(u.waterDrops)||0);
+                const progressPct=reportPercent(completedMissions.length,totalMissions);
+                return {userId:u.id,name:u.nickname||u.id,room:reportRoomNorm(u.room),groupId,groupNames:memberNames,coins:Number(wallet.magicCoins)||0,water,level:reportLevel(water),completedMissions,gradedMissions,hints,userPurchases,groupPosts,groupAnswers,approvedAnswers,bestAnswers,userReflections,pageViews,lastActivity,progressPct,totalMissions};
+            });
+
+            const timeline=[];
+            activity.forEach(a=>timeline.push({time:reportTimestampMs(a.createdAt),type:a.type||'ACTIVITY',room:reportRoomNorm(a.room),groupId:a.groupId||'',userIds:reportSafeArray(a.userIds),name:a.actorName||reportSafeArray(a.memberNames).join(' • ')||'ผู้ใช้งาน',detail:a.page?`เปิดหน้า ${a.page}`:(a.detail||'กิจกรรมในเว็บไซต์')}));
+            works.forEach(w=>timeline.push({time:reportTimestampMs(w.timestamp||w.createdAt),type:'SUBMIT_WORK',room:reportRoomNorm(w.groupRoom||w.roomName),groupId:w.groupId||'',userIds:reportSafeArray(w.groupMemberIds),name:reportSafeArray(w.groupMemberNames).join(' • ')||w.studentName||w.name||'กลุ่ม',detail:`ส่ง ${w.missionId||w.mission||'ภารกิจ'}`}));
+            works.filter(w=>w.isGraded).forEach(w=>timeline.push({time:reportTimestampMs(w.gradedAt),type:'WORK_GRADED',room:reportRoomNorm(w.groupRoom||w.roomName),groupId:w.groupId||'',userIds:reportSafeArray(w.groupMemberIds),name:reportSafeArray(w.groupMemberNames).join(' • ')||w.studentName||'กลุ่ม',detail:`ครูตรวจผ่าน +${Number(w.waterRewardAmount)||0}💧 +${Number(w.coinRewardAmount)||0}🪙`}));
+            txs.filter(t=>t.type==='BUY_HINT').forEach(t=>timeline.push({time:reportTimestampMs(t.createdAt),type:'BUY_HINT',room:reportRoomNorm(walletMap.get(t.groupId)?.room),groupId:t.groupId,userIds:reportSafeArray(walletMap.get(t.groupId)?.memberIds),name:reportSafeArray(walletMap.get(t.groupId)?.memberNames).join(' • ')||'กลุ่ม',detail:`เปิดคำใบ้ ${t.missionId||''} (-${Math.abs(Number(t.amount)||0)}🪙)`}));
+            purchases.forEach(p=>timeline.push({time:reportTimestampMs(p.purchasedAt||p.createdAt),type:'BUY_ITEM',room:reportRoomNorm(users.find(u=>u.id===p.userId)?.room),groupId:p.groupId||'',userIds:[p.userId].filter(Boolean),name:users.find(u=>u.id===p.userId)?.nickname||p.userId||'นักเรียน',detail:`ซื้อ ${p.itemName||p.itemId||'ของตกแต่ง'} (${Number(p.price)||0}🪙)`}));
+            posts.forEach(p=>timeline.push({time:reportTimestampMs(p.createdAt),type:'ASK_QUESTION',room:reportRoomNorm(p.room),groupId:p.authorGroupId||'',userIds:reportSafeArray(walletMap.get(p.authorGroupId)?.memberIds),name:p.authorName||'กลุ่ม',detail:`ตั้งคำถาม${p.title?`: ${p.title}`:''}`}));
+            answers.forEach(a=>timeline.push({time:reportTimestampMs(a.createdAt),type:'ANSWER_QUESTION',room:reportRoomNorm(a.room),groupId:a.authorGroupId||'',userIds:reportSafeArray(walletMap.get(a.authorGroupId)?.memberIds),name:a.authorName||'กลุ่ม',detail:a.isBest?'ตอบเพื่อน • 🏆 คำตอบดีที่สุด':a.isApproved?'ตอบเพื่อน • ✅ ผ่านครู':'ตอบเพื่อน • รอตรวจ'}));
+            reflections.forEach(r=>timeline.push({time:reportTimestampMs(r.updatedAt||r.createdAt),type:'REFLECTION',room:reportRoomNorm(r.room),groupId:r.groupId||'',userIds:[r.userId].filter(Boolean),name:r.nickname||users.find(u=>u.id===r.userId)?.nickname||'นักเรียน',detail:`บันทึก Reflection ${r.missionTitle||r.missionId||''}`}));
+            timeline.sort((a,b)=>b.time-a.time);
+            return {rows,missionIds,missions,totalMissions,timeline,works,wallets,txs,purchases,posts,answers,reflections,activity};
+        }
+
+        function reportDateBounds(){
+            const f=document.getElementById('reportDateFrom')?.value||'', t=document.getElementById('reportDateTo')?.value||'';
+            return {from:f?new Date(f+'T00:00:00').getTime():0,to:t?new Date(t+'T23:59:59.999').getTime():Number.MAX_SAFE_INTEGER};
+        }
+        function applyResearchReportFilters(){
+            if(!researchReportRaw)return;
+            const model=buildResearchModel(); const room=document.getElementById('reportRoomFilter')?.value||'ALL'; const student=document.getElementById('reportStudentFilter')?.value||'ALL'; const {from,to}=reportDateBounds();
+            let rows=model.rows.filter(r=>(room==='ALL'||r.room===room)&&(student==='ALL'||r.userId===student));
+            let timeline=model.timeline.filter(x=>(room==='ALL'||x.room===room)&&(student==='ALL'||x.userIds.includes(student)||model.rows.find(r=>r.userId===student)?.groupId===x.groupId)&&(x.time===0||(x.time>=from&&x.time<=to)));
+            // วันที่มีผลต่อจำนวนกิจกรรม แต่สถานะสะสมในตารางยังแสดงยอดสะสม เพื่อใช้ติดตามความคืบหน้า
+            researchReportView={...model,rows,timeline,room,student,from,to};
+            renderResearchReport();
+        }
+
+        function reportDaysSince(ms){
+            if(!ms)return null;
+            return Math.max(0,Math.floor((Date.now()-ms)/86400000));
+        }
+        function reportFollowUpInfo(r){
+            const reasons=[];
+            if(r.completedMissions.length===0) reasons.push({text:'ยังไม่เริ่มภารกิจ',tone:'red'});
+            else if(r.progressPct<50) reasons.push({text:`ความก้าวหน้า ${r.progressPct}%`,tone:'orange'});
+            const days=reportDaysSince(r.lastActivity);
+            if(days!==null && days>=7) reasons.push({text:`ไม่มีกิจกรรม ${days} วัน`,tone:'red'});
+            if(r.completedMissions.length>0 && r.userReflections.length<Math.max(1,Math.ceil(r.completedMissions.length*.5))) reasons.push({text:'Reflection ยังน้อย',tone:'orange'});
+            return {needs:reasons.length>0,reasons,days};
+        }
+        function reportStarInfo(r){
+            const badges=[];
+            let score=0;
+            if(r.progressPct>=80){badges.push({text:'🏆 ความก้าวหน้าดีเด่น',tone:'gold'});score+=3;}
+            if(r.approvedAnswers.length>=3){badges.push({text:'🤝 นักช่วยเหลือดีเด่น',tone:'green'});score+=Math.min(4,1+Math.floor(r.approvedAnswers.length/3));}
+            if(r.bestAnswers.length>=1){badges.push({text:'👑 คำตอบดีที่สุด',tone:'gold'});score+=2+r.bestAnswers.length;}
+            if(r.completedMissions.length>0 && r.userReflections.length>=r.completedMissions.length){badges.push({text:'🧠 Reflection ต่อเนื่อง',tone:'purple'});score+=2;}
+            if(r.pageViews.length>=10){badges.push({text:'⚡ มีส่วนร่วมสม่ำเสมอ',tone:'green'});score+=2;}
+            if(r.water>=50){badges.push({text:'💧 นักปลูกต้นไม้ดาวเด่น',tone:'green'});score+=1;}
+            const dimensions=new Set(badges.map(b=>b.text.split(' ')[1]||b.text)).size;
+            if(badges.length>=3){badges.unshift({text:'🌟 ดาวเด่นรอบด้าน',tone:'gold'});score+=4;}
+            return {isStar:badges.length>0,score,badges};
+        }
+        function reportStudentTimeline(userId){
+            const v=researchReportView;if(!v)return[];
+            const row=v.rows.find(r=>r.userId===userId);if(!row)return[];
+            return v.timeline.filter(x=>x.userIds.includes(userId)||(row.groupId&&x.groupId===row.groupId)).sort((a,b)=>b.time-a.time).slice(0,20);
+        }
+        function openStudentReportDetail(userId){
+            const v=researchReportView;if(!v)return;
+            const r=v.rows.find(x=>x.userId===userId);if(!r)return;
+            const follow=reportFollowUpInfo(r),star=reportStarInfo(r),events=reportStudentTimeline(userId);
+            document.getElementById('studentDetailTitle').textContent='👤 '+r.name;
+            document.getElementById('studentDetailSub').textContent=`${r.room} • ${r.groupNames.length?'กลุ่ม '+r.groupNames.join(' • '):'ยังไม่มีกลุ่ม'}`;
+            const badges=[...star.badges,...follow.reasons.map(x=>({text:'⚠️ '+x.text,tone:x.tone}))];
+            document.getElementById('studentDetailBody').innerHTML=`
+                <div class="student-insight-tags" style="margin-top:12px">${badges.length?badges.map(b=>`<span class="insight-tag ${b.tone||''}">${reportEscape(b.text)}</span>`).join(''):'<span class="insight-tag">ยังไม่มีป้ายพิเศษ</span>'}</div>
+                <div class="student-detail-grid">
+                    <div class="student-detail-stat"><strong>${r.progressPct}%</strong><small>ความก้าวหน้า</small></div>
+                    <div class="student-detail-stat"><strong>${r.completedMissions.length}/${r.totalMissions}</strong><small>ภารกิจ</small></div>
+                    <div class="student-detail-stat"><strong>${r.water}</strong><small>💧 หยดน้ำ</small></div>
+                    <div class="student-detail-stat"><strong>LV${r.level}</strong><small>ระดับต้นไม้</small></div>
+                    <div class="student-detail-stat"><strong>${r.hints.length}</strong><small>💡 คำใบ้ (กลุ่ม)</small></div>
+                    <div class="student-detail-stat"><strong>${r.userPurchases.length}</strong><small>🛍️ ซื้อของ</small></div>
+                    <div class="student-detail-stat"><strong>${r.approvedAnswers.length}</strong><small>🤝 ช่วยเพื่อนผ่าน</small></div>
+                    <div class="student-detail-stat"><strong>${r.userReflections.length}</strong><small>🪞 Reflection</small></div>
+                </div>
+                <div class="student-detail-section"><h4>🕒 กิจกรรมล่าสุด</h4><div class="detail-timeline">${events.length?events.map(e=>`<div class="detail-event"><strong>${reportDateText(e.time)} • ${reportEscape(e.type)}</strong><small>${reportEscape(e.detail)}</small></div>`).join(''):'<div class="report-empty">ยังไม่มีกิจกรรมที่บันทึกไว้</div>'}</div></div>`;
+            document.getElementById('studentDetailOverlay').classList.add('show');
+        }
+        function closeStudentReportDetail(event){
+            if(event && event.target!==document.getElementById('studentDetailOverlay'))return;
+            document.getElementById('studentDetailOverlay')?.classList.remove('show');
+        }
+
+        function renderResearchReport(){
+            const v=researchReportView;if(!v)return;const rows=v.rows,totalMissions=v.totalMissions;
+            const avgProgress=rows.length?Math.round(rows.reduce((s,r)=>s+r.progressPct,0)/rows.length):0;
+            const groupIds=reportUnique(rows.map(r=>r.groupId));
+            const hints=v.txs.filter(t=>t.type==='BUY_HINT' && groupIds.includes(t.groupId) && (reportTimestampMs(t.createdAt)===0||(reportTimestampMs(t.createdAt)>=v.from&&reportTimestampMs(t.createdAt)<=v.to)));
+            const approved=v.answers.filter(a=>a.isApproved && groupIds.includes(a.authorGroupId));
+            const reflections=v.reflections.filter(r=>rows.some(x=>x.userId===r.userId));
+            document.getElementById('kpiStudents').textContent=rows.length;
+            document.getElementById('kpiMissionRate').textContent=avgProgress+'%';
+            document.getElementById('kpiHints').textContent=hints.length;
+            document.getElementById('kpiPeerHelp').textContent=approved.length;
+            document.getElementById('kpiReflections').textContent=reflections.length;
+
+            const mp=document.getElementById('missionProgressReport');
+            if(!v.missions.length){mp.innerHTML='<div class="report-empty">ยังไม่มีข้อมูลภารกิจ</div>'}else{
+                mp.innerHTML=v.missions.map(m=>{const done=rows.filter(r=>r.completedMissions.includes(m.id)).length,pct=reportPercent(done,rows.length);return `<div class="mission-progress-row"><div class="mission-progress-name" title="${reportEscape(m.title||m.id)}">${reportEscape(m.title||m.id)}</div><div class="mission-progress-track"><div class="mission-progress-fill" style="width:${pct}%"></div></div><div class="mission-progress-value">${done}/${rows.length} • ${pct}%</div></div>`}).join('');
+            }
+
+            const followAll=rows.map(r=>({r,info:reportFollowUpInfo(r)})).filter(x=>x.info.needs).sort((a,b)=>a.r.progressPct-b.r.progressPct || (b.info.days||0)-(a.info.days||0));
+            const follow=followAll.slice(0,10);
+            const noStart=followAll.filter(x=>x.r.completedMissions.length===0).length;
+            const inactive=followAll.filter(x=>x.info.days!==null&&x.info.days>=7).length;
+            document.getElementById('followUpKpis').innerHTML=`<span class="spotlight-kpi">รวม ${followAll.length} คน</span><span class="spotlight-kpi">ยังไม่เริ่ม ${noStart}</span><span class="spotlight-kpi">ไม่เข้า ≥7 วัน ${inactive}</span>`;
+            document.getElementById('followUpReport').innerHTML=follow.length?follow.map((x,i)=>{const r=x.r;return `<div class="student-insight-card watch"><div class="student-insight-rank">${i+1}</div><div class="student-insight-main"><strong>${reportEscape(r.name)}</strong><small>${reportEscape(r.room)} • ${r.completedMissions.length}/${totalMissions} ภารกิจ • ล่าสุด ${reportDateText(r.lastActivity)}</small><div class="student-insight-tags">${x.info.reasons.map(reason=>`<span class="insight-tag ${reason.tone}">${reportEscape(reason.text)}</span>`).join('')}</div><button class="report-detail-btn" onclick="openStudentReportDetail('${reportEscape(r.userId)}')">ดูรายละเอียด</button></div><div class="student-score-pill">${r.progressPct}%</div></div>`}).join(''):'<div class="report-empty">🎉 ยังไม่มีนักเรียนที่เข้าเกณฑ์ควรติดตามในตัวกรองนี้</div>';
+
+            const starsAll=rows.map(r=>({r,info:reportStarInfo(r)})).filter(x=>x.info.isStar).sort((a,b)=>b.info.score-a.info.score || b.r.progressPct-a.r.progressPct);
+            const stars=starsAll.slice(0,10);
+            const allRound=starsAll.filter(x=>x.info.badges.some(b=>b.text.includes('รอบด้าน'))).length;
+            const helpers=starsAll.filter(x=>x.info.badges.some(b=>b.text.includes('ช่วยเหลือ'))).length;
+            document.getElementById('starKpis').innerHTML=`<span class="spotlight-kpi">เด่น ${starsAll.length} คน</span><span class="spotlight-kpi">รอบด้าน ${allRound}</span><span class="spotlight-kpi">ช่วยเพื่อน ${helpers}</span>`;
+            document.getElementById('outstandingStudentsReport').innerHTML=stars.length?stars.map((x,i)=>{const r=x.r;return `<div class="student-insight-card star"><div class="student-insight-rank">${i<3?['🥇','🥈','🥉'][i]:i+1}</div><div class="student-insight-main"><strong>${reportEscape(r.name)}</strong><small>${reportEscape(r.room)} • ${r.completedMissions.length}/${totalMissions} ภารกิจ • ${r.water}💧</small><div class="student-insight-tags">${x.info.badges.slice(0,4).map(b=>`<span class="insight-tag ${b.tone}">${reportEscape(b.text)}</span>`).join('')}</div><button class="report-detail-btn" onclick="openStudentReportDetail('${reportEscape(r.userId)}')">ดูรายละเอียด</button></div><div class="student-score-pill">${x.info.score} ⭐</div></div>`}).join(''):'<div class="report-empty">ยังไม่มีผู้เรียนเข้าเกณฑ์นักเรียนดีเด่นในตัวกรองนี้</div>';
+
+            const bands=[['🌟 ดีมาก',rows.filter(r=>r.progressPct>=80).length,'#dcfce7','#166534'],['🟡 กำลังพัฒนา',rows.filter(r=>r.progressPct>=50&&r.progressPct<80).length,'#fef3c7','#92400e'],['🚨 ควรติดตาม',rows.filter(r=>r.progressPct<50).length,'#fee2e2','#991b1b']];
+            document.getElementById('progressBandReport').innerHTML=`<div style="display:grid;gap:9px">${bands.map(b=>`<div style="display:flex;justify-content:space-between;align-items:center;background:${b[2]};color:${b[3]};border-radius:13px;padding:10px 12px;font-weight:900"><span>${b[0]}</span><strong style="font-size:20px">${b[1]} คน</strong></div>`).join('')}</div>`;
+
+            const completedPairs=rows.reduce((s,r)=>s+r.completedMissions.length,0), possiblePairs=rows.length*totalMissions;
+            const missionRate=reportPercent(completedPairs,possiblePairs);
+            const hintGroups=new Set(hints.map(t=>t.groupId)); const helpGroups=new Set(approved.map(a=>a.authorGroupId)); const askGroups=new Set(v.posts.filter(p=>groupIds.includes(p.authorGroupId)).map(p=>p.authorGroupId));
+            const expectedReflectionPairs=Math.max(1,completedPairs); const reflectionRate=Math.min(100,reportPercent(reflections.length,expectedReflectionPairs));
+            const avgWater=rows.length?(rows.reduce((s,r)=>s+r.water,0)/rows.length).toFixed(1):'0.0';
+            const followCount=rows.filter(r=>reportFollowUpInfo(r).needs).length;
+            const starCount=rows.filter(r=>reportStarInfo(r).isStar).length;
+            const narrative=`จากข้อมูลในระบบมีผู้เรียน <strong>${rows.length} คน</strong>${v.room!=='ALL'?` ในห้อง <strong>${reportEscape(v.room)}</strong>`:''} มีความคืบหน้าการทำภารกิจรวม <strong>${completedPairs}/${possiblePairs||0} รายการ (${missionRate}%)</strong> โดยมีการเปิดคำใบ้ <strong>${hints.length} ครั้ง</strong> จาก <strong>${hintGroups.size} กลุ่ม</strong> มี <strong>${helpGroups.size} กลุ่ม</strong> ที่มีคำตอบช่วยเพื่อนผ่านการอนุมัติของครู และมี <strong>${askGroups.size} กลุ่ม</strong> ที่ตั้งคำถามในพื้นที่แลกเปลี่ยนเรียนรู้ พบ Reflection รายบุคคล <strong>${reflections.length} รายการ</strong> คิดเป็นประมาณ <strong>${reflectionRate}%</strong> เมื่อเทียบกับจำนวนภารกิจที่สมาชิกทำสำเร็จ ผู้เรียนมีคะแนนหยดน้ำเฉลี่ย <strong>${avgWater} หยด/คน</strong> ระบบพบผู้เรียนที่เข้าเกณฑ์ <strong>ควรติดตาม ${followCount} คน</strong> และผู้เรียนที่มีจุดเด่นอย่างน้อยหนึ่งด้าน <strong>${starCount} คน</strong>.`;
+            document.getElementById('researchNarrative').innerHTML=narrative;
+
+            const body=document.getElementById('studentProgressBody');
+            body.innerHTML=rows.length?rows.sort((a,b)=>a.room.localeCompare(b.room,'th',{numeric:true})||a.name.localeCompare(b.name,'th')).map(r=>{const status=r.progressPct>=80?['good','ดีมาก']:r.progressPct>=50?['mid','กำลังพัฒนา']:['low',r.progressPct===0?'ยังไม่เริ่ม':'ควรติดตาม'];return `<tr><td class="report-student">${reportEscape(r.name)}</td><td><span class="report-room">${reportEscape(r.room)}</span></td><td title="${reportEscape(r.groupNames.join(' • '))}">${reportEscape(r.groupId?('กลุ่ม '+r.groupNames.join(' • ')):'-')}</td><td>${r.water}</td><td>LV${r.level}</td><td><b>${r.completedMissions.length}/${r.totalMissions}</b> (${r.progressPct}%)</td><td>${r.gradedMissions.length}</td><td>${r.hints.length}</td><td>${r.userPurchases.length}</td><td>${r.groupPosts.length}</td><td>${r.approvedAnswers.length}</td><td>${r.bestAnswers.length}</td><td>${r.userReflections.length}</td><td>${r.pageViews.length||'<span class="report-muted">-</span>'}</td><td>${reportDateText(r.lastActivity)}</td><td><span class="report-status ${status[0]}">${status[1]}</span></td></tr>`}).join(''):'<tr><td colspan="16" class="report-empty">ไม่พบข้อมูลตามตัวกรอง</td></tr>';
+
+            const stats=[['🎯','ส่งงาน',v.works.filter(w=>groupIds.includes(w.groupId)).length],['✅','ตรวจผ่าน',v.works.filter(w=>w.isGraded&&groupIds.includes(w.groupId)).length],['💡','เปิดคำใบ้',hints.length],['🛍️','ซื้อของ',v.purchases.filter(p=>rows.some(r=>r.userId===p.userId)).length],['❓','ตั้งคำถาม',v.posts.filter(p=>groupIds.includes(p.authorGroupId)).length],['💬','ตอบคำถาม',v.answers.filter(a=>groupIds.includes(a.authorGroupId)).length],['🏆','คำตอบดีที่สุด',v.answers.filter(a=>a.isBest&&groupIds.includes(a.authorGroupId)).length],['🪞','Reflection',reflections.length],['👀','Page view',v.activity.filter(a=>a.type==='PAGE_VIEW'&&groupIds.includes(a.groupId)).length]];
+            document.getElementById('activityStatsReport').innerHTML=`<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px">${stats.map(s=>`<div style="background:#f8fafc;border:2px solid #e2e8f0;border-radius:13px;padding:10px;text-align:center"><div style="font-size:22px">${s[0]}</div><strong style="display:block;font-size:22px;color:#334155">${s[2]}</strong><small style="font-weight:800;color:#64748b">${s[1]}</small></div>`).join('')}</div>`;
+
+            const tl=v.timeline.slice(0,40);document.getElementById('activityTimeline').innerHTML=tl.length?tl.map(x=>`<div class="activity-item"><div class="activity-time">${reportDateText(x.time)}</div><div class="activity-main"><strong>${reportEscape(x.name)}</strong><small>${reportEscape(x.detail)}${x.room&&x.room!=='ไม่ระบุห้อง'?` • ${reportEscape(x.room)}`:''}</small></div><span class="activity-type">${reportEscape(x.type)}</span></div>`).join(''):'<div class="report-empty">ยังไม่มีกิจกรรมในช่วงที่เลือก</div>';
+        }
+
+        function csvCell(v){const s=String(v??'').replace(/"/g,'""');return `"${s}"`;}
+        function downloadReportCsv(filename,rows){const csv='\ufeff'+rows.map(r=>r.map(csvCell).join(',')).join('\r\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
+        function exportStudentProgressCsv(){
+            const v=researchReportView;if(!v){alert('กรุณาเปิดรายงานก่อน');return;}
+            const rows=[['userId','ชื่อ','ห้อง','groupId','สมาชิกกลุ่ม','waterDrops','level','missions_done','missions_total','progress_percent','graded_missions','group_hints','items_bought','group_questions','group_approved_answers','group_best_answers','reflections','page_views','last_activity','follow_up','follow_up_reasons','outstanding','outstanding_badges']];
+            v.rows.forEach(r=>{const f=reportFollowUpInfo(r),s=reportStarInfo(r);rows.push([r.userId,r.name,r.room,r.groupId,r.groupNames.join(' | '),r.water,r.level,r.completedMissions.length,r.totalMissions,r.progressPct,r.gradedMissions.length,r.hints.length,r.userPurchases.length,r.groupPosts.length,r.approvedAnswers.length,r.bestAnswers.length,r.userReflections.length,r.pageViews.length,r.lastActivity?new Date(r.lastActivity).toISOString():'',f.needs?'YES':'NO',f.reasons.map(x=>x.text).join(' | '),s.isStar?'YES':'NO',s.badges.map(x=>x.text).join(' | ')]);});
+            downloadReportCsv('student_progress_report.csv',rows);
+        }
+        function exportActivityCsv(){
+            const v=researchReportView;if(!v){alert('กรุณาเปิดรายงานก่อน');return;}
+            const rows=[['datetime','type','name','room','groupId','userIds','detail']];
+            v.timeline.forEach(x=>rows.push([x.time?new Date(x.time).toISOString():'',x.type,x.name,x.room,x.groupId,x.userIds.join(' | '),x.detail]));
+            downloadReportCsv('website_activity_report.csv',rows);
+        }
+        async function copyResearchSummary(){
+            const el=document.getElementById('researchNarrative');if(!el)return;const text=el.innerText.trim();
+            try{await navigator.clipboard.writeText(text);alert('📋 คัดลอกสรุปผลแล้ว');}catch(e){prompt('คัดลอกข้อความนี้:',text);}
         }
 
 
