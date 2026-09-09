@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
   <meta charset="UTF-8">
@@ -11,40 +11,132 @@
       --pink:#db2777; --green:#22c55e; --yellow:#fde047; --brown:#854d0e;
     }
     * { box-sizing:border-box; }
-    body {
-      margin:0; padding:0 0 70px; font-family:'Kanit',sans-serif; color:#333; text-align:center;
-      background-color:#fff1f2; background-image:radial-gradient(#fecdd3 3px,transparent 3px); background-size:40px 40px;
-    }
+    body { margin:0; padding:0 0 70px; font-family:'Kanit',sans-serif; color:#333; text-align:center; }
     button,input,textarea,select { font-family:'Kanit',sans-serif; }
     button { cursor:pointer; }
 
-    /* เมนูหลัก */
-    .nav-menu { background:var(--purple); padding:15px; display:flex; justify-content:center; gap:15px; flex-wrap:wrap; position:relative; }
-    .nav-menu a.main-link { background:#d8b4fe; color:var(--purple-dark); text-decoration:none; font-weight:800; font-size:18px; padding:10px 20px; border-radius:20px; border:3px solid var(--purple-soft); box-shadow:0 4px 0 #9333ea; transition:.2s; }
-    .nav-menu a.main-link:active { transform:translateY(4px); box-shadow:none; }
-    .top-left-menu { position:absolute; top:12px; left:15px; z-index:100; }
-    .btn-home-login { background:#fff; border:3px solid var(--purple-soft); width:46px; height:46px; font-size:22px; border-radius:50%; text-decoration:none; box-shadow:0 4px 0 #9333ea; display:flex; justify-content:center; align-items:center; }
-    .hamburger-wrapper { position:absolute; right:18px; top:50%; transform:translateY(-50%); z-index:1000; }
-    .hamburger-button { width:44px; height:44px; display:flex; justify-content:center; align-items:center; background:#fff; color:var(--purple-dark); border:3px solid var(--purple-soft); border-radius:14px; font-size:23px; font-weight:800; box-shadow:0 4px 0 #9333ea; }
-    .hamburger-button.open,.hamburger-button:active { transform:translateY(4px); box-shadow:none; }
-    .utility-dropdown { display:none; position:absolute; top:56px; right:0; width:285px; padding:14px; background:#fff; border:3px solid #e9d5ff; border-radius:20px; box-shadow:0 12px 28px rgba(76,29,149,.24); text-align:left; }
-    .utility-dropdown.show { display:block; }
-    .dropdown-title { color:var(--purple-dark); font-size:18px; font-weight:800; text-align:center; margin-bottom:10px; }
-    .dropdown-coin { display:flex; justify-content:space-between; gap:10px; background:#fef9c3; color:var(--brown); border:2px solid var(--yellow); border-radius:14px; padding:10px 12px; margin-bottom:10px; font-weight:800; }
-    .dropdown-link { display:flex; align-items:center; gap:11px; padding:10px 12px; margin-top:8px; color:var(--purple-dark); text-decoration:none; background:#faf5ff; border:2px solid #e9d5ff; border-radius:14px; }
-    .dropdown-icon { width:34px; text-align:center; font-size:24px; }
-    .dropdown-link strong,.dropdown-link small { display:block; }
-    .dropdown-link small { color:#7c3aed; font-size:12px; font-weight:400; }
-    .logout-link { color:#991b1b; background:#fff1f2; }
+    /* เมนูหลัก — ขนาดเดียวกับหน้าอื่น */
+    .nav-menu{
+      min-height:80px;background:var(--purple);padding:14px 170px;display:flex;
+      justify-content:center;align-items:center;position:relative;z-index:900
+    }
+    .learning-menu{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap}
+    .nav-menu a.main-link{
+      background:#d8b4fe;color:var(--purple-dark);text-decoration:none;font-weight:800;
+      font-size:17px;padding:10px 17px;border-radius:18px;border:3px solid var(--purple-soft);
+      box-shadow:0 4px 0 #9333ea;white-space:nowrap;transition:.2s
+    }
+    .nav-menu a.main-link:hover{background:#c084fc;color:white;transform:translateY(-2px)}
+    .nav-menu a.main-link:active{transform:translateY(4px);box-shadow:none}
+    .nav-menu a.main-link.active-menu{background:var(--yellow);color:#854d0e;border-color:white;box-shadow:0 4px 0 #ca8a04}
+    .top-left-menu{position:absolute;left:18px;top:50%;transform:translateY(-50%);z-index:1001}
+    .btn-home-login{
+      width:48px;height:48px;display:flex;justify-content:center;align-items:center;background:white;
+      border:3px solid var(--purple-soft);border-radius:50%;font-size:23px;text-decoration:none;
+      box-shadow:0 4px 0 #9333ea;transition:.2s
+    }
+    .btn-home-login:hover{background:#fdf4ff;transform:translateY(-2px)}
+    .btn-home-login:active{transform:translateY(4px);box-shadow:none}
+    .hamburger-wrapper{position:absolute;right:18px;top:50%;transform:translateY(-50%);z-index:1002}
+    .hamburger-button{
+      width:44px;height:44px;display:flex;justify-content:center;align-items:center;background:white;
+      color:var(--purple-dark);border:3px solid var(--purple-soft);border-radius:14px;font-size:23px;
+      font-weight:800;box-shadow:0 4px 0 #9333ea
+    }
+    .hamburger-button.open,.hamburger-button:active{transform:translateY(4px);box-shadow:none}
+    .utility-dropdown{
+      display:none;position:absolute;top:56px;right:0;width:295px;padding:14px;background:white;
+      border:3px solid #e9d5ff;border-radius:20px;box-shadow:0 12px 28px rgba(76,29,149,.24);text-align:left
+    }
+    .utility-dropdown.show{display:block}
+    .dropdown-title{color:var(--purple-dark);font-size:18px;font-weight:800;text-align:center;margin-bottom:10px}
+    .dropdown-coin{display:flex;justify-content:space-between;gap:10px;background:#fef9c3;color:#854d0e;border:2px solid var(--yellow);border-radius:14px;padding:10px 12px;margin-bottom:10px;font-weight:800}
+    .dropdown-link{display:flex;align-items:center;gap:11px;padding:10px 12px;margin-top:8px;color:var(--purple-dark);text-decoration:none;background:#faf5ff;border:2px solid #e9d5ff;border-radius:14px}
+    .dropdown-icon{width:34px;text-align:center;font-size:24px}
+    .dropdown-link strong,.dropdown-link small{display:block}
+    .dropdown-link small{color:#7c3aed;font-size:12px;font-weight:400}
+    .logout-link{color:#991b1b;background:#fff1f2}
 
-    .page-title { font-size:38px; font-weight:800; color:var(--pink); margin:30px 10px 5px; text-shadow:2px 2px #fff; }
-    .page-subtitle { color:#9d174d; font-weight:600; margin:0 15px 20px; }
-    .section-tabs { max-width:1100px; margin:0 auto 20px; padding:0 18px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-    .tab-btn { border:3px solid #e9d5ff; background:#fff; color:var(--purple-dark); border-radius:18px; padding:11px 20px; font-size:18px; font-weight:800; box-shadow:0 4px 0 #c084fc; }
-    .tab-btn.active { background:var(--yellow); color:var(--brown); border-color:#fff; box-shadow:0 4px 0 #ca8a04; }
+    .page-shell{max-width:1220px;margin:0 auto;padding:28px 20px 0;position:relative}
+    body {
+      margin:0; padding:0 0 70px; font-family:'Kanit',sans-serif; color:#333; text-align:center;
+      background:
+        radial-gradient(circle at 20% 12%, rgba(255,255,255,.6) 0 18px, transparent 19px),
+        radial-gradient(circle at 84% 18%, rgba(255,255,255,.45) 0 14px, transparent 15px),
+        radial-gradient(#bfe4ff 2.3px, transparent 2.3px),
+        linear-gradient(180deg,#cbeeff 0%,#dbeafe 16%,#efe5ff 54%,#f3edff 100%);
+      background-size:auto,auto,38px 38px,auto;
+      background-attachment:fixed;
+    }
+    .page-title { display:none; }
+    .page-subtitle { display:none; }
+    /* ===== ส่วนหัวใหม่: ลานชุมชนเกม — ไม่ซ้ำ Resource / Hints ===== */
+    .community-plaza{
+      position:relative;margin:14px auto 20px;min-height:240px;overflow:hidden;
+      border-radius:30px;border:5px solid #fff;
+      background:
+        radial-gradient(circle at 10% 18%,rgba(255,255,255,.72) 0 18px,transparent 19px),
+        radial-gradient(circle at 78% 16%,rgba(255,255,255,.58) 0 14px,transparent 15px),
+        linear-gradient(180deg,#cbefff 0%,#e3f7ff 54%,#e8f7dd 55%,#d4efc2 100%);
+      box-shadow:0 10px 0 rgba(164,151,220,.34),0 18px 32px rgba(75,99,133,.12)
+    }
+    .community-plaza:before{
+      content:"";position:absolute;left:0;right:0;bottom:0;height:64px;
+      background:
+        linear-gradient(90deg,rgba(255,255,255,.25) 0 8%,transparent 8% 16%,rgba(255,255,255,.25) 16% 24%,transparent 24% 32%,rgba(255,255,255,.25) 32% 40%,transparent 40% 48%,rgba(255,255,255,.25) 48% 56%,transparent 56% 64%,rgba(255,255,255,.25) 64% 72%,transparent 72% 80%,rgba(255,255,255,.25) 80% 88%,transparent 88% 100%),
+        linear-gradient(180deg,#b8dda0,#9dcc7d);
+      border-top:4px solid rgba(255,255,255,.72)
+    }
+    .plaza-cloud{position:absolute;background:#fff;border-radius:999px;opacity:.72}
+    .plaza-cloud.c1{width:84px;height:28px;left:7%;top:34px}
+    .plaza-cloud.c2{width:112px;height:32px;right:9%;top:48px}
+    .plaza-cloud:before,.plaza-cloud:after{content:"";position:absolute;background:#fff;border-radius:50%}
+    .plaza-cloud:before{width:38px;height:38px;left:12px;top:-15px}
+    .plaza-cloud:after{width:47px;height:47px;right:12px;top:-22px}
+    .plaza-head{position:relative;z-index:3;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:26px 30px 0}
+    .plaza-title-wrap{text-align:left;max-width:650px}
+    .plaza-eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:800;color:#6d28d9;background:#fff;border:3px solid #e9d5ff;border-radius:999px;padding:6px 11px;box-shadow:0 3px 0 #ddd6fe}
+    .plaza-title{margin:11px 0 3px;font-size:34px;line-height:1.15;font-weight:800;color:#344e6f;text-shadow:0 2px 0 #fff}
+    .plaza-subtitle{margin:0;color:#5b7188;font-size:14px;font-weight:700;line-height:1.6}
+    .speech-town{position:relative;width:230px;height:100px;flex:0 0 230px;margin-top:2px}
+    .speech{position:absolute;padding:8px 12px;border-radius:16px;border:3px solid #fff;font-size:13px;font-weight:800;box-shadow:0 5px 0 rgba(87,96,145,.15)}
+    .speech:after{content:"";position:absolute;bottom:-9px;width:16px;height:16px;background:inherit;transform:rotate(45deg);border-right:3px solid #fff;border-bottom:3px solid #fff}
+    .speech.s1{left:0;top:12px;background:#fff1a8;color:#775710;transform:rotate(-4deg)}
+    .speech.s1:after{left:25px}
+    .speech.s2{right:2px;top:0;background:#e9d5ff;color:#5b21b6;transform:rotate(4deg)}
+    .speech.s2:after{right:28px}
+    .speech.s3{left:70px;bottom:0;background:#bbf7d0;color:#166534;transform:rotate(-1deg)}
+    .speech.s3:after{right:25px}
+    .plaza-mascot{position:absolute;right:27px;bottom:48px;z-index:3;font-size:58px;filter:drop-shadow(0 7px 10px rgba(76,29,149,.18));animation:plazaBounce 2.4s ease-in-out infinite}
+    @keyframes plazaBounce{50%{transform:translateY(-6px) rotate(3deg)}}
+
+    .section-tabs{
+      position:relative;z-index:4;max-width:900px;margin:-66px auto 24px;padding:0 18px;
+      display:grid;grid-template-columns:1fr 1fr;gap:18px
+    }
+    .tab-btn{
+      position:relative;overflow:hidden;min-height:108px;border:5px solid #fff;border-radius:24px;
+      padding:16px 18px 15px 88px;text-align:left;font-size:18px;font-weight:800;color:#4b426b;
+      box-shadow:0 8px 0 rgba(130,114,184,.22),0 14px 22px rgba(75,83,118,.10);transition:.2s
+    }
+    .tab-btn:before{
+      position:absolute;left:17px;top:50%;transform:translateY(-50%);width:54px;height:54px;border-radius:18px;
+      display:grid;place-items:center;background:#fff;border:3px solid rgba(255,255,255,.9);
+      box-shadow:0 5px 0 rgba(76,68,120,.12);font-size:28px
+    }
+    .tab-btn:after{content:"เข้าโซน →";display:block;margin-top:5px;color:#6c6483;font-size:12px;font-weight:700}
+    .tab-btn[data-target="knowledgeSection"]{background:linear-gradient(135deg,#fff1b8,#ffd978)}
+    .tab-btn[data-target="knowledgeSection"]:before{content:"📌"}
+    .tab-btn[data-target="workSection"]{background:linear-gradient(135deg,#cceeff,#b9dcff 52%,#d8c6ff)}
+    .tab-btn[data-target="workSection"]:before{content:"🚀"}
+    .tab-btn:hover{transform:translateY(-4px)}
+    .tab-btn:active{transform:translateY(3px);box-shadow:0 3px 0 rgba(130,114,184,.18)}
+    .tab-btn.active{outline:4px solid rgba(255,255,255,.9);box-shadow:0 9px 0 #a78bfa,0 16px 26px rgba(89,72,156,.14);color:#443064}
     .page-section { display:none; }
-    .page-section.active { display:block; }
+    .page-section.active { display:block; animation:sectionPop .28s ease-out; }
+    @keyframes sectionPop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
+    /* กระดานโพสต์อิท */
     /* กระดานโพสต์อิท */
     .knowledge-wrap { max-width:1180px; margin:auto; padding:0 18px; }
     .game-dashboard { display:grid; grid-template-columns:1.2fr .8fr; gap:18px; margin-bottom:20px; }
@@ -155,9 +247,16 @@
     .anim-wiggle { animation:wiggle .5s ease; }
 
     @media(max-width:900px){ .game-dashboard{grid-template-columns:1fr;} }
-    @media(max-width:768px){
-      .nav-menu{padding:75px 15px 15px; flex-direction:column; align-items:center;}
-      .top-left-menu{top:14px;left:15px}.hamburger-wrapper{top:16px;right:15px;transform:none}
+    @media(max-width:1100px){
+      .nav-menu{padding:75px 15px 15px}
+      .top-left-menu{top:14px;left:15px;transform:none}
+      .hamburger-wrapper{top:16px;right:15px;transform:none}
+    }
+    @media(max-width:720px){
+      .learning-menu{display:grid;grid-template-columns:1fr 1fr;width:100%;gap:10px}
+      .nav-menu a.main-link{width:100%;font-size:15px;padding:9px 6px;text-align:center}
+      .learning-menu a.main-link:last-child{grid-column:1/-1;width:55%;justify-self:center}
+      .utility-dropdown{width:min(295px,calc(100vw - 30px))}
       .form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.page-title{font-size:30px}
       .cork-board{padding:25px 15px}.notes-grid{grid-template-columns:1fr}.sticky-note{transform:none!important}
     }
@@ -356,16 +455,132 @@
   color:#1e40af!important;
 }
 
+
+/* ===== แชร์เพจธีมเกมการ์ตูน ===== */
+.knowledge-wrap,.padlet-container{max-width:1180px;margin:auto;padding:0}
+.game-dashboard{display:grid;grid-template-columns:1.06fr .94fr;gap:18px;margin-bottom:20px}
+.mission-panel,.leader-panel,.board-tools,.mission-board{
+  position:relative;overflow:hidden;background:rgba(255,255,255,.92);backdrop-filter:blur(2px);
+  border:4px solid #fff;border-radius:28px;box-shadow:0 10px 0 rgba(181,168,232,.42),0 16px 28px rgba(104,108,150,.12)
+}
+.mission-panel:before,.leader-panel:before,.board-tools:before,.mission-board:before,.dialog-card:before,.reflection-popup:before{
+  content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(188,223,255,.55) 1.9px, transparent 1.9px);background-size:28px 28px;opacity:.35;pointer-events:none
+}
+.mission-panel,.leader-panel{padding:20px 20px 18px;text-align:left}
+.mission-panel h3,.leader-panel h3{margin:0 0 12px;color:#34546c;font-size:23px}
+.progress-track{height:18px;background:#e9f0ff;border-radius:999px;overflow:hidden;border:2px solid #c9d8ff;box-shadow:inset 0 2px 4px rgba(116,137,188,.12)}
+.progress-fill{background:linear-gradient(90deg,#5eead4,#fde68a,#f9a8d4)}
+.helper-status{margin-top:9px;color:#4a6b73;font-weight:700}
+.leader-list li{align-items:center;background:#f8fbff;border:2px solid #e6eeff;border-radius:16px;padding:10px 12px;margin-top:8px;box-shadow:0 4px 0 rgba(219,234,254,.7)}
+.board-tools{padding:18px 18px 16px;margin-bottom:20px;background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(244,247,255,.94))}
+.search-input,.filter-select{border:3px solid #d7ccff;border-radius:16px;padding:12px 14px;font-size:16px;background:#fff;min-width:220px;color:#4b5c73;box-shadow:inset 0 2px 0 rgba(245,244,255,.8)}
+.new-note-btn{border:none;border-radius:16px;padding:12px 22px;font-size:17px;font-weight:800;color:#14532d;background:linear-gradient(180deg,#86efac,#4ade80);box-shadow:0 5px 0 #16a34a}
+.status-buttons{gap:10px;margin-top:16px}
+.status-btn{border:3px solid #fff;background:#f7f3ff;color:#6b21a8;border-radius:999px;padding:9px 18px;font-size:15px;font-weight:800;box-shadow:0 4px 0 #ddd6fe}
+.status-btn.active{background:#f3e8ff;border-color:#fff;color:#6b21a8}.unsolved-btn.active{background:#fef3c7;border-color:#fff;color:#92400e;box-shadow:0 4px 0 #fcd34d}.solved-btn.active{background:#dcfce7;border-color:#fff;color:#166534;box-shadow:0 4px 0 #86efac}
+.ai-box{margin-top:14px;background:linear-gradient(180deg,#effaff,#eaf6ff);border:3px dashed #8ed8ff;border-radius:18px;padding:14px;color:#26667f;text-align:left;box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}
+.cork-board{min-height:500px;padding:26px 22px;border:0;border-radius:30px;background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,.22)),linear-gradient(180deg,#ffe4a6,#f8c97c);box-shadow:inset 0 0 0 5px rgba(255,255,255,.58),0 12px 28px rgba(111,95,62,.18)}
+.notes-grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:24px}
+.sticky-note{min-height:235px;padding:30px 17px 16px;color:#4c361d;border-radius:22px;border:3px solid rgba(255,255,255,.78);box-shadow:0 10px 20px rgba(74,67,67,.18), inset 0 -8px 0 rgba(255,255,255,.16)}
+.sticky-note:before{top:-10px;font-size:32px}.sticky-note.pinned{outline:4px solid #fb923c}.sticky-note.solved{border:4px solid #4ade80}
+.note-title{margin:0 0 8px;font-size:20px;line-height:1.3;color:#4a2c17}
+.note-body{font-size:15px;line-height:1.55}
+.note-meta{border-top:2px dashed rgba(120,53,15,.2);margin-top:12px;padding-top:10px;font-size:12px;font-weight:700;color:#6a4c2d}
+.dialog-card{position:relative;width:min(760px,100%);margin:25px auto;background:linear-gradient(180deg,#ffffff,#faf7ff);border:5px solid #fff;border-radius:28px;padding:24px;box-shadow:0 14px 0 #c4b5fd,0 26px 40px rgba(83,61,160,.22)}
+.dialog-card h2{position:relative;z-index:1;font-size:28px;color:#4c1d95}.form-grid,.field,.question-detail,.answer-card,.reflection-popup,.teacher-guidance-box,.upload-form,.post-card{position:relative;z-index:1}
+.primary-btn,.secondary-btn,.danger-btn,.teacher-btn,.helpful-btn,.reflection-save,.teacher-solved-btn,.btn-post,.btn-react,.btn-fullscreen{transition:.18s ease;font-family:'Kanit',sans-serif}
+.primary-btn,.helpful-btn,.reflection-save,.teacher-solved-btn,.btn-post{box-shadow:0 4px 0 rgba(22,163,74,.9)}
+.secondary-btn{background:#eee7ff;color:#5b33bf;box-shadow:0 4px 0 #d7c9ff}.danger-btn{box-shadow:0 4px 0 #fca5a5}.teacher-btn{box-shadow:0 4px 0 #facc15}.btn-react,.btn-fullscreen{box-shadow:0 3px 0 rgba(148,163,184,.28)}
+.primary-btn:hover,.secondary-btn:hover,.danger-btn:hover,.teacher-btn:hover,.helpful-btn:hover,.reflection-save:hover,.teacher-solved-btn:hover,.btn-post:hover,.btn-react:hover,.btn-fullscreen:hover{transform:translateY(-2px)}
+.primary-btn:active,.secondary-btn:active,.danger-btn:active,.teacher-btn:active,.helpful-btn:active,.reflection-save:active,.teacher-solved-btn:active,.btn-post:active,.btn-react:active,.btn-fullscreen:active{transform:translateY(3px);box-shadow:none}
+.padlet-container{padding:0}
+.mission-board{padding:24px;margin-bottom:28px;background:linear-gradient(180deg,rgba(255,255,255,.97),rgba(245,246,255,.95))}
+.board-header{position:relative;z-index:1;font-size:27px;font-weight:800;color:#4b5f78;margin:0 0 18px;padding-bottom:14px;border-bottom:3px dashed #d5d2ff;text-align:left}
+.upload-form{flex-direction:column;gap:15px;background:linear-gradient(180deg,#fefcff,#f0f9ff);padding:22px;border-radius:22px;border:3px dashed #a5d8ff;align-items:center;margin-bottom:22px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.55)}
+.input-name{padding:12px 15px;font-size:18px;border:3px solid #d8d2ff;border-radius:15px;outline:none;font-weight:600;width:100%;max-width:430px;text-align:center;background:#fff}
+.input-link{background:#f0f9ff;border-color:#7dd3fc;color:#0284c7}
+.btn-post{background:linear-gradient(180deg,#86efac,#4ade80);color:#14532d;border:0;padding:13px 30px;font-size:20px;font-weight:800;border-radius:16px;width:100%;max-width:430px}
+.post-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px;justify-content:stretch}
+.post-card{background:linear-gradient(180deg,#fffbea,#fff4c7);border:4px solid #fff;border-radius:24px;padding:15px;box-shadow:0 10px 0 rgba(250,204,21,.35),0 14px 22px rgba(122,101,27,.12);position:relative;overflow:hidden}
+.post-card:after{content:"";position:absolute;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.25);right:-30px;top:-34px;pointer-events:none}
+.post-card.graded-stamp::before{top:10px;right:10px;transform:none;border-radius:14px;padding:6px 12px}
+.post-project{background:#fff;width:100%;height:260px;border-radius:18px;margin-bottom:12px;overflow:hidden;border:3px solid #fff;box-shadow:inset 0 0 0 1px rgba(234,179,8,.18)}
+.post-project iframe,.post-project img{width:100%;height:100%;border:0;object-fit:cover}
+.post-name{font-size:18px;font-weight:800;color:#6f4a17;background:#fff;padding:8px 10px;border-radius:12px;margin-bottom:12px;border:2px solid #fef08a}
+.reaction-bar{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.empty-state{background:rgba(255,255,255,.9);padding:26px;border-radius:22px;font-weight:800;color:#687990;border:3px dashed #d7ccff;box-shadow:0 5px 0 rgba(214,200,255,.4)}
+.toast{right:18px;bottom:18px;border:3px solid #fff;background:linear-gradient(135deg,#7c3aed,#4f46e5)}
+.reflection-popup{position:relative;width:min(640px,100%);max-height:92vh;overflow:auto;background:linear-gradient(180deg,#fff,#f8fcff);border:5px solid #fff;border-radius:30px;box-shadow:0 14px 0 rgba(56,189,248,.35),0 26px 42px rgba(49,83,132,.2);padding:24px;text-align:left}
+.reflection-popup h2{position:relative;z-index:1;margin:0;color:#0369a1;text-align:center;font-size:27px}
+.study-buddy-bubble{background:#fff;border:3px solid #d8b4fe;color:#6d28d9;border-radius:20px 20px 8px 20px;padding:10px 14px;font-size:13px;font-weight:800;box-shadow:0 5px 0 #ede9fe}
+.study-buddy-char{background:linear-gradient(135deg,#c084fc,#8b5cf6);box-shadow:0 6px 0 #6d28d9}
+@media(max-width:1080px){.page-shell{padding:20px 14px 0}.game-dashboard{grid-template-columns:1fr}.speech-town{display:none}.plaza-head{padding-right:75px}}
+@media(max-width:720px){.community-plaza{min-height:210px;border-radius:26px}.plaza-head{padding:22px 20px 0}.plaza-title{font-size:27px}.plaza-subtitle{font-size:13px}.plaza-mascot{font-size:48px;right:15px}.section-tabs{grid-template-columns:1fr;margin-top:-48px;gap:12px}.tab-btn{min-height:88px;font-size:16px;padding:13px 14px 12px 78px}.tab-btn:before{left:14px;width:48px;height:48px;font-size:24px}.cork-board{padding:20px 14px}.notes-grid{grid-template-columns:1fr}.sticky-note{transform:none!important}.mission-board{padding:18px}.post-grid{grid-template-columns:1fr}.board-header{font-size:23px}}
+@media(max-width:520px){.hero-kicker{font-size:12px;padding:7px 11px}.hero-copy h1{font-size:24px}.hero-stats{gap:10px}.hero-stat{padding:10px 12px;border-radius:16px}.hero-stat-icon{width:38px;height:38px;font-size:20px}.dialog-card{padding:18px;border-radius:24px}}
+
 </style>
 </head>
 <body>
+<script id="garden-session-guard">
+(function(){
+  window.getLoggedInUsersSafe = function(){
+    try {
+      const value = JSON.parse(localStorage.getItem('loggedInUsers') || '[]');
+      return Array.isArray(value) ? value.filter(Boolean) : [];
+    } catch (e) {
+      console.warn('loggedInUsers เสียหาย จึงล้าง session เดิม:', e);
+      localStorage.removeItem('loggedInUsers');
+      return [];
+    }
+  };
+  window.getJsonStorageSafe = function(key, fallback){
+    try {
+      const raw = localStorage.getItem(key);
+      if (raw === null) return fallback;
+      const value = JSON.parse(raw);
+      return value ?? fallback;
+    } catch (e) {
+      console.warn('อ่าน localStorage ไม่สำเร็จ:', key, e);
+      return fallback;
+    }
+  };
+  window.clearGardenSession = function(){
+    [
+      'currentRoom','loggedInUsers','currentGroupId','currentGroupNames','groupWalletId',
+      'currentUserId','currentUserName','currentRole','role','isAdmin','currentTeacherName',
+      'currentMissionId','currentMissionFilter'
+    ].forEach(function(key){ localStorage.removeItem(key); });
+  };
+
+  const role = String(localStorage.getItem('currentRole') || localStorage.getItem('role') || '').toLowerCase();
+  const isAdmin = localStorage.getItem('isAdmin') === 'true' || role === 'admin' || role === 'teacher';
+  const page = (location.pathname.split('/').pop() || '').toLowerCase();
+
+  // บัญชี Kru_Mild ถูกออกแบบให้ใช้หน้าแลกเปลี่ยนเรียนรู้เท่านั้น
+  if (role === 'helper' && page !== 'share.html') {
+    location.replace('share.html');
+    return;
+  }
+
+  if (isAdmin) return;
+
+  const users = window.getLoggedInUsersSafe();
+  const room = localStorage.getItem('currentRoom') || '';
+  const groupId = localStorage.getItem('currentGroupId') || '';
+  if (!users.length || !room || !groupId) {
+    location.replace('index.html');
+  }
+})();
+</script>
   <nav class="nav-menu">
-    <div class="top-left-menu"><a href="index.html" class="btn-home-login" title="กลับหน้าแรก">🏠</a></div>
-    <a href="mission.html" class="main-link">⚔️ สถานการณ์ปัญหา</a>
-    <a href="resource.html" class="main-link">📚 แหล่งเรียนรู้</a>
-    <a href="hints.html" class="main-link">💡 ฐานการช่วยเหลือ</a>
-    <a href="share.html" class="main-link" style="background:#fde047;color:#854d0e;border-color:#fff;box-shadow:0 4px 0 #ca8a04">🤝 แลกเปลี่ยนเรียนรู้</a>
-    <a href="coach.html" class="main-link">🧑‍🏫 โค้ช</a>
+    <div class="top-left-menu"><a href="home.html" class="btn-home-login" title="กลับหน้าแรก">🏠</a></div>
+    <div class="learning-menu">
+      <a href="mission.html" class="main-link">⚔️ สถานการณ์ปัญหา</a>
+      <a href="resource.html" class="main-link">📚 แหล่งเรียนรู้</a>
+      <a href="hints.html" class="main-link">💡 ฐานการช่วยเหลือ</a>
+      <a href="share.html" class="main-link active-menu">🤝 แลกเปลี่ยนเรียนรู้</a>
+      <a href="coach.html" class="main-link">🧑‍🏫 โค้ช</a>
+    </div>
     <div class="hamburger-wrapper">
       <button id="hamburgerButton" class="hamburger-button" onclick="toggleUtilityMenu()">☰</button>
       <div id="utilityDropdown" class="utility-dropdown">
@@ -378,20 +593,39 @@
     <span class="menu-avatar-stack" id="menuAvatarStack"><span class="menu-avatar-fallback">👤</span></span>
     <span><strong>โปรไฟล์</strong><small id="menuProfileNames">ตัวละคร • แต่งตัว • ร้านค้า</small></span>
 </a>
-                <a href="login.html" class="dropdown-link logout-link"><span class="dropdown-icon">🚪</span><span><strong>ออกจากระบบ</strong><small>กลับหน้าเข้าสู่ระบบ</small></span></a>
+                <a href="index.html" class="dropdown-link logout-link" onclick="clearGardenSession()"><span class="dropdown-icon">🚪</span><span><strong>ออกจากระบบ</strong><small>กลับหน้าเข้าสู่ระบบ</small></span></a>
             </div>
     </div>
   </nav>
 
-  <h1 class="page-title">🌸 พื้นที่แลกเปลี่ยนเรียนรู้ 🌸</h1>
-  <p class="page-subtitle">ถามเมื่อสงสัย ช่วยกันตอบ และเติบโตไปด้วยกันทั้งห้อง</p>
+  <main class="page-shell">
+    <section class="community-plaza">
+      <div class="plaza-cloud c1"></div>
+      <div class="plaza-cloud c2"></div>
+      <div class="plaza-head">
+        <div class="plaza-title-wrap">
+          <div class="plaza-eyebrow">🤝 COMMUNITY PLAZA</div>
+          <h1 class="plaza-title">ลานแลกเปลี่ยนของนักแก้ปัญหา</h1>
+          <p class="plaza-subtitle">พื้นที่กลางของห้องสำหรับถามเพื่อน ช่วยกันตอบ และเอาผลงานมาอวดกันแบบเป็นทีม</p>
+        </div>
+        <div class="speech-town" aria-hidden="true">
+          <div class="speech s1">มีใครช่วยได้ไหม? 💭</div>
+          <div class="speech s2">ลองแบบนี้ดู! 💡</div>
+          <div class="speech s3">เยี่ยมเลย! ⭐</div>
+        </div>
+      </div>
+      <div class="plaza-mascot" aria-hidden="true">👾</div>
+    </section>
 
-  <div class="section-tabs">
-    <button class="tab-btn active" data-target="knowledgeSection" onclick="switchSection(this)">📌 กระดานโพสต์อิท</button>
-    <button class="tab-btn" data-target="workSection" onclick="switchSection(this)">🚀 ส่งและชมผลงาน</button>
-  </div>
+    <h1 class="page-title">🌸 พื้นที่แลกเปลี่ยนเรียนรู้ 🌸</h1>
+    <p class="page-subtitle">ถามเมื่อสงสัย ช่วยกันตอบ และเติบโตไปด้วยกันทั้งห้อง</p>
 
-  <section id="knowledgeSection" class="page-section active">
+    <div class="section-tabs">
+      <button class="tab-btn active" data-target="knowledgeSection" onclick="switchSection(this)">กระดานถาม-ตอบของเพื่อน</button>
+      <button class="tab-btn" data-target="workSection" onclick="switchSection(this)">แกลเลอรีผลงานของห้อง</button>
+    </div>
+
+    <section id="knowledgeSection" class="page-section active">
     <div class="knowledge-wrap">
       <div class="game-dashboard">
         <div class="mission-panel">
@@ -538,6 +772,8 @@
       </div>
     </div>
   </div>
+
+  </main>
 
   <div id="toast" class="toast"></div>
 
@@ -935,7 +1171,7 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
 
     const currentGroupId = () => localStorage.getItem('currentGroupId') || '';
     const currentRoom = () => localStorage.getItem('currentRoom') || '';
-    const currentNames = () => JSON.parse(localStorage.getItem('currentGroupNames') || '[]');
+    const currentNames = () => { const v=window.getJsonStorageSafe('currentGroupNames',[]); return Array.isArray(v)?v:[]; };
     const displayName = () => currentNames().join(', ') || currentUser?.displayName || localStorage.getItem('currentUserName') || '';
     const roleText = () => (localStorage.getItem('currentRole') || localStorage.getItem('role') || '').toLowerCase();
     const isTeacher = () => ['teacher','admin','ครู','ผู้ดูแล'].includes(roleText()) || localStorage.getItem('isAdmin') === 'true';
@@ -1001,9 +1237,11 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
       walletUnsubscribe=onSnapshot(doc(db,'group_wallets',gid),snap=>{el.textContent=snap.exists()?(Number(snap.data().magicCoins)||0):'0';updateHelperProgress(snap.exists()?snap.data():{});},()=>el.textContent='--');
     }
     function updateHelperProgress(wallet={}){
-      const count=Number(wallet.helperApprovedCount)||0; const cycle=count%5; const rewardedCycles=Number(wallet.helperRewardCycles)||0;
-      document.getElementById('helperProgress').style.width=`${(cycle/5)*100}%`;
-      document.getElementById('helperStatus').textContent=`คำตอบผ่านครู ${count} ครั้ง • รอบนี้ ${cycle}/5 • รับรางวัลน้ำแล้ว ${rewardedCycles} รอบ`;
+      const count=Number(wallet.helperApprovedCount)||0;
+      const progress=document.getElementById('helperProgress');
+      const status=document.getElementById('helperStatus');
+      if(progress) progress.style.width=count>0?'100%':'0%';
+      if(status) status.textContent=`คำตอบผ่านครู ${count} ครั้ง • ทุกครั้งได้รับ +5💧 และ +5🪙`;
     }
 
     onAuthStateChanged(auth,user=>{
@@ -1092,7 +1330,7 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
     }
 
     window.openNewPostDialog=function(){
-      if(!currentGroupId()){alert('กรุณาเข้าสู่ระบบกลุ่มก่อนปักคำถาม');location.href='login.html';return;}
+      if(!currentGroupId()){alert('กรุณาเข้าสู่ระบบกลุ่มก่อนปักคำถาม');location.href='index.html';return;}
       document.getElementById('questionName').value=displayName();
       if(currentRoom()) document.getElementById('questionRoom').value=currentRoom();
       document.getElementById('newPostDialog').classList.add('show'); checkQuestionQuality();
@@ -1210,7 +1448,7 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
         ${p.helpfulAnswerId===a.id
           ?'<div class="selected-helpful">🌟 เจ้าของคำถามเลือกคำตอบนี้ว่าเป็นคำตอบที่ช่วยได้</div>'
           :''}
-        ${teacher?`<div style="margin-top:8px">${!a.isApproved?`<button class="teacher-btn" onclick="approveAnswer('${a.id}')">✅ อนุมัติ +5 เหรียญ</button>`:''}<button class="teacher-btn" onclick="markBestAnswer('${a.id}','${postId}')">🏆 เลือกดีที่สุด รวม 10 เหรียญ</button></div>`:''}
+        ${teacher?`<div style="margin-top:8px">${!a.isApproved?`<button class="teacher-btn" onclick="approveAnswer('${a.id}')">✅ อนุมัติ +5 น้ำ +5 เหรียญ</button>`:''}<button class="teacher-btn" onclick="markBestAnswer('${a.id}','${postId}')">🏆 ดีที่สุด +5 น้ำ +10 เหรียญ</button></div>`:''}
       </div>`).join(''):'<div class="empty-state" style="margin-top:12px">ยังไม่มีคำตอบ ลองเป็นคนแรกที่ช่วยเพื่อนนะ 🙋</div>';
       document.getElementById('postDetailContent').innerHTML=`
         <div class="question-detail"><div class="note-badges">${p.isPinned?'<span class="badge">📌 ครูปักหมุด</span>':''}<span class="badge">${p.status==='solved'?'✔️ แก้แล้ว':'❓ รอความช่วยเหลือ'}</span></div><h2>${escapeHtml(p.title)}</h2><p style="white-space:pre-wrap">${escapeHtml(p.body)}</p>${renderQuestionAttachments(p)}<small>👤 ${escapeHtml(p.authorName)} • ${escapeHtml(p.room)}</small></div>
@@ -1219,7 +1457,7 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
         <div style="margin:10px 0">
           ${owner&&p.status!=='solved'
             ?(approvedAnswers.length
-              ?'<div class="waiting-approved">✅ มีคำตอบที่ครูอนุมัติแล้ว กรุณาเลือกปุ่ม “คำตอบนี้ช่วยแก้ปัญหาได้” ใต้คำตอบที่ช่วยจริง เพื่อปิดคำถามและรับ 1 เหรียญ</div>'
+              ?'<div class="waiting-approved">✅ มีคำตอบที่ครูอนุมัติแล้ว กรุณาเลือกปุ่ม “คำตอบนี้ช่วยแก้ปัญหาได้” ใต้คำตอบที่ช่วยจริง เพื่อปิดคำถามและรับ 5 เหรียญ</div>'
               :'<div class="waiting-approved">⏳ ยังรับเหรียญไม่ได้ ต้องรอให้มีคำตอบและผ่านการอนุมัติจากครูก่อน</div>')
             :''}
           ${teacher?`<button class="teacher-btn" onclick="togglePin('${postId}',${!p.isPinned})">${p.isPinned?'📌 เลิกปักหมุด':'📌 ปักหมุด'}</button>`:''}
@@ -1278,6 +1516,20 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
       await updateDoc(doc(db,'knowledge_posts',postId),{helpingGroupId:'',helpingName:'',updatedAt:serverTimestamp()}); showToast('💬 ส่งคำตอบแล้ว รอครูอนุมัติเพื่อรับเหรียญ');
     };
 
+
+    function addHelperWaterToMembers(tx,wallet,amount){
+      const water=Number(amount)||0;
+      if(water<=0)return;
+      const ids=Array.isArray(wallet?.memberIds)?wallet.memberIds:[];
+      ids.forEach(uid=>{
+        if(!uid)return;
+        tx.update(doc(db,'users',String(uid)),{
+          waterDrops:increment(water),
+          updatedAt:serverTimestamp()
+        });
+      });
+    }
+
     async function addWalletReward(groupId,coins=0,water=0,extra={}){
       if(!groupId)return;
       const ref=doc(db,'group_wallets',groupId);
@@ -1287,35 +1539,88 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
     window.approveAnswer=async answerId=>{
       if(!isTeacher()){alert('เฉพาะบัญชีครูหรือผู้ดูแลเท่านั้น');return;}
       const a=Object.values(answersByPost).flat().find(x=>x.id===answerId); if(!a)return;
-      const aRef=doc(db,'knowledge_answers',answerId); const walletRef=doc(db,'group_wallets',a.authorGroupId);
+      const aRef=doc(db,'knowledge_answers',answerId);
+      if(a.authorGroupId==='KRU_MILD_HELPER'){
+        await updateDoc(aRef,{isApproved:true,coinRewarded:true,approvedAt:serverTimestamp()});
+        showToast('✅ อนุมัติคำตอบของ Kru_Mild แล้ว (บัญชีช่วยเหลือไม่มีรางวัล)');
+        return;
+      }
+      const walletRef=doc(db,'group_wallets',a.authorGroupId);
       await runTransaction(db,async tx=>{
-        const aSnap=await tx.get(aRef); if(!aSnap.exists())return; const data=aSnap.data(); if(data.coinRewarded)return;
-        const wSnap=await tx.get(walletRef); const w=wSnap.exists()?wSnap.data():{}; const newCount=(Number(w.helperApprovedCount)||0)+1; const oldCycles=Number(w.helperRewardCycles)||0; const newCycles=Math.floor(newCount/5); const waterBonus=newCycles>oldCycles?10:0;
-        tx.set(walletRef,{magicCoins:(Number(w.magicCoins)||0)+5,water:(Number(w.water)||0)+waterBonus,helperApprovedCount:newCount,helperRewardCycles:newCycles},{merge:true});
+        const aSnap=await tx.get(aRef); if(!aSnap.exists())return;
+        const data=aSnap.data(); if(data.coinRewarded)return;
+        const wSnap=await tx.get(walletRef); const w=wSnap.exists()?wSnap.data():{};
+        const newCount=(Number(w.helperApprovedCount)||0)+1;
+        const waterReward=5;
+        const coinReward=5;
+        addHelperWaterToMembers(tx,w,waterReward);
+        tx.set(walletRef,{
+          magicCoins:(Number(w.magicCoins)||0)+coinReward,
+          water:(Number(w.water)||0)+waterReward,
+          helperApprovedCount:newCount,
+          updatedAt:serverTimestamp()
+        },{merge:true});
         tx.update(aRef,{isApproved:true,coinRewarded:true,approvedAt:serverTimestamp()});
       });
-      showToast('✅ อนุมัติคำตอบแล้ว: +5 เหรียญ'+(a?' และตรวจรางวัลดาวผู้ช่วยแล้ว':''));
+      showToast('✅ อนุมัติคำตอบแล้ว: +5💧 ให้สมาชิกแต่ละคน และ +5🪙 ให้กลุ่ม');
     };
 
     window.markBestAnswer=async(answerId,postId)=>{
       if(!isTeacher()){alert('เฉพาะบัญชีครูหรือผู้ดูแลเท่านั้น');return;}
       const all=answersByPost[postId]||[]; const target=all.find(x=>x.id===answerId); if(!target)return;
       for(const a of all){if(a.isBest&&a.id!==answerId) await updateDoc(doc(db,'knowledge_answers',a.id),{isBest:false});}
-      const aRef=doc(db,'knowledge_answers',answerId); const walletRef=doc(db,'group_wallets',target.authorGroupId);
+      const aRef=doc(db,'knowledge_answers',answerId);
+      if(target.authorGroupId==='KRU_MILD_HELPER'){
+        await updateDoc(aRef,{isApproved:true,isBest:true,coinRewarded:true,bestBonusRewarded:true,approvedAt:serverTimestamp(),bestAt:serverTimestamp()});
+        showToast('🏆 เลือกคำตอบของ Kru_Mild เป็นคำตอบดีที่สุดแล้ว (ไม่มีรางวัล)');
+        return;
+      }
+      const walletRef=doc(db,'group_wallets',target.authorGroupId);
+      let result={coinAdd:0,waterAdd:0};
       await runTransaction(db,async tx=>{
         const aSnap=await tx.get(aRef); const wSnap=await tx.get(walletRef); if(!aSnap.exists())return;
         const data=aSnap.data(),w=wSnap.exists()?wSnap.data():{};
-        let coinAdd=0,newCount=Number(w.helperApprovedCount)||0,newCycles=Number(w.helperRewardCycles)||0,waterAdd=0;
-        if(!data.coinRewarded){coinAdd+=5;newCount+=1;const cycles=Math.floor(newCount/5);if(cycles>newCycles){waterAdd+=10;newCycles=cycles;}}
-        if(!data.bestBonusRewarded)coinAdd+=5;
-        tx.set(walletRef,{magicCoins:(Number(w.magicCoins)||0)+coinAdd,water:(Number(w.water)||0)+waterAdd,helperApprovedCount:newCount,helperRewardCycles:newCycles},{merge:true});
-        tx.update(aRef,{isApproved:true,isBest:true,coinRewarded:true,bestBonusRewarded:true,approvedAt:data.approvedAt||serverTimestamp(),bestAt:serverTimestamp()});
+        let coinAdd=0,waterAdd=0,newCount=Number(w.helperApprovedCount)||0;
+
+        // ถ้ายังไม่เคยอนุมัติ ให้รางวัลตอบผ่านก่อน +5 น้ำ +5 เหรียญ
+        if(!data.coinRewarded){
+          coinAdd+=5;
+          waterAdd+=5;
+          newCount+=1;
+        }
+
+        // โบนัสคำตอบดีที่สุด เพิ่มอีก +5 น้ำ +10 เหรียญ
+        if(!data.bestBonusRewarded){
+          coinAdd+=10;
+          waterAdd+=5;
+        }
+
+        addHelperWaterToMembers(tx,w,waterAdd);
+        tx.set(walletRef,{
+          magicCoins:(Number(w.magicCoins)||0)+coinAdd,
+          water:(Number(w.water)||0)+waterAdd,
+          helperApprovedCount:newCount,
+          updatedAt:serverTimestamp()
+        },{merge:true});
+        tx.update(aRef,{
+          isApproved:true,
+          isBest:true,
+          coinRewarded:true,
+          bestBonusRewarded:true,
+          approvedAt:data.approvedAt||serverTimestamp(),
+          bestAt:serverTimestamp()
+        });
+        result={coinAdd,waterAdd};
       });
-      showToast('🏆 เลือกคำตอบดีที่สุดแล้ว ผู้ตอบได้รับรวม 10 เหรียญ');
+      if(result.coinAdd||result.waterAdd){
+        showToast(`🏆 คำตอบดีที่สุด: +${result.waterAdd}💧 ให้สมาชิกแต่ละคน และ +${result.coinAdd}🪙 ให้กลุ่ม`);
+      }else{
+        showToast('🏆 คำตอบนี้ได้รับรางวัลดีที่สุดแล้ว');
+      }
     };
 
     /*
-      เจ้าของคำถามจะได้รับ 1 เหรียญได้เมื่อ:
+      เจ้าของคำถามจะได้รับ 5 เหรียญได้เมื่อ:
       - มีคำตอบที่เลือกอยู่จริง
       - คำตอบนั้นผ่านการอนุมัติจากครู
       - คำตอบมาจากกลุ่มอื่น
@@ -1345,7 +1650,7 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
         return;
       }
 
-      if(!confirm('ยืนยันว่าคำตอบนี้ช่วยให้กลุ่มแก้ปัญหาได้จริงหรือไม่?\n\nเมื่อยืนยัน คำถามจะถูกปิดและกลุ่มได้รับ 1 เหรียญเพียงครั้งเดียว')){
+      if(!confirm('ยืนยันว่าคำตอบนี้ช่วยให้กลุ่มแก้ปัญหาได้จริงหรือไม่?\n\nเมื่อยืนยัน คำถามจะถูกปิดและกลุ่มได้รับ 5 เหรียญเพียงครั้งเดียว')){
         return;
       }
 
@@ -1383,7 +1688,7 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
             throw new Error('เลือกคำตอบของกลุ่มตนเองไม่ได้');
           }
 
-          const after=(Number(w.magicCoins)||0)+1;
+          const after=(Number(w.magicCoins)||0)+5;
 
           tx.set(walletRef,{
             magicCoins:after,
@@ -1408,7 +1713,7 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
           const logRef=doc(collection(db,'group_wallets',gid,'transactions'));
           tx.set(logRef,{
             type:'QUESTION_SOLVED_WITH_APPROVED_ANSWER',
-            amount:1,
+            amount:5,
             postId,
             answerId,
             balanceAfter:after,
@@ -1416,7 +1721,7 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
           });
         });
 
-        showToast('✅ เลือกคำตอบที่ช่วยได้แล้ว กลุ่มได้รับ 1 เหรียญ');
+        showToast('✅ เลือกคำตอบที่ช่วยได้แล้ว กลุ่มได้รับ 5 เหรียญ');
       }catch(error){
         console.error(error);
         alert('ไม่สามารถปิดคำถามได้\n\n'+error.message);
@@ -1428,7 +1733,7 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
     function renderLeaderboard(){
       const stats={};
       Object.values(answersByPost).flat().filter(a=>a.isApproved).forEach(a=>{const key=a.authorGroupId||a.authorName;if(!stats[key])stats[key]={name:a.authorName||'ผู้ช่วย',count:0,best:0};stats[key].count++;if(a.isBest)stats[key].best++;});
-      const leaders=Object.values(stats).sort((a,b)=>(b.count*5+b.best*5)-(a.count*5+a.best*5)).slice(0,5);
+      const leaders=Object.values(stats).sort((a,b)=>(b.count*5+b.best*10)-(a.count*5+a.best*10)).slice(0,5);
       document.getElementById('leaderList').innerHTML=leaders.length?leaders.map((x,i)=>`<li><span>${['🥇','🥈','🥉','🌟','🌟'][i]} ${escapeHtml(x.name)}</span><b>${x.count} คำตอบ</b></li>`).join(''):'<li><span>ยังไม่มีผู้ช่วยที่ผ่านการอนุมัติ</span><b>🌱</b></li>';
     }
 
@@ -1622,7 +1927,7 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
 
       if(!gid){
         alert('กรุณาเข้าสู่ระบบกลุ่มก่อนส่งงาน');
-        location.href='login.html';
+        location.href='index.html';
         return;
       }
       if(!name){alert('กรุณากรอกชื่อผู้ส่งงาน');return;}
@@ -1684,7 +1989,7 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
     });
     function renderSharedWorks(){
       document.querySelectorAll('.post-grid').forEach(g=>g.innerHTML='');
-      const reacted=JSON.parse(localStorage.getItem('reactedDocs')||'{}');
+      const reacted=window.getJsonStorageSafe('reactedDocs',{});
       sharedWorksSnapshot.forEach(d=>{
         const id=d.id,missionId=d.missionId||d.mission,target=document.getElementById('grid_'+missionId);if(!target)return;
         const name=d.studentName||d.name,room=d.roomName||d.groupRoom||'ไม่ระบุห้อง',love=d.reactions?.love||0,like=d.reactions?.like||0;
@@ -1693,7 +1998,7 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
       });
     }
     window.openWorkFullscreen=function(btn){const project=btn.closest('.post-card')?.querySelector('.post-project');if(!project)return;if(project.requestFullscreen)project.requestFullscreen();else if(project.webkitRequestFullscreen)project.webkitRequestFullscreen();else alert('เบราว์เซอร์นี้ยังไม่รองรับโหมดเต็มจอ');};
-    window.addReaction=async(btn,id,emoji)=>{const reacted=JSON.parse(localStorage.getItem('reactedDocs')||'{}');if(reacted[id+'_'+emoji])return;const card=btn.closest('.post-card');card?.classList.add('anim-wiggle');await updateDoc(doc(db,'shared_works',id),{[emoji==='❤️'?'reactions.love':'reactions.like']:increment(1)});reacted[id+'_'+emoji]=true;localStorage.setItem('reactedDocs',JSON.stringify(reacted));};
+    window.addReaction=async(btn,id,emoji)=>{const reacted=window.getJsonStorageSafe('reactedDocs',{});if(reacted[id+'_'+emoji])return;const card=btn.closest('.post-card');card?.classList.add('anim-wiggle');await updateDoc(doc(db,'shared_works',id),{[emoji==='❤️'?'reactions.love':'reactions.like']:increment(1)});reacted[id+'_'+emoji]=true;localStorage.setItem('reactedDocs',JSON.stringify(reacted));};
   </script>
 
 <div class="study-buddy" aria-live="polite"><div class="study-buddy-bubble" id="studyBuddyBubble">เห็นโพสต์ที่ยังไม่แก้ ลองเข้าไปช่วยเพื่อนนะ</div><button type="button" class="study-buddy-char" id="studyBuddyChar" aria-label="คำแนะนำจากเพื่อนมอนสเตอร์" title="กดเพื่อดูคำแนะนำ">👾</button></div>
@@ -1763,5 +2068,526 @@ loadShareMenuAvatar();
 setTimeout(()=>window.hydratePostAvatars?.(),600);
 </script>
 
+
+<script type="module">
+// Shared monster profile menu for Suan Saen Suk
+// Displays up to 3 currently logged-in students and updates in real time from Firestore.
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* MENU_AVATAR_SCOPE_FIX */
+(() => {
+
+const menuFirebaseConfig = {
+  apiKey: "AIzaSyDfBIp5gujB9cE2twLz483hllYOubgYuks",
+  authDomain: "codingplant-f19fc.firebaseapp.com",
+  projectId: "codingplant-f19fc",
+  storageBucket: "codingplant-f19fc.firebasestorage.app",
+  messagingSenderId: "194545106875",
+  appId: "1:194545106875:web:d4b7ca3dd6b57f46cc8e9e"
+};
+
+const menuApp = getApps().find(a => a.name === 'menu-avatar-app') || initializeApp(menuFirebaseConfig, 'menu-avatar-app');
+const menuDb = getFirestore(menuApp);
+
+const DEFAULT_CHARACTER = {
+    skin: "skin_purple",
+    hairStyle: "monster_orb",
+    hairColor: "feature_horns",
+    eyes: "eyes_cyclops",
+    shirt: "chest_none",
+    pants: "aura_none",
+    shoes: "trail_none",
+    hat: null,
+    glasses: null,
+    accessory: null,
+    background: "bg_space"
+};
+
+const DEFAULT_OWNED_ITEMS = [
+    "chest_none", "aura_none", "trail_none", "bg_space"
+];
+
+/* เพิ่ม/ลบสินค้าได้ที่ ITEM_CATALOG จุดเดียว แล้วใช้ id เดิมใน renderAvatar */
+const ITEM_CATALOG = [
+    { id:"hat_witch", name:"หมวกแม่มดดาว", category:"hat", price:120 },
+    { id:"hat_crown", name:"มงกุฎอสูร", category:"hat", price:150 },
+    { id:"hat_frog", name:"หมวกกบกรี๊บ", category:"hat", price:100 },
+    { id:"hat_gamer", name:"หมวกเกมเมอร์", category:"hat", price:90 },
+    { id:"hat_sleep", name:"หมวกนอนหลับ", category:"hat", price:80 },
+    { id:"hat_cat", name:"หมวกแมวพาสเทล", category:"hat", price:95 },
+    { id:"hat_headphone", name:"หูฟังเรืองแสง", category:"hat", price:110 },
+    { id:"hat_party", name:"หมวกปาร์ตี้มิติ", category:"hat", price:70 },
+    { id:"hat_tiara", name:"เทียร่าหัวใจ", category:"hat", price:115 },
+    { id:"hat_strawberry", name:"หมวกสตรอว์เบอร์รี", category:"hat", price:88 },
+
+    { id:"face_pixel", name:"แว่นพิกเซล", category:"glasses", price:70 },
+    { id:"face_star", name:"แว่นดาววิบวับ", category:"glasses", price:85 },
+    { id:"face_patch", name:"ผ้าปิดตาโจรสลัด", category:"glasses", price:60 },
+    { id:"face_mask", name:"หน้ากากจิ้งจอก", category:"glasses", price:95 },
+    { id:"face_visor", name:"แว่นไซเบอร์", category:"glasses", price:110 },
+    { id:"face_heart", name:"แว่นหัวใจ", category:"glasses", price:80 },
+    { id:"face_flower", name:"แว่นดอกไม้", category:"glasses", price:78 },
+    { id:"face_cloud", name:"เมฆแก้มใส", category:"glasses", price:72 },
+
+    { id:"chest_none", name:"ไม่ติดของหน้าอก", category:"shirt", price:0, starter:true },
+    { id:"chest_bow", name:"โบว์สายรุ้ง", category:"shirt", price:55 },
+    { id:"chest_scarf", name:"ผ้าพันคอฮีโร่", category:"shirt", price:75 },
+    { id:"chest_gem", name:"อัญมณีพลัง", category:"shirt", price:90 },
+    { id:"chest_controller", name:"จอยเกมจิ๋ว", category:"shirt", price:85 },
+    { id:"chest_badge", name:"เข็มกลัดรอยยิ้ม", category:"shirt", price:50 },
+    { id:"chest_medal", name:"เหรียญดาวแชมป์", category:"shirt", price:68 },
+    { id:"chest_cloud", name:"ปุยเมฆนุ่มนิ่ม", category:"shirt", price:62 },
+
+    { id:"aura_none", name:"ไม่มีออร่า", category:"pants", price:0, starter:true },
+    { id:"aura_sparkle", name:"ออร่าประกายดาว", category:"pants", price:65 },
+    { id:"aura_bubble", name:"ออร่าฟองสบู่", category:"pants", price:70 },
+    { id:"aura_music", name:"ออร่าโน้ตเพลง", category:"pants", price:75 },
+    { id:"aura_pixel", name:"ออร่าพิกเซล", category:"pants", price:80 },
+    { id:"aura_rainbow", name:"ออร่าสายรุ้ง", category:"pants", price:95 },
+    { id:"aura_starswirl", name:"ออร่ากลุ่มดาว", category:"pants", price:84 },
+    { id:"aura_petals", name:"ออร่ากลีบดอกไม้", category:"pants", price:82 },
+
+    { id:"trail_none", name:"ไม่มีรอยเท้า", category:"shoes", price:0, starter:true },
+    { id:"trail_star", name:"รอยเท้าดาว", category:"shoes", price:45 },
+    { id:"trail_heart", name:"รอยเท้าหัวใจ", category:"shoes", price:50 },
+    { id:"trail_leaf", name:"รอยเท้าใบไม้", category:"shoes", price:45 },
+    { id:"trail_rainbow", name:"รอยเท้าสายรุ้ง", category:"shoes", price:70 },
+    { id:"trail_pixel", name:"รอยเท้าพิกเซล", category:"shoes", price:60 },
+    { id:"trail_bubblepop", name:"รอยเท้าฟองวิ้ง", category:"shoes", price:58 },
+    { id:"trail_candy", name:"รอยเท้าลูกกวาด", category:"shoes", price:66 },
+
+    { id:"back_bat", name:"ปีกค้างคาวน้อย", category:"accessory", price:90 },
+    { id:"back_fairy", name:"ปีกนางฟ้าพาสเทล", category:"accessory", price:110 },
+    { id:"back_jetpack", name:"เจ็ตแพ็กจิ๋ว", category:"accessory", price:130 },
+    { id:"back_sword", name:"ดาบฮีโร่ของเล่น", category:"accessory", price:100 },
+    { id:"back_controller", name:"กระเป๋าจอยเกม", category:"accessory", price:95 },
+    { id:"back_balloon", name:"ลูกโป่งเพื่อนซี้", category:"accessory", price:85 },
+    { id:"back_ribbon", name:"โบว์หลังเจ้าหญิง", category:"accessory", price:92 },
+    { id:"back_shell", name:"เปลือกหอยเมอร์เมด", category:"accessory", price:98 },
+
+    { id:"bg_space", name:"อวกาศเริ่มต้น", category:"background", price:0, starter:true },
+    { id:"bg_arcade", name:"ห้องเกมอาร์เคด", category:"background", price:90 },
+    { id:"bg_candy", name:"สวนลูกกวาด", category:"background", price:90 },
+    { id:"bg_skyisland", name:"เกาะลอยฟ้า", category:"background", price:100 },
+    { id:"bg_toycity", name:"เมืองของเล่น", category:"background", price:95 },
+    { id:"bg_magicroom", name:"ห้องเวทมนตร์", category:"background", price:110 },
+    { id:"bg_rainbowpark", name:"สวนสายรุ้ง", category:"background", price:105 },
+    { id:"bg_undersea", name:"อาณาจักรใต้ทะเล", category:"background", price:108 },
+    { id:"bg_starlibrary", name:"ห้องสมุดดาว", category:"background", price:112 }
+];
+
+const CATEGORY_INFO = {
+    all: { label:"ทั้งหมด", icon:"⭐" },
+    hat: { label:"หมวก", icon:"🎩" },
+    glasses: { label:"แว่น/หน้า", icon:"👓" },
+    shirt: { label:"ของหน้าอก", icon:"🎀" },
+    pants: { label:"ออร่า", icon:"✨" },
+    shoes: { label:"รอยเท้า", icon:"🐾" },
+    accessory: { label:"ปีก/ของหลัง", icon:"🪽" },
+    background: { label:"พื้นหลัง", icon:"🖼️" }
+};
+
+const BASE_OPTION_LABELS = {};
+
+function mergeCharacter(character) {
+    const merged = { ...DEFAULT_CHARACTER, ...(character || {}) };
+
+    // ป้องกันข้อมูลเก่าที่ยังใช้ตัวเลือกซึ่งถูกนำออกแล้ว
+    const allowedSkins = new Set(["skin_lava","skin_amber","skin_lemon","skin_acid","skin_ocean","skin_purple","skin_candy","skin_neon","skin_aqua","skin_lilac"]);
+    const allowedSpecies = new Set(["monster_orb","monster_slime","monster_bat","monster_crystal","monster_spider","monster_cube","monster_egg","monster_bunny","monster_puff","monster_ghost","monster_drop","monster_cake","monster_golem"]);
+    const allowedFeatures = new Set(["feature_horns","feature_antlers","feature_crown","feature_eye_stalks","feature_spikes","feature_halo","feature_bunnyears","feature_antenna","feature_flowers","feature_bow","feature_cat_ears","feature_leaf_crown","feature_bubbles","feature_sweets","feature_none"]);
+    const allowedEyes = new Set(["eyes_cyclops","eyes_three","eyes_many","eyes_happy","eyes_star","eyes_wink","eyes_shy","eyes_kawaii","eyes_glasses","eyes_heart","eyes_dizzy","eyes_robot"]);
+
+    if (!allowedSkins.has(merged.skin)) merged.skin = "skin_purple";
+    if (!allowedSpecies.has(merged.hairStyle)) merged.hairStyle = "monster_orb";
+    if (!allowedFeatures.has(merged.hairColor)) merged.hairColor = "feature_horns";
+    if (!allowedEyes.has(merged.eyes)) merged.eyes = "eyes_cyclops";
+
+    return merged;
+}
+
+function itemById(id) {
+    return ITEM_CATALOG.find(item => item.id === id);
+}
+
+function colorFor(id, fallback) {
+    const colors = {
+        hair_brown:"#6b3f24",
+        hair_black:"#1f2937",
+        hair_blonde:"#e5b93f",
+        hair_pink:"#f472b6",
+        hair_blue:"#3b82f6",
+        shirt_blue:"#38bdf8",
+        shirt_green:"#8b5cf6",
+        shirt_black:"#111827",
+        shirt_pink:"#f472b6",
+        pants_navy:"#1e3a8a",
+        pants_black:"#111827",
+        pants_green:"#3f6212",
+        shoes_red:"#ef4444",
+        shoes_black:"#111827",
+        shoes_blue:"#2563eb"
+    };
+    return colors[id] || fallback;
+}
+
+function renderAvatar(container, rawCharacter) {
+    if (!container) return;
+    const c = mergeCharacter(rawCharacter);
+    const uid = "monster" + Math.random().toString(36).slice(2, 9);
+
+    const palettes = {
+        skin_acid:["#eaff7a","#94df43","#3c8f3d"], skin_lava:["#ffd18a","#ff7043","#a52337"],
+        skin_ocean:["#baf4ff","#48b8df","#3157aa"], skin_purple:["#eed2ff","#ab68e6","#6630a5"],
+        skin_shadow:["#8586a4","#41445f","#1c2038"], skin_candy:["#ffd3ed","#ff76b2","#a93686"],
+        skin_gold:["#fff1a8","#eeb947","#a56a22"], skin_frost:["#ffffff","#b9e4f4","#618cb7"],
+        skin_moss:["#d7e68e","#7eac55","#3f663a"], skin_void:["#6975c5","#2f326f","#15162f"],
+        skin_corral:["#ffd0bd","#ed8e78","#a94c55"], skin_neon:["#baffdc","#36e7b0","#148778"],
+        skin_peach:["#ffd9c7","#f3a98f","#a85f55"], skin_lemon:["#fff5a8","#e9d94d","#9b8422"],
+        skin_lilac:["#eadcff","#b89bea","#6c579e"], skin_aqua:["#c8fff5","#67d9cb","#2a8d83"],
+        skin_rose:["#ffd1df","#ef87aa","#a94e70"], skin_ink:["#9aa0c9","#555b91","#292d59"],
+        skin_milk:["#fffdf4","#e7dfcc","#9c927f"], skin_amber:["#ffe0a8","#e89c42","#995927"],
+        skin_mintcream:["#e4fff1","#8ce5bd","#3e9271"], skin_plum:["#f2ceff","#c472d7","#71377f"],
+        skin_sunset:["#ffd0a4","#ff8c69","#ad4350"], skin_cloudblue:["#e5f3ff","#9ec8ed","#507cae"],
+        skin_choco:["#ecc9a4","#b8774d","#6e402c"],
+        skin_light:["#eaff7a","#94df43","#3c8f3d"], skin_warm:["#fff1a8","#eeb947","#a56a22"],
+        skin_tan:["#ffd3ed","#ff76b2","#a93686"], skin_deep:["#eed2ff","#ab68e6","#6630a5"],
+        skin_mint:["#baffdc","#36e7b0","#148778"], skin_sky:["#baf4ff","#48b8df","#3157aa"],
+        skin_cream:["#fff1d4","#e6c59b","#a57855"], skin_cocoa:["#d8ad82","#996743","#5b3929"],
+        skin_gray:["#d7dae4","#969dad","#555c70"], skin_charcoal:["#8586a4","#41445f","#1c2038"],
+        skin_orange:["#ffd18a","#ff8a4c","#b34b34"], skin_red:["#ffb0aa","#eb555f","#9e293e"],
+        skin_blue:["#c1d5ff","#6e8fe8","#3650a4"], skin_white:["#ffffff","#dceaf1","#8da8b6"], skin_dark:["#6975c5","#2f326f","#15162f"]
+    };
+    const [light, mid, dark] = palettes[c.skin] || palettes.skin_purple;
+    const glow = {skin_lava:'#ffdd55',skin_ocean:'#89f5ff',skin_purple:'#f2a6ff',skin_shadow:'#9ca7ff',skin_candy:'#fff0fa',skin_gold:'#fff3a0',skin_frost:'#e9ffff',skin_moss:'#d8ff8c',skin_void:'#897cff',skin_corral:'#ffe0bd',skin_neon:'#9affdd'}[c.skin] || light;
+
+    const bgMap={
+      bg_garden:['#a9e8ff','#8fd468','#e7c98c'],
+      bg_showcase:['#e6ddff','#ffd9ed','#dff7ff'],
+      bg_arcade:['#5b21b6','#06b6d4','#f472b6'],
+      bg_candy:['#ff7ac8','#ff4fa3','#ffe45e'],
+      bg_skyisland:['#38bdf8','#60a5fa','#ffffff'],
+      bg_toycity:['#facc15','#fb7185','#22d3ee'],
+      bg_magicroom:['#7c3aed','#d946ef','#fde047'],
+      bg_rainbowpark:['#8b5cf6','#38bdf8','#facc15'],
+      bg_undersea:['#0ea5e9','#38bdf8','#93c5fd'],
+      bg_starlibrary:['#4338ca','#7c3aed','#f5d0fe'],
+      bg_space:['#17132f','#080718','#5f48a8']
+    };
+    const bg=bgMap[c.background]||bgMap.bg_space;
+    const backgroundScene={
+      bg_garden:`<rect width="360" height="430" fill="#a9e8ff"/><g fill="#fff" opacity=".75"><circle cx="72" cy="74" r="26"/><circle cx="102" cy="70" r="34"/><circle cx="282" cy="94" r="29"/></g><path d="M0 280 Q100 240 180 276 T360 276 V430 H0Z" fill="#8fd468"/><path d="M130 430 Q145 338 180 302 Q215 338 230 430Z" fill="#e7c98c" opacity=".92"/><g><circle cx="42" cy="300" r="7" fill="#f472b6"/><circle cx="318" cy="292" r="7" fill="#facc15"/><circle cx="75" cy="325" r="6" fill="#a855f7"/></g>`,
+      bg_showcase:`<defs><linearGradient id="${uid}showcase" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d9d3ff"/><stop offset=".5" stop-color="#ffd5ed"/><stop offset="1" stop-color="#d9f5ff"/></linearGradient></defs><rect width="360" height="430" fill="url(#${uid}showcase)"/><g fill="#fff" opacity=".9"><path d="M55 70l7 14 14 7-14 7-7 14-7-14-14-7 14-7Z"/><path d="M302 124l5 10 10 5-10 5-5 10-5-10-10-5 10-5Z"/><circle cx="88" cy="170" r="4"/><circle cx="280" cy="66" r="4"/></g><path d="M0 365Q90 338 180 365T360 365V430H0Z" fill="#f3e9ff" opacity=".9"/>`,
+      bg_arcade:`<rect x="25" y="52" width="78" height="126" rx="12" fill="#6d28d9"/><rect x="35" y="64" width="58" height="55" rx="8" fill="#22d3ee"/><circle cx="49" cy="143" r="7" fill="#ff6ea8"/><rect x="61" y="137" width="24" height="10" rx="5" fill="#ffe45e"/><rect x="257" y="52" width="78" height="126" rx="12" fill="#ec4899"/><rect x="267" y="64" width="58" height="55" rx="8" fill="#fde047"/><circle cx="281" cy="143" r="7" fill="#6fe5a8"/><rect x="293" y="137" width="24" height="10" rx="5" fill="#8b5cf6"/><path d="M0 340Q90 300 180 335T360 340V430H0Z" fill="#8b5cf6"/>`,
+      bg_candy:`<path d="M0 322Q88 276 180 319T360 322V430H0Z" fill="#fbbf24"/><circle cx="58" cy="120" r="30" fill="#f472b6"/><rect x="51" y="120" width="14" height="85" rx="7" fill="#fff"/><circle cx="304" cy="110" r="34" fill="#38bdf8"/><rect x="297" y="110" width="14" height="95" rx="7" fill="#fff"/><path d="M120 210Q180 150 240 210V300H120Z" fill="#fde68a" stroke="#ff9ccf" stroke-width="7"/>`,
+      bg_skyisland:`<g fill="#fff" opacity=".9"><ellipse cx="70" cy="95" rx="45" ry="22"/><ellipse cx="295" cy="115" rx="50" ry="24"/></g><path d="M62 300Q110 244 158 300L135 355H85Z" fill="#4ade80"/><path d="M202 285Q260 220 320 285L294 350H225Z" fill="#38bdf8"/><path d="M0 368Q90 340 180 366T360 368V430H0Z" fill="#bae6fd"/>`,
+      bg_toycity:`<rect x="25" y="175" width="70" height="150" rx="10" fill="#fb7185"/><rect x="105" y="130" width="80" height="195" rx="10" fill="#facc15"/><rect x="195" y="160" width="65" height="165" rx="10" fill="#22d3ee"/><rect x="270" y="115" width="65" height="210" rx="10" fill="#8b5cf6"/><g fill="#fff"><rect x="40" y="195" width="18" height="22"/><rect x="65" y="195" width="18" height="22"/><rect x="125" y="155" width="18" height="22"/><rect x="150" y="155" width="18" height="22"/></g><path d="M0 325H360V430H0Z" fill="#c4b5fd"/>`,
+      bg_magicroom:`<rect x="28" y="55" width="76" height="120" rx="16" fill="#7c3aed"/><path d="M42 90Q66 55 90 90Q66 122 42 90Z" fill="#ffe56f"/><rect x="260" y="55" width="72" height="120" rx="16" fill="#ec4899"/><path d="M274 85L296 66L318 85L296 105Z" fill="#8ef0ff"/><path d="M0 335Q100 305 180 335T360 335V430H0Z" fill="#a78bfa"/><g fill="#fde047"><circle cx="55" cy="230" r="6"/><circle cx="310" cy="245" r="8"/><path d="M180 70l7 15 15 7-15 7-7 15-7-15-15-7 15-7Z"/></g>`,
+      bg_rainbowpark:`<path d="M0 318Q90 270 180 315T360 318V430H0Z" fill="#4ade80"/><path d="M60 210Q180 70 300 210" fill="none" stroke="#f43f5e" stroke-width="22"/><path d="M72 210Q180 92 288 210" fill="none" stroke="#facc15" stroke-width="20"/><path d="M85 210Q180 115 275 210" fill="none" stroke="#22d3ee" stroke-width="18"/><g fill="#fff"><ellipse cx="65" cy="220" rx="42" ry="21"/><ellipse cx="295" cy="220" rx="42" ry="21"/></g>`,
+      bg_undersea:`<rect width="360" height="430" fill="#7dd3fc"/><path d="M0 305Q95 270 180 302T360 305V430H0Z" fill="#1d4ed8" opacity=".22"/><g fill="#fff" opacity=".35"><circle cx="70" cy="84" r="8"/><circle cx="88" cy="106" r="12"/><circle cx="284" cy="94" r="10"/></g><path d="M44 355Q58 298 86 257" fill="none" stroke="#14b8a6" stroke-width="10" stroke-linecap="round"/><path d="M308 363Q292 306 270 265" fill="none" stroke="#0f766e" stroke-width="10" stroke-linecap="round"/><g fill="#f9a8d4"><path d="M95 148Q110 127 125 148Q112 158 95 148Z"/><path d="M257 170Q273 150 290 170Q274 181 257 170Z"/></g><g fill="#fde68a"><path d="M170 86Q183 72 197 86Q183 97 170 86Z"/></g>`,
+      bg_starlibrary:`<rect width="360" height="430" fill="#ede9fe"/><rect x="26" y="112" width="66" height="170" rx="12" fill="#7c3aed"/><rect x="96" y="86" width="62" height="196" rx="12" fill="#c084fc"/><rect x="165" y="122" width="60" height="160" rx="12" fill="#60a5fa"/><rect x="232" y="96" width="66" height="186" rx="12" fill="#f472b6"/><rect x="300" y="134" width="34" height="148" rx="10" fill="#facc15"/><path d="M0 338Q90 308 180 338T360 338V430H0Z" fill="#c4b5fd"/><g fill="#fff"><path d="M178 64l6 12 13 2-10 9 3 13-12-7-12 7 3-13-10-9 13-2Z"/><circle cx="78" cy="72" r="5"/><circle cx="292" cy="68" r="5"/></g>`
+    }[c.background] || '';
+
+
+    const bodies={
+      monster_orb:`<ellipse cx="180" cy="238" rx="105" ry="117"/>`,
+      monster_slime:`<path d="M77 282 C70 177 111 111 180 113 C249 111 290 177 283 282 C280 330 254 360 226 348 Q204 378 180 347 Q151 381 129 348 C99 360 80 330 77 282Z"/>`,
+      monster_dragon:`<path d="M180 89 C226 90 252 123 257 166 C294 184 293 221 268 241 C280 287 257 348 210 365 L180 337 L150 365 C103 348 80 287 92 241 C67 221 66 184 103 166 C108 123 134 90 180 89Z"/>`,
+      monster_mushroom:`<path d="M67 181 Q81 95 180 91 Q279 95 293 181 Q253 162 180 164 Q107 162 67 181Z"/><path d="M119 166 C104 225 105 332 180 363 C255 332 256 225 241 166Z"/>`,
+      monster_pumpkin:`<path d="M180 112 C143 80 100 111 91 177 C54 201 67 260 102 276 C89 329 130 364 180 347 C230 364 271 329 258 276 C293 260 306 201 269 177 C260 111 217 80 180 112Z"/><path d="M180 116 C151 130 139 185 143 240 C147 296 160 330 180 347 C200 330 213 296 217 240 C221 185 209 130 180 116Z" opacity=".18"/>`,
+      monster_bat:`<path d="M180 106 C221 83 254 113 251 156 C294 166 302 207 270 231 C284 292 250 352 180 365 C110 352 76 292 90 231 C58 207 66 166 109 156 C106 113 139 83 180 106Z"/>`,
+      monster_crystal:`<path d="M180 66 L263 151 L247 312 L180 373 L113 312 L97 151Z"/>`,
+      monster_cloud:`<path d="M180 115 C149 82 105 101 105 143 C65 145 51 188 78 215 C54 251 77 295 111 300 C107 343 143 367 180 348 C217 367 253 343 249 300 C283 295 306 251 282 215 C309 188 295 145 255 143 C255 101 211 82 180 115Z"/>`,
+      monster_spider:`<ellipse cx="180" cy="239" rx="91" ry="116"/>`,
+      monster_wisp:`<path d="M180 75 C235 122 271 169 255 227 C243 271 207 281 225 326 C193 320 178 346 180 372 C157 345 137 321 107 327 C124 287 91 268 94 222 C98 162 132 119 180 75Z"/>`,
+      monster_cube:`<path d="M91 125 Q91 96 120 96 H240 Q269 96 269 125 V329 Q269 358 240 358 H120 Q91 358 91 329Z"/>`,
+      monster_axolotl:`<path d="M180 105 C238 105 271 155 263 229 C285 254 268 296 239 303 C226 347 204 365 180 365 C156 365 134 347 121 303 C92 296 75 254 97 229 C89 155 122 105 180 105Z"/>`,
+      monster_moon:`<path d="M214 92 C148 82 99 130 95 218 C91 304 139 362 205 353 C158 324 145 268 157 211 C169 153 188 121 214 92Z"/>`,
+      monster_fish:`<path d="M102 149 C142 107 220 108 260 159 L315 125 L299 210 L317 290 L259 258 C218 315 141 318 99 273 C61 232 62 188 102 149Z"/>`,
+      monster_bunny:`<path d="M134 132 C102 87 110 42 137 39 C161 64 164 98 157 128 C171 119 189 119 203 128 C196 98 199 64 223 39 C250 42 258 87 226 132 C267 160 277 224 258 287 C244 338 216 365 180 365 C144 365 116 338 102 287 C83 224 93 160 134 132Z"/>`,
+      monster_puff:`<path d="M180 108 C211 79 251 99 251 137 C292 134 310 174 287 205 C316 233 298 282 262 288 C269 331 225 365 180 345 C135 365 91 331 98 288 C62 282 44 233 73 205 C50 174 68 134 109 137 C109 99 149 79 180 108Z"/>`,
+      monster_snail:`<path d="M112 272 C93 212 109 147 162 127 C221 105 267 150 262 208 C258 251 224 279 187 273 C163 269 148 251 151 229 C154 209 170 197 188 200 C204 203 211 218 205 230 C199 241 186 243 179 235 C190 242 203 231 198 218 C192 201 166 198 151 212 C125 237 143 285 184 299 C213 309 245 303 269 285 C253 338 221 365 180 365 C142 365 116 337 112 272Z"/>`,
+      monster_egg:`<path d="M180 79 C229 79 264 145 269 228 C274 315 238 370 180 370 C122 370 86 315 91 228 C96 145 131 79 180 79Z"/>`,
+      monster_ghost:`<path d="M180 91 C238 91 272 138 269 211 V347 L238 326 L210 350 L180 326 L150 350 L122 326 L91 347 V211 C88 138 122 91 180 91Z"/>`,
+      monster_drop:`<path d="M180 60 C227 125 271 178 267 249 C263 324 226 368 180 368 C134 368 97 324 93 249 C89 178 133 125 180 60Z"/>`,
+      monster_cake:`<path d="M102 145 Q180 103 258 145 V317 Q258 360 215 360 H145 Q102 360 102 317Z"/><path d="M102 166 Q126 195 150 166 Q174 198 198 166 Q222 194 258 166 V132 Q180 92 102 132Z"/>`,
+      monster_golem:`<path d="M126 111 L180 82 L234 111 L269 172 L252 247 L270 310 L218 365 L142 365 L90 310 L108 247 L91 172Z"/>`
+    };
+
+    const limbs={
+      monster_spider:`<g fill="none" stroke="${dark}" stroke-width="12" stroke-linecap="round"><path d="M103 204L48 170L27 192"/><path d="M95 236L37 231L20 257"/><path d="M103 274L50 306L35 337"/><path d="M257 204L312 170L333 192"/><path d="M265 236L323 231L340 257"/><path d="M257 274L310 306L325 337"/></g>`,
+      monster_bat:`<g fill="${mid}" stroke="${dark}" stroke-width="6"><path d="M103 178 C58 137 35 158 29 204 C49 190 66 201 73 224 C82 205 94 193 113 199Z"/><path d="M257 178 C302 137 325 158 331 204 C311 190 294 201 287 224 C278 205 266 193 247 199Z"/></g>`,
+      monster_dragon:`<g fill="${mid}" stroke="${dark}" stroke-width="6"><path d="M111 195 C61 155 41 196 58 239 C73 220 91 219 112 239Z"/><path d="M249 195 C299 155 319 196 302 239 C287 220 269 219 248 239Z"/></g>`,
+      monster_cloud:`<g fill="${mid}"><ellipse cx="74" cy="255" rx="35" ry="18"/><ellipse cx="286" cy="255" rx="35" ry="18"/></g>`,
+      monster_pumpkin:`<g fill="none" stroke="${dark}" stroke-width="14" stroke-linecap="round"><path d="M99 248Q62 259 48 292"/><path d="M261 248Q298 259 312 292"/></g><path d="M176 119Q176 83 194 62Q207 84 191 122Z" fill="#55763b" stroke="${dark}" stroke-width="6"/>`,
+      monster_ghost:`<g fill="none" stroke="${mid}" stroke-width="14" stroke-linecap="round"><path d="M101 229Q66 237 44 266"/><path d="M259 229Q294 237 316 266"/></g>`,
+      monster_golem:`<g fill="none" stroke="${dark}" stroke-width="18" stroke-linecap="square"><path d="M103 238L48 278"/><path d="M257 238L312 278"/></g>`,
+      default:`<g fill="none" stroke="${dark}" stroke-width="15" stroke-linecap="round"><path d="M104 255Q70 273 56 302"/><path d="M256 255Q290 273 304 302"/></g>`
+    };
+
+    const features={
+      feature_horns:`<g fill="${glow}" stroke="${dark}" stroke-width="5"><path d="M123 137 Q86 83 121 53 Q117 91 149 118Z"/><path d="M237 137 Q274 83 239 53 Q243 91 211 118Z"/></g>`,
+      feature_antlers:`<g fill="none" stroke="${dark}" stroke-width="10" stroke-linecap="round"><path d="M133 128Q98 93 103 49M104 74L78 55M108 88L134 60"/><path d="M227 128Q262 93 257 49M256 74L282 55M252 88L226 60"/></g>`,
+      feature_ears:`<g fill="${mid}" stroke="${dark}" stroke-width="6"><path d="M119 143Q66 114 77 69Q123 83 145 124Z"/><path d="M241 143Q294 114 283 69Q237 83 215 124Z"/></g>`,
+      feature_tentacles:`<g fill="none" stroke="${mid}" stroke-width="13" stroke-linecap="round"><path d="M145 126Q126 81 151 50Q170 29 184 52"/><path d="M183 117Q207 80 225 91Q244 103 226 121"/><path d="M165 119Q173 83 160 67"/></g>`,
+      feature_flame:`<path d="M180 126 C143 98 151 65 177 35 C175 65 208 64 199 24 C241 70 224 112 180 126Z" fill="url(#${uid}flame)" stroke="${dark}" stroke-width="5"/>`,
+      feature_crystals:`<g fill="url(#${uid}crystal)" stroke="${dark}" stroke-width="4"><path d="M139 135L117 81L149 54L163 121Z"/><path d="M180 121L164 52L181 25L198 52Z"/><path d="M221 135L197 121L211 54L243 81Z"/></g>`,
+      feature_crown:`<path d="M123 126L113 61L151 88L180 42L209 88L247 61L237 126Z" fill="${glow}" stroke="${dark}" stroke-width="6"/>`,
+      feature_eye_stalks:`<g stroke="${dark}" stroke-width="8" stroke-linecap="round"><path d="M148 139Q127 82 142 58"/><path d="M212 139Q233 82 218 58"/></g><g fill="white" stroke="${dark}" stroke-width="5"><circle cx="142" cy="52" r="18"/><circle cx="218" cy="52" r="18"/></g><g fill="${dark}"><circle cx="142" cy="52" r="7"/><circle cx="218" cy="52" r="7"/></g>`,
+      feature_mushrooms:`<g><path d="M145 130V84M215 130V72" stroke="#f0d8b4" stroke-width="12"/><path d="M113 85Q145 44 177 85Z" fill="#ef5964" stroke="${dark}" stroke-width="5"/><path d="M184 73Q215 31 246 73Z" fill="#8b72e8" stroke="${dark}" stroke-width="5"/></g>`,
+      feature_spikes:`<g fill="${glow}" stroke="${dark}" stroke-width="4"><path d="M116 147L86 98L137 120Z"/><path d="M149 119L143 55L174 112Z"/><path d="M184 110L210 46L215 121Z"/><path d="M225 126L271 87L246 151Z"/></g>`,
+      feature_halo:`<g fill="none" stroke="${glow}" stroke-width="10"><ellipse cx="180" cy="66" rx="69" ry="22"/></g>`,
+      feature_bunnyears:`<g fill="${mid}" stroke="${dark}" stroke-width="6"><path d="M143 132Q102 74 124 29Q158 54 161 121Z"/><path d="M217 132Q258 74 236 29Q202 54 199 121Z"/></g>`,
+      feature_fins:`<g fill="${glow}" stroke="${dark}" stroke-width="5"><path d="M125 145Q74 116 75 78Q119 87 148 126Z"/><path d="M235 145Q286 116 285 78Q241 87 212 126Z"/></g>`,
+      feature_antenna:`<g fill="none" stroke="${dark}" stroke-width="8" stroke-linecap="round"><path d="M155 132Q135 86 145 48"/><path d="M205 132Q225 86 215 48"/></g><g fill="${glow}" stroke="${dark}" stroke-width="4"><circle cx="145" cy="42" r="13"/><circle cx="215" cy="42" r="13"/></g>`,
+      feature_flowers:`<g stroke="${dark}" stroke-width="4"><path d="M180 128V72"/><g fill="#ff9fc6"><circle cx="180" cy="50" r="12"/><circle cx="162" cy="57" r="12"/><circle cx="198" cy="57" r="12"/><circle cx="168" cy="38" r="12"/><circle cx="192" cy="38" r="12"/></g><circle cx="180" cy="49" r="9" fill="#ffe36f"/></g>`,
+      feature_moon:`<path d="M180 126 C145 105 147 61 179 35 C166 72 193 93 224 74 C219 108 202 126 180 126Z" fill="${glow}" stroke="${dark}" stroke-width="5"/>`,
+      feature_bow:`<g fill="#ff89b4" stroke="${dark}" stroke-width="5"><path d="M177 89Q133 55 126 91Q133 126 177 101Z"/><path d="M183 89Q227 55 234 91Q227 126 183 101Z"/><circle cx="180" cy="95" r="14"/></g>`,
+      feature_cat_ears:`<g fill="${mid}" stroke="${dark}" stroke-width="6"><path d="M122 140L91 66L157 116Z"/><path d="M238 140L269 66L203 116Z"/></g>`,
+      feature_leaf_crown:`<g fill="#73c95b" stroke="${dark}" stroke-width="4"><path d="M180 126Q152 92 158 58Q183 70 184 104Q197 68 226 61Q228 97 190 126Z"/></g>`,
+      feature_bubbles:`<g fill="${glow}" fill-opacity=".65" stroke="${dark}" stroke-width="4"><circle cx="151" cy="72" r="15"/><circle cx="190" cy="48" r="19"/><circle cx="225" cy="79" r="12"/></g>`,
+      feature_feathers:`<g fill="${glow}" stroke="${dark}" stroke-width="4"><path d="M155 128Q117 84 144 47Q166 80 171 120Z"/><path d="M180 119Q164 66 196 35Q209 80 194 124Z"/><path d="M203 126Q207 77 240 59Q241 104 217 137Z"/></g>`,
+      feature_sweets:`<g stroke="${dark}" stroke-width="4"><path d="M180 128V77"/><circle cx="180" cy="57" r="22" fill="#ff93bd"/><path d="M159 57L142 44V70Z" fill="#ffe16c"/><path d="M201 57L218 44V70Z" fill="#86ddff"/></g>`,
+      feature_none:``
+    };
+
+    const faces={
+      eyes_cyclops:`<g><ellipse cx="180" cy="216" rx="37" ry="43" fill="white" stroke="${dark}" stroke-width="7"/><circle cx="180" cy="220" r="17" fill="${dark}"/><circle cx="171" cy="209" r="6" fill="white"/><path d="M151 281Q180 309 209 281" fill="#481f46" stroke="${dark}" stroke-width="6"/></g>`,
+      eyes_three:`<g fill="white" stroke="${dark}" stroke-width="6"><circle cx="137" cy="220" r="22"/><circle cx="180" cy="196" r="22"/><circle cx="223" cy="220" r="22"/></g><g fill="${dark}"><circle cx="137" cy="222" r="9"/><circle cx="180" cy="198" r="9"/><circle cx="223" cy="222" r="9"/></g><path d="M147 276Q180 303 213 276" fill="#5e244e" stroke="${dark}" stroke-width="6"/>`,
+      eyes_many:`<g fill="white" stroke="${dark}" stroke-width="5"><circle cx="130" cy="207" r="17"/><circle cx="165" cy="194" r="17"/><circle cx="200" cy="194" r="17"/><circle cx="232" cy="209" r="17"/></g><g fill="${dark}"><circle cx="130" cy="209" r="7"/><circle cx="165" cy="196" r="7"/><circle cx="200" cy="196" r="7"/><circle cx="232" cy="211" r="7"/></g><path d="M158 267Q180 286 202 267" fill="none" stroke="${dark}" stroke-width="7"/>`,
+      eyes_fangs:`<g><ellipse cx="145" cy="216" rx="19" ry="25" fill="white"/><ellipse cx="215" cy="216" rx="19" ry="25" fill="white"/><circle cx="145" cy="220" r="9" fill="${dark}"/><circle cx="215" cy="220" r="9" fill="${dark}"/><path d="M145 270Q180 312 215 270Z" fill="#632041" stroke="${dark}" stroke-width="6"/><path d="M157 274L168 294L176 273M184 273L192 294L203 274" fill="white"/></g>`,
+      eyes_sleepy:`<g fill="none" stroke="${dark}" stroke-width="8" stroke-linecap="round"><path d="M126 219Q146 235 166 219"/><path d="M194 219Q214 235 234 219"/></g><path d="M165 278Q180 268 195 278" fill="none" stroke="${dark}" stroke-width="6"/>`,
+      eyes_angry:`<g fill="white" stroke="${dark}" stroke-width="6"><path d="M122 211Q145 190 170 216Q145 242 122 211Z"/><path d="M238 211Q215 190 190 216Q215 242 238 211Z"/></g><g fill="${dark}"><circle cx="148" cy="216" r="8"/><circle cx="212" cy="216" r="8"/></g><path d="M151 287Q180 260 209 287" fill="none" stroke="${dark}" stroke-width="7"/>`,
+      eyes_happy:`<g fill="none" stroke="${dark}" stroke-width="8" stroke-linecap="round"><path d="M125 220Q145 196 165 220"/><path d="M195 220Q215 196 235 220"/></g><path d="M146 268Q180 310 214 268" fill="#ff769b" stroke="${dark}" stroke-width="6"/>`,
+      eyes_void:`<g fill="${dark}"><ellipse cx="145" cy="216" rx="25" ry="32"/><ellipse cx="215" cy="216" rx="25" ry="32"/></g><g fill="${glow}"><circle cx="145" cy="216" r="8"/><circle cx="215" cy="216" r="8"/></g><path d="M157 279Q180 291 203 279" fill="none" stroke="${dark}" stroke-width="7"/>`,
+      eyes_sparkle:`<g><ellipse cx="145" cy="218" rx="20" ry="27" fill="white"/><ellipse cx="215" cy="218" rx="20" ry="27" fill="white"/><circle cx="145" cy="221" r="10" fill="${dark}"/><circle cx="215" cy="221" r="10" fill="${dark}"/><path d="M151 276Q180 304 209 276" fill="none" stroke="${dark}" stroke-width="7"/></g>`,
+      eyes_round:`<g><circle cx="145" cy="218" r="19" fill="${dark}"/><circle cx="215" cy="218" r="19" fill="${dark}"/><path d="M159 278Q180 290 201 278" fill="none" stroke="${dark}" stroke-width="7"/></g>`,
+      eyes_wink:`<g><circle cx="145" cy="218" r="19" fill="${dark}"/><path d="M194 220Q215 198 236 220" fill="none" stroke="${dark}" stroke-width="8"/><path d="M151 276Q180 304 209 276" fill="none" stroke="${dark}" stroke-width="7"/></g>`,
+      eyes_star:`<g fill="${dark}"><path d="M145 193l7 15 17 2-13 12 4 17-15-8-15 8 4-17-13-12 17-2Z"/><path d="M215 193l7 15 17 2-13 12 4 17-15-8-15 8 4-17-13-12 17-2Z"/></g><path d="M146 268Q180 310 214 268" fill="#ff769b" stroke="${dark}" stroke-width="6"/>`,
+      eyes_shy:`<g fill="${dark}"><ellipse cx="145" cy="220" rx="15" ry="20"/><ellipse cx="215" cy="220" rx="15" ry="20"/></g><path d="M162 281Q180 270 198 281" fill="none" stroke="${dark}" stroke-width="6"/>`,
+      eyes_surprised:`<g fill="white" stroke="${dark}" stroke-width="6"><circle cx="145" cy="216" r="22"/><circle cx="215" cy="216" r="22"/></g><g fill="${dark}"><circle cx="145" cy="216" r="9"/><circle cx="215" cy="216" r="9"/><ellipse cx="180" cy="281" rx="15" ry="21"/></g>`,
+      eyes_kawaii:`<g fill="${dark}"><ellipse cx="145" cy="216" rx="18" ry="24"/><ellipse cx="215" cy="216" rx="18" ry="24"/></g><g fill="white"><circle cx="139" cy="208" r="6"/><circle cx="209" cy="208" r="6"/></g><path d="M160 276Q180 294 200 276" fill="#ff8fab" stroke="${dark}" stroke-width="6"/>`,
+      eyes_teary:`<g fill="white" stroke="${dark}" stroke-width="6"><ellipse cx="145" cy="216" rx="22" ry="27"/><ellipse cx="215" cy="216" rx="22" ry="27"/></g><g fill="${dark}"><circle cx="145" cy="218" r="9"/><circle cx="215" cy="218" r="9"/></g><g fill="#38bdf8"><path d="M126 237Q119 253 130 260Q141 252 134 238Z"/><path d="M226 238Q219 253 230 260Q241 252 234 237Z"/></g><path d="M164 282Q180 269 196 282" fill="none" stroke="${dark}" stroke-width="6"/>`,
+      eyes_tongue:`<g fill="${dark}"><circle cx="145" cy="216" r="18"/><circle cx="215" cy="216" r="18"/></g><path d="M147 267Q180 306 213 267Z" fill="#5e244e" stroke="${dark}" stroke-width="6"/><path d="M174 288Q180 309 190 287" fill="#ff7fa0"/>`,
+      eyes_glasses:`<g fill="white" stroke="${dark}" stroke-width="6"><circle cx="145" cy="216" r="25"/><circle cx="215" cy="216" r="25"/><path d="M170 216H190"/></g><g fill="${dark}"><circle cx="145" cy="216" r="8"/><circle cx="215" cy="216" r="8"/></g><path d="M160 278Q180 293 200 278" fill="none" stroke="${dark}" stroke-width="6"/>`,
+      eyes_heart:`<g fill="#ff5f87" stroke="${dark}" stroke-width="4"><path d="M145 238C119 218 125 192 145 201C165 192 171 218 145 238Z"/><path d="M215 238C189 218 195 192 215 201C235 192 241 218 215 238Z"/></g><path d="M148 269Q180 309 212 269" fill="#ff8fab" stroke="${dark}" stroke-width="6"/>`,
+      eyes_dizzy:`<g fill="none" stroke="${dark}" stroke-width="7" stroke-linecap="round"><path d="M125 204L165 232M165 204L125 232M195 204L235 232M235 204L195 232"/></g><path d="M160 282Q180 266 200 282" fill="none" stroke="${dark}" stroke-width="6"/>`,
+      eyes_robot:`<g fill="#b8f4ff" stroke="${dark}" stroke-width="6"><rect x="117" y="196" width="56" height="42" rx="11"/><rect x="187" y="196" width="56" height="42" rx="11"/></g><g fill="${dark}"><rect x="137" y="208" width="16" height="16" rx="4"/><rect x="207" y="208" width="16" height="16" rx="4"/></g><path d="M158 276H202" stroke="${dark}" stroke-width="7" stroke-linecap="round"/>`,
+      eyes_smug:`<g fill="none" stroke="${dark}" stroke-width="8" stroke-linecap="round"><path d="M123 214Q145 202 167 217"/><path d="M193 217Q215 202 237 214"/></g><path d="M157 277Q183 294 207 270" fill="none" stroke="${dark}" stroke-width="7"/>`
+    };
+
+    const body=bodies[c.hairStyle]||bodies.monster_orb;
+    const limb=limbs[c.hairStyle]||limbs.default;
+    const feature=features[c.hairColor] ?? features.feature_horns;
+    const hiddenByHat = new Set(['feature_horns','feature_antlers','feature_crown','feature_eye_stalks','feature_spikes','feature_bunnyears','feature_antenna','feature_flowers','feature_bow','feature_cat_ears','feature_leaf_crown','feature_sweets']);
+    const featureLayer=(c.hat && hiddenByHat.has(c.hairColor)) ? '' : feature;
+    const face=faces[c.eyes]||faces.eyes_cyclops;
+    const bodyOffset={monster_pumpkin:8,monster_mushroom:10,monster_wisp:8,monster_crystal:12}[c.hairStyle]||0;
+    const feet=c.hairStyle==='monster_spider'||c.hairStyle==='monster_wisp'||c.hairStyle==='monster_cloud'?'':`<g fill="${dark}"><ellipse cx="139" cy="358" rx="35" ry="17"/><ellipse cx="221" cy="358" rx="35" ry="17"/></g>`;
+
+    const backItems={
+      back_bat:`<g fill="#7c5bd6" stroke="${dark}" stroke-width="6"><path d="M105 205C55 159 29 196 47 244C65 225 82 230 104 257Z"/><path d="M255 205C305 159 331 196 313 244C295 225 278 230 256 257Z"/></g>`,
+      back_fairy:`<g fill="#bff8ff" stroke="#7b65d8" stroke-width="5"><path d="M103 211C42 171 35 241 91 280C70 243 91 218 103 211Z"/><path d="M257 211C318 171 325 241 269 280C290 243 269 218 257 211Z"/></g>`,
+      back_jetpack:`<g><rect x="76" y="218" width="48" height="92" rx="18" fill="#7d6ce6" stroke="${dark}" stroke-width="6"/><rect x="236" y="218" width="48" height="92" rx="18" fill="#ff83b5" stroke="${dark}" stroke-width="6"/><path d="M88 307L100 347L114 307M248 307L260 347L272 307" fill="#ffe56f"/></g>`,
+      back_sword:`<g transform="translate(265 250) rotate(35)"><rect x="-8" y="-78" width="16" height="130" rx="8" fill="#8fe7ff" stroke="${dark}" stroke-width="5"/><rect x="-28" y="38" width="56" height="14" rx="7" fill="#ffd65c" stroke="${dark}" stroke-width="5"/></g>`,
+      back_controller:`<g><rect x="236" y="250" width="78" height="55" rx="20" fill="#8b7ae8" stroke="${dark}" stroke-width="6"/><circle cx="258" cy="278" r="9" fill="#fff"/><circle cx="291" cy="270" r="6" fill="#ff7ca8"/><circle cx="304" cy="284" r="6" fill="#6fe5c1"/></g>`,
+      back_balloon:`<g><path d="M270 120Q250 205 258 280" fill="none" stroke="#7b5b8e" stroke-width="5"/><circle cx="282" cy="90" r="34" fill="#ff82b7" stroke="${dark}" stroke-width="6"/><circle cx="294" cy="78" r="8" fill="#fff" opacity=".7"/></g>`,
+      back_ribbon:`<g fill="#f9a8d4" stroke="${dark}" stroke-width="5"><path d="M123 220C96 198 77 204 76 228C75 247 95 252 123 240Z"/><path d="M237 220C264 198 283 204 284 228C285 247 265 252 237 240Z"/><circle cx="180" cy="228" r="18" fill="#f472b6"/></g>`,
+      back_shell:`<g><path d="M180 318C138 318 112 286 112 244C112 196 142 160 180 160C218 160 248 196 248 244C248 286 222 318 180 318Z" fill="#f9a8d4" opacity=".48" stroke="${dark}" stroke-width="5"/><path d="M142 291Q180 212 218 291" fill="none" stroke="#fbcfe8" stroke-width="6"/><path d="M156 304Q180 230 204 304" fill="none" stroke="#fce7f3" stroke-width="6"/></g>`
+    };
+    const headItems={
+      hat_witch:`<g><path d="M116 145Q180 120 244 145L231 163H129Z" fill="#50358c" stroke="${dark}" stroke-width="6"/><path d="M139 143L164 58L218 139Z" fill="#2e245a" stroke="${dark}" stroke-width="6"/><path d="M150 122H218" stroke="#ff73b3" stroke-width="10"/><path d="M181 79l7 14 15 2-11 11 3 15-14-8-14 8 3-15-11-11 15-2Z" fill="#ffe65c"/></g>`,
+      hat_crown:`<path d="M125 145L116 84L151 111L180 69L209 111L244 84L235 145Z" fill="#ffd34e" stroke="${dark}" stroke-width="7"/>`,
+      hat_frog:`<g><path d="M122 143Q180 103 238 143L229 165H131Z" fill="#69d76f" stroke="${dark}" stroke-width="6"/><circle cx="147" cy="119" r="17" fill="white" stroke="${dark}" stroke-width="5"/><circle cx="213" cy="119" r="17" fill="white" stroke="${dark}" stroke-width="5"/></g>`,
+      hat_gamer:`<g><path d="M121 143Q180 104 239 143L230 164H130Z" fill="#8a72ec" stroke="${dark}" stroke-width="6"/><path d="M143 126Q180 92 217 126" fill="#fff" stroke="#ff79b0" stroke-width="12"/><path d="M180 112v24M168 124h24" stroke="#6f55d6" stroke-width="7"/></g>`,
+      hat_sleep:`<g><path d="M123 146Q180 102 237 146L229 164H131Z" fill="#8fdcff" stroke="${dark}" stroke-width="6"/><path d="M150 137Q187 52 225 118Q231 145 203 152Z" fill="#7455c5" stroke="${dark}" stroke-width="6"/><circle cx="226" cy="117" r="15" fill="#fff"/></g>`,
+      hat_cat:`<g><path d="M124 149Q180 108 236 149L228 165H132Z" fill="#ff9ac6" stroke="${dark}" stroke-width="6"/><path d="M136 126L148 80L171 125M189 125L212 80L224 126" fill="#ffb8d6" stroke="${dark}" stroke-width="6"/></g>`,
+      hat_headphone:`<g fill="none" stroke="${dark}" stroke-width="10"><path d="M122 142Q180 70 238 142"/><rect x="105" y="128" width="35" height="58" rx="15" fill="#72ddff"/><rect x="220" y="128" width="35" height="58" rx="15" fill="#ff78b7"/></g>`,
+      hat_party:`<g><path d="M153 143L180 65L210 143Z" fill="#ff70b7" stroke="${dark}" stroke-width="6"/><circle cx="180" cy="62" r="11" fill="#ffe261"/><path d="M160 116L199 99M166 92L192 126" stroke="#7be5ff" stroke-width="7"/></g>`,
+      hat_tiara:`<g><path d="M126 144H234" stroke="#f472b6" stroke-width="8" stroke-linecap="round"/><path d="M132 145L149 104L180 126L211 104L228 145" fill="#f9a8d4" stroke="${dark}" stroke-width="5"/><path d="M180 108C169 94 172 79 180 79C188 79 191 94 180 108Z" fill="#ff5f87" stroke="${dark}" stroke-width="4"/></g>`,
+      hat_strawberry:`<g><path d="M132 147Q180 106 228 147L221 165H139Z" fill="#f43f5e" stroke="${dark}" stroke-width="6"/><path d="M152 125Q180 98 208 125" fill="#22c55e" stroke="${dark}" stroke-width="5"/><g fill="#fde68a"><circle cx="160" cy="143" r="3"/><circle cx="176" cy="134" r="3"/><circle cx="194" cy="145" r="3"/><circle cx="208" cy="137" r="3"/></g></g>`
+    };
+    const faceItems={
+      face_pixel:`<g fill="#24223a"><path d="M112 201H173V231H159V242H126V231H112Z"/><path d="M187 201H248V231H234V242H201V231H187Z"/><rect x="171" y="208" width="18" height="8"/></g>`,
+      face_star:`<g fill="#ffe367" stroke="#553f75" stroke-width="5"><path d="M145 188L154 207L175 210L160 225L164 246L145 236L126 246L130 225L115 210L136 207Z"/><path d="M215 188L224 207L245 210L230 225L234 246L215 236L196 246L200 225L185 210L206 207Z"/></g>`,
+      face_patch:`<g><path d="M112 202Q145 185 178 204L169 239Q143 252 118 235Z" fill="#2c2942"/><path d="M117 193L226 248" stroke="#2c2942" stroke-width="8"/></g>`,
+      face_mask:`<path d="M112 196Q180 170 248 196L234 244Q180 271 126 244Z" fill="#fff4e2" stroke="#e15d78" stroke-width="6" opacity=".95"/>`,
+      face_visor:`<g><rect x="105" y="193" width="150" height="48" rx="22" fill="#292354" stroke="${dark}" stroke-width="6"/><path d="M124 219L145 205L165 225L186 201L207 221L232 206" fill="none" stroke="#62f0ff" stroke-width="7"/></g>`,
+      face_heart:`<g fill="#ff73aa" stroke="#6b3f72" stroke-width="5"><path d="M145 237C117 219 120 193 136 193C145 193 149 202 149 202C149 202 153 193 162 193C178 193 181 219 145 237Z"/><path d="M215 237C187 219 190 193 206 193C215 193 219 202 219 202C219 202 223 193 232 193C248 193 251 219 215 237Z"/></g>`,
+      face_flower:`<g><circle cx="145" cy="214" r="16" fill="#fff" stroke="${dark}" stroke-width="4"/><circle cx="215" cy="214" r="16" fill="#fff" stroke="${dark}" stroke-width="4"/><g fill="#f9a8d4"><circle cx="145" cy="194" r="7"/><circle cx="127" cy="214" r="7"/><circle cx="145" cy="234" r="7"/><circle cx="163" cy="214" r="7"/><circle cx="215" cy="194" r="7"/><circle cx="197" cy="214" r="7"/><circle cx="215" cy="234" r="7"/><circle cx="233" cy="214" r="7"/></g><path d="M161 214H199" stroke="${dark}" stroke-width="5" stroke-linecap="round"/></g>`,
+      face_cloud:`<g><path d="M108 220Q122 196 145 207Q156 187 176 204Q195 188 210 208Q232 199 247 220Q232 235 210 235Q193 247 176 233Q160 246 145 234Q122 236 108 220Z" fill="#fff" opacity=".9" stroke="#93c5fd" stroke-width="5"/></g>`
+    };
+    const runes={
+      chest_bow:`<g><path d="M180 286C158 264 132 269 132 292C132 315 158 318 180 300C202 318 228 315 228 292C228 269 202 264 180 286Z" fill="#ff79b1" stroke="${dark}" stroke-width="5"/><circle cx="180" cy="293" r="13" fill="#ffe36f" stroke="${dark}" stroke-width="4"/></g>`,
+      chest_scarf:`<g><path d="M126 274Q180 301 234 274" fill="none" stroke="#67dfff" stroke-width="18" stroke-linecap="round"/><path d="M219 282L242 335L215 326Z" fill="#67dfff" stroke="${dark}" stroke-width="5"/></g>`,
+      chest_gem:`<path d="M180 265L211 291L180 330L149 291Z" fill="#75edff" stroke="${dark}" stroke-width="6"/>`,
+      chest_controller:`<g><rect x="142" y="276" width="76" height="48" rx="18" fill="#795fd8" stroke="${dark}" stroke-width="5"/><path d="M160 298h20M170 288v20" stroke="#fff" stroke-width="6"/><circle cx="199" cy="293" r="5" fill="#ff7bad"/><circle cx="209" cy="306" r="5" fill="#7ff1bc"/></g>`,
+      chest_badge:`<g><circle cx="180" cy="296" r="28" fill="#ffe16b" stroke="${dark}" stroke-width="5"/><circle cx="170" cy="289" r="4" fill="${dark}"/><circle cx="190" cy="289" r="4" fill="${dark}"/><path d="M168 304Q180 314 192 304" fill="none" stroke="${dark}" stroke-width="5" stroke-linecap="round"/></g>`,
+      chest_medal:`<g><circle cx="180" cy="294" r="24" fill="#facc15" stroke="${dark}" stroke-width="5"/><path d="M166 318L158 344L180 332L202 344L194 318" fill="#60a5fa" stroke="${dark}" stroke-width="4"/><path d="M180 278l7 13 14 2-10 10 2 14-13-7-13 7 2-14-10-10 14-2Z" fill="#fff7b0" stroke="${dark}" stroke-width="3"/></g>`,
+      chest_cloud:`<g><path d="M144 298Q152 276 172 286Q178 271 192 282Q210 276 220 298Q210 312 192 309Q180 319 167 309Q151 312 144 298Z" fill="#fff" stroke="#93c5fd" stroke-width="4"/></g>`
+    };
+    const auras={
+      aura_sparkle:`<g fill="#fff07a"><path d="M59 183l5 11 11 5-11 5-5 11-5-11-11-5 11-5Z"/><path d="M301 267l5 11 11 5-11 5-5 11-5-11-11-5 11-5Z"/><circle cx="291" cy="154" r="7"/><circle cx="69" cy="310" r="7"/></g>`,
+      aura_bubble:`<g fill="none" stroke="#8beaff" stroke-width="5"><circle cx="64" cy="205" r="16"/><circle cx="295" cy="267" r="22"/><circle cx="80" cy="318" r="10"/><circle cx="278" cy="151" r="11"/></g>`,
+      aura_music:`<g fill="#ff7db4"><text x="45" y="190" font-size="42">♪</text><text x="290" y="250" font-size="48">♫</text><text x="65" y="330" font-size="34">♪</text></g>`,
+      aura_pixel:`<g fill="#77eaff"><rect x="48" y="190" width="14" height="14"/><rect x="64" y="174" width="10" height="10"/><rect x="294" y="234" width="14" height="14"/><rect x="278" y="254" width="10" height="10"/></g>`,
+      aura_rainbow:`<g fill="none" stroke-linecap="round"><path d="M45 300Q80 245 111 275" stroke="#ff7aa2" stroke-width="11"/><path d="M249 275Q280 245 315 300" stroke="#76dfff" stroke-width="11"/><path d="M52 312Q80 270 105 292" stroke="#ffe165" stroke-width="8"/><path d="M255 292Q280 270 308 312" stroke="#8ee59d" stroke-width="8"/></g>`,
+      aura_starswirl:`<g fill="none" stroke-linecap="round"><path d="M50 282Q75 248 103 260" stroke="#f9a8d4" stroke-width="8"/><path d="M257 260Q286 248 310 282" stroke="#93c5fd" stroke-width="8"/></g><g fill="#fde68a"><path d="M84 244l5 10 10 5-10 5-5 10-5-10-10-5 10-5Z"/><path d="M282 232l5 10 10 5-10 5-5 10-5-10-10-5 10-5Z"/><circle cx="63" cy="298" r="5"/><circle cx="298" cy="300" r="5"/></g>`,
+      aura_petals:`<g fill="#f9a8d4" opacity=".92"><path d="M66 229Q79 205 94 229Q79 241 66 229Z"/><path d="M296 265Q309 241 324 265Q309 278 296 265Z"/><path d="M77 314Q91 290 106 314Q91 327 77 314Z"/><path d="M266 184Q280 160 295 184Q280 197 266 184Z"/></g><g fill="#fde68a"><circle cx="80" cy="228" r="3"/><circle cx="310" cy="264" r="3"/><circle cx="91" cy="313" r="3"/><circle cx="280" cy="183" r="3"/></g>`
+    };
+    const trails={
+      trail_star:`<g fill="#ffe261"><path d="M116 373l6 12 13 2-10 9 3 13-12-7-12 7 3-13-10-9 13-2Z"/><path d="M244 373l6 12 13 2-10 9 3 13-12-7-12 7 3-13-10-9 13-2Z"/></g>`,
+      trail_heart:`<g fill="#ff7cae"><path d="M116 407C88 389 92 366 108 366C116 366 120 375 120 375C120 375 124 366 132 366C148 366 152 389 116 407Z"/><path d="M244 407C216 389 220 366 236 366C244 366 248 375 248 375C248 375 252 366 260 366C276 366 280 389 244 407Z"/></g>`,
+      trail_leaf:`<g fill="#76d879"><path d="M95 390Q119 368 137 387Q116 403 95 390Z"/><path d="M225 387Q243 368 267 390Q246 403 225 387Z"/></g>`,
+      trail_rainbow:`<g fill="none" stroke-linecap="round"><path d="M91 400Q115 377 139 400" stroke="#ff6f91" stroke-width="16"/><path d="M221 400Q245 377 269 400" stroke="#6fe6ff" stroke-width="16"/></g>`,
+      trail_pixel:`<g fill="#8b7af0"><rect x="95" y="380" width="16" height="16"/><rect x="115" y="397" width="12" height="12"/><rect x="235" y="380" width="16" height="16"/><rect x="255" y="397" width="12" height="12"/></g>`,
+      trail_bubblepop:`<g fill="none" stroke="#93c5fd" stroke-width="5"><circle cx="111" cy="390" r="12"/><circle cx="128" cy="406" r="7"/><circle cx="249" cy="390" r="12"/><circle cx="232" cy="406" r="7"/></g>`,
+      trail_candy:`<g><path d="M100 390Q116 374 132 390Q116 406 100 390Z" fill="#f472b6" stroke="${dark}" stroke-width="4"/><path d="M92 390L100 381V399Z" fill="#fde68a" stroke="${dark}" stroke-width="3"/><path d="M132 390L140 381V399Z" fill="#fde68a" stroke="${dark}" stroke-width="3"/><path d="M228 390Q244 374 260 390Q244 406 228 390Z" fill="#60a5fa" stroke="${dark}" stroke-width="4"/><path d="M220 390L228 381V399Z" fill="#fde68a" stroke="${dark}" stroke-width="3"/><path d="M260 390L268 381V399Z" fill="#fde68a" stroke="${dark}" stroke-width="3"/></g>`
+    };
+    const backItem=backItems[c.accessory]||'';
+    const headItem=headItems[c.hat]||'';
+    const faceItem=faceItems[c.glasses]||'';
+    const runeItem=runes[c.shirt]||'';
+    const auraItem=auras[c.pants]||'';
+    const trailItem=trails[c.shoes]||'';
+
+    container.innerHTML=`<svg viewBox="0 0 360 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="มอนสเตอร์แฟนตาซี">
+      <defs>
+        <linearGradient id="${uid}body" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${light}"/><stop offset=".58" stop-color="${mid}"/><stop offset="1" stop-color="${dark}"/></linearGradient>
+        <linearGradient id="${uid}flame" x1="0" y1="1" x2="0" y2="0"><stop stop-color="#ff4e42"/><stop offset=".55" stop-color="#ffb02e"/><stop offset="1" stop-color="#fff27b"/></linearGradient>
+        <linearGradient id="${uid}crystal"><stop stop-color="${glow}"/><stop offset="1" stop-color="${mid}"/></linearGradient>
+        <radialGradient id="${uid}portal"><stop stop-color="${glow}" stop-opacity=".5"/><stop offset="1" stop-color="${bg[1]}" stop-opacity="0"/></radialGradient>
+        <filter id="${uid}shadow" x="-25%" y="-25%" width="150%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#101225" flood-opacity=".28"/></filter>
+      </defs>
+      <rect width="360" height="430" rx="28" fill="${bg[0]}"/>
+      ${backgroundScene}
+      <g fill="#fff" opacity=".65"><circle cx="38" cy="55" r="3"/><circle cx="311" cy="69" r="4"/><path d="M45 206l4 8 8 4-8 4-4 8-4-8-8-4 8-4Z"/></g>
+      <ellipse cx="180" cy="379" rx="105" ry="21" fill="#6d4fa3" opacity=".16"/>
+      ${auraItem}<g filter="url(#${uid}shadow)">${backItem}${limb}<g transform="translate(0 ${bodyOffset})" fill="url(#${uid}body)" stroke="${dark}" stroke-width="7" stroke-linejoin="round">${body}</g><path d="M117 164 C137 126 170 111 207 119 C174 128 147 151 132 188Z" fill="#fff" opacity=".18"/>${feet}${featureLayer}${face}${runeItem}${faceItem}${headItem}${trailItem}
+      <g fill="#ff8fab" opacity=".9"><ellipse cx="112" cy="267" rx="16" ry="9"/><ellipse cx="248" cy="267" rx="16" ry="9"/></g><g fill="#fff" opacity=".35"><ellipse cx="107" cy="264" rx="5" ry="3"/><ellipse cx="243" cy="264" rx="5" ry="3"/></g>
+      </g></svg>`;
+    const svg=container.querySelector('svg'); if(svg) svg.style.animation='avatarPop .22s ease-out';
+}
+
+const MENU_STYLE_ID = 'universalMonsterMenuStyle';
+function ensureMenuStyle() {
+  if (document.getElementById(MENU_STYLE_ID)) return;
+  const style = document.createElement('style');
+  style.id = MENU_STYLE_ID;
+  style.textContent = `
+    .menu-profile-universal{display:flex!important;align-items:center!important;gap:10px!important;min-width:0}
+    .menu-profile-universal .u-monster-stack{display:flex;align-items:center;flex:0 0 auto;padding-left:2px;min-width:42px}
+    .menu-profile-universal .u-monster-mini{width:39px;height:46px;border-radius:12px;overflow:hidden;background:#f5f3ff;border:2px solid #fff;box-shadow:0 2px 5px rgba(76,29,149,.22);display:inline-flex;align-items:center;justify-content:center;position:relative;margin-left:-11px}
+    .menu-profile-universal .u-monster-mini:first-child{margin-left:0}
+    .menu-profile-universal .u-monster-mini svg{width:100%;height:100%;display:block}
+    .menu-profile-universal .u-monster-fallback{font-size:22px;line-height:1}
+    .menu-profile-universal .u-profile-copy{display:block;min-width:0;flex:1}
+    .menu-profile-universal .u-profile-names{display:block;font-size:13px!important;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px;color:inherit}
+    .menu-profile-universal .u-profile-sub{display:block!important;margin-top:3px!important;font-size:11px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#7c3aed!important;font-weight:500!important}
+    @media(max-width:650px){.menu-profile-universal .u-profile-names{max-width:150px}}
+  `;
+  document.head.appendChild(style);
+}
+
+function safeArray(key) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key) || '[]');
+    return Array.isArray(value) ? value : [];
+  } catch (_) { return []; }
+}
+
+function currentIds() {
+  const ids = safeArray('loggedInUsers').map(String).filter(Boolean);
+  if (ids.length) return ids;
+  const one = localStorage.getItem('currentUserId') || '';
+  return one ? [one] : [];
+}
+
+let unsubscribers = [];
+let currentData = [];
+
+function cleanup() {
+  unsubscribers.forEach(fn => { try { fn(); } catch (_) {} });
+  unsubscribers = [];
+}
+
+function mountProfileLink() {
+  ensureMenuStyle();
+  const link = document.querySelector('.utility-dropdown a[href="profile.html"], .utility-dropdown a[href^="profile.html?"]');
+  if (!link) return null;
+  link.classList.add('menu-profile-universal');
+  link.innerHTML = `
+    <span class="u-monster-stack" id="universalMonsterStack"><span class="u-monster-mini"><span class="u-monster-fallback">👤</span></span></span>
+    <span class="u-profile-copy"><strong class="u-profile-names" id="universalMonsterNames">กำลังโหลด...</strong><small class="u-profile-sub">โปรไฟล์ • แต่งตัว • ร้านค้า</small></span>
+  `;
+  return link;
+}
+
+function renderMenu() {
+  const stack = document.getElementById('universalMonsterStack');
+  const label = document.getElementById('universalMonsterNames');
+  if (!stack || !label) return;
+
+  const ids = currentIds();
+  const fallbackNames = safeArray('currentGroupNames');
+  const max = Math.min(3, ids.length);
+  stack.innerHTML = '';
+  const shownNames = [];
+
+  for (let i = 0; i < max; i++) {
+    const data = currentData[i] || null;
+    const mini = document.createElement('span');
+    mini.className = 'u-monster-mini';
+    mini.style.zIndex = String(10 - i);
+    if (data) {
+      renderAvatar(mini, data.character || DEFAULT_CHARACTER);
+      shownNames.push(String(data.nickname || fallbackNames[i] || 'ผู้พิทักษ์'));
+    } else {
+      mini.innerHTML = '<span class="u-monster-fallback">👤</span>';
+      shownNames.push(String(fallbackNames[i] || 'ผู้พิทักษ์'));
+    }
+    stack.appendChild(mini);
+  }
+
+  if (!max) {
+    stack.innerHTML = '<span class="u-monster-mini"><span class="u-monster-fallback">👤</span></span>';
+    label.textContent = 'โปรไฟล์ของฉัน';
+    return;
+  }
+
+  label.textContent = shownNames.join(' • ') + (ids.length > 3 ? ` +${ids.length - 3}` : '');
+}
+
+function subscribeUsers() {
+  cleanup();
+  mountProfileLink();
+  const ids = currentIds().slice(0, 3);
+  currentData = new Array(ids.length).fill(null);
+  renderMenu();
+
+  ids.forEach((id, index) => {
+    if (!id || id === 'KRU_MILD_HELPER') return;
+    const unsub = onSnapshot(doc(menuDb, 'users', id), snap => {
+      currentData[index] = snap.exists() ? (snap.data() || {}) : null;
+      renderMenu();
+    }, err => {
+      console.warn('โหลดมอนสเตอร์ในเมนูไม่สำเร็จ', id, err);
+      renderMenu();
+    });
+    unsubscribers.push(unsub);
+  });
+}
+
+window.refreshMenuMonsterProfile = subscribeUsers;
+window.addEventListener('menu-avatar-refresh', subscribeUsers);
+window.addEventListener('storage', event => {
+  if (['loggedInUsers','currentUserId','currentGroupNames'].includes(event.key)) subscribeUsers();
+});
+
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', subscribeUsers);
+else subscribeUsers();
+
+})();</script>
 </body>
 </html>
