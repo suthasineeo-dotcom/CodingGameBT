@@ -29,6 +29,15 @@ th{background:#dcfce7;position:sticky;top:0}
 </style>
 </head>
 <body>
+<script id="admin-session-guard">
+(function(){
+  const role=String(localStorage.getItem('currentRole')||localStorage.getItem('role')||'').toLowerCase();
+  if(localStorage.getItem('isAdmin')!=='true' && role!=='admin' && role!=='teacher'){
+    alert('กรุณาเข้าสู่ระบบคุณครูก่อน');
+    location.replace('index.html');
+  }
+})();
+</script>
 <div class="wrap">
 <h1>🌱 นำเข้ารายชื่อนักเรียนและคะแนนเดิมสู่ Firebase</h1>
 <div class="notice">
