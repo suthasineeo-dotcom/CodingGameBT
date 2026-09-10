@@ -363,7 +363,7 @@
         }
 
         // =========================================================
-        // 🪙 เข้าสู่ระบบโดยผูกนักเรียนกับกระเป๋ากลุ่มถาวร
+        // 🪙 เข้าสู่ระบบแบบกลุ่มยืดหยุ่น: ตัวตนนักเรียนคงเดิม แต่เปลี่ยนเพื่อนร่วมกลุ่มได้ทุกสัปดาห์
         // =========================================================
         async function loginGroup() {
             const btn = document.getElementById("btnLogin");
@@ -425,7 +425,7 @@
             try {
                 const userRecords = [];
                 const userIds = [];
-                const discoveredWalletIds = new Set();
+                const newStudentNames = [];
 
                 // 1) หานักเรียนเดิมก่อน เพื่อรักษาคะแนน/ของ/Reflection เดิม
                 for (let i = 0; i < activeNames.length; i++) {
@@ -444,12 +444,12 @@
 
                     const userId = userRef.id;
                     const userData = userSnap.exists ? (userSnap.data() || {}) : null;
-                    const walletId = await findWalletIdForUser(userId, userData);
                     const legacyStudent = !userSnap.exists
                         ? findLegacyGardenStudent(room, typedName)
                         : null;
 
-                    if (walletId) discoveredWalletIds.add(walletId);
+                    if (!userSnap.exists) newStudentNames.push(typedName);
+
                     userIds.push(userId);
                     userRecords.push({
                         userId,
@@ -457,19 +457,27 @@
                         userRef,
                         userSnap,
                         userData,
-                        walletId,
                         legacyStudent
                     });
                 }
 
-                if (discoveredWalletIds.size > 1) {
-                    throw new Error(
-                        "สมาชิกที่กรอกอยู่คนละกลุ่มเดิม กรุณาเข้าสู่ระบบแยกตามกลุ่มเดิม หรือให้คุณครูจัดกลุ่มใหม่ในหลังบ้าน"
+                // ชื่อคือ "ตัวตน" ของนักเรียน ส่วนกลุ่มเปลี่ยนได้ตามที่นั่งในแต่ละสัปดาห์
+                // ถ้าพิมพ์ชื่อที่ยังไม่มีในระบบ จะถามยืนยันก่อน เพื่อกันการสะกดชื่อผิดแล้วสร้างเด็กซ้ำ
+                if (newStudentNames.length) {
+                    const ok = confirm(
+                        "พบชื่อที่ยังไม่มีในระบบ:\n• " +
+                        newStudentNames.join("\n• ") +
+                        "\n\nถ้าเป็นนักเรียนใหม่จริงให้กด OK\nถ้าเป็นนักเรียนเดิมแต่สะกดชื่อผิด ให้กด Cancel แล้วแก้ชื่อก่อน"
                     );
+                    if (!ok) {
+                        throw new Error("ยกเลิกเพื่อกลับไปตรวจสอบชื่อของนักเรียน");
+                    }
                 }
 
-                const existingWalletId = Array.from(discoveredWalletIds)[0] || null;
-                const groupId = existingWalletId || makeNewGroupId(userIds);
+                // กระเป๋าเหรียญผูกกับ "ชุดสมาชิกที่ล็อกอินครั้งนี้" ไม่ผูกถาวรกับเด็กคนใดคนหนึ่ง
+                // รายชื่อชุดเดิมกลับมาเจอกันอีกครั้ง -> ใช้กระเป๋าเดิม
+                // เปลี่ยนเพื่อนร่วมกลุ่ม -> ใช้/สร้างกระเป๋าของชุดสมาชิกใหม่นั้น โดยไม่บล็อกการ Login
+                const groupId = makeNewGroupId(userIds);
                 const walletRef = db.collection("group_wallets").doc(groupId);
                 const walletSnap = await walletRef.get();
                 const now = firebase.firestore.FieldValue.serverTimestamp();
@@ -480,22 +488,15 @@
                 let isBrandNewWallet = !walletSnap.exists;
 
                 if (walletSnap.exists) {
-                    const walletData = walletSnap.data() || {};
-                    allMemberIds = Array.from(new Set([
-                        ...(Array.isArray(walletData.memberIds) ? walletData.memberIds : []),
-                        ...userIds
-                    ]));
-                    const nameById = new Map();
-                    const oldIds = Array.isArray(walletData.memberIds) ? walletData.memberIds : [];
-                    const oldNames = Array.isArray(walletData.memberNames) ? walletData.memberNames : [];
-                    oldIds.forEach((id, idx) => nameById.set(id, oldNames[idx] || id));
-                    userIds.forEach((id, idx) => nameById.set(id, activeNames[idx]));
-                    allMemberNames = allMemberIds.map(id => nameById.get(id) || id);
+                    // กลุ่มเดิมชุดเดียวกัน: คงเหรียญ/ของ/คำใบ้เดิม แต่รีเฟรชรายชื่อสมาชิกปัจจุบันให้ตรง
+                    allMemberIds = [...userIds];
+                    allMemberNames = [...activeNames];
 
                     batch.set(walletRef, {
                         room,
                         memberIds: allMemberIds,
                         memberNames: allMemberNames,
+                        groupMode: "dynamic",
                         updatedAt: now,
                         lastLoginAt: now
                     }, { merge:true });
@@ -508,18 +509,30 @@
                         magicCoins: 100,
                         purchasedHints: [],
                         inventory: [],
+                        groupMode: "dynamic",
                         createdAt: now,
                         updatedAt: now,
                         lastLoginAt: now
                     }, { merge:true });
                 }
 
-                // 2) ผูก user กับ wallet โดยไม่แตะ waterDrops ของคนเดิม
+                // 2) อัปเดตกลุ่มล่าสุดของ user โดยไม่แตะคะแนน/ของ/Reflection ของนักเรียน
                 for (const record of userRecords) {
+                    const previousGroupWalletId =
+                        record.userData && record.userData.groupWalletId
+                            ? String(record.userData.groupWalletId)
+                            : "";
+
                     const baseData = {
                         room,
                         nickname: record.nickname,
+                        // groupWalletId หมายถึง "กลุ่มล่าสุด" เท่านั้น ไม่ใช่กลุ่มถาวร
                         groupWalletId: groupId,
+                        previousGroupWalletId:
+                            previousGroupWalletId && previousGroupWalletId !== groupId
+                                ? previousGroupWalletId
+                                : (record.userData?.previousGroupWalletId || ""),
+                        groupHistory: firebase.firestore.FieldValue.arrayUnion(groupId),
                         lastLoginAt: now,
                         updatedAt: now
                     };
@@ -587,7 +600,7 @@
                 }
 
                 btn.innerText = isBrandNewWallet
-                    ? "✅ สำเร็จ! สร้างกระเป๋า 100 เหรียญแล้ว"
+                    ? "✅ สำเร็จ! สร้างกระเป๋าของกลุ่มชุดนี้ 100 เหรียญแล้ว"
                     : "✅ สำเร็จ! กำลังเปิดหน้า Home...";
 
                 // ใส่เวอร์ชันท้าย URL เพื่อป้องกันเบราว์เซอร์ใช้ home.html เก่าจาก cache
