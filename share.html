@@ -518,6 +518,80 @@
 @media(max-width:720px){.community-plaza{min-height:210px;border-radius:26px}.plaza-head{padding:22px 20px 0}.plaza-title{font-size:27px}.plaza-subtitle{font-size:13px}.plaza-mascot{font-size:48px;right:15px}.section-tabs{grid-template-columns:1fr;margin-top:-48px;gap:12px}.tab-btn{min-height:88px;font-size:16px;padding:13px 14px 12px 78px}.tab-btn:before{left:14px;width:48px;height:48px;font-size:24px}.cork-board{padding:20px 14px}.notes-grid{grid-template-columns:1fr}.sticky-note{transform:none!important}.mission-board{padding:18px}.post-grid{grid-template-columns:1fr}.board-header{font-size:23px}}
 @media(max-width:520px){.hero-kicker{font-size:12px;padding:7px 11px}.hero-copy h1{font-size:24px}.hero-stats{gap:10px}.hero-stat{padding:10px 12px;border-radius:16px}.hero-stat-icon{width:38px;height:38px;font-size:20px}.dialog-card{padding:18px;border-radius:24px}}
 
+
+/* ===== PATCH 2026-09-10: ปุ่มปิดหน้าต่าง + Reflection ไม่บังคับค้าง ===== */
+.dialog-card{position:relative}
+.dialog-close{
+  position:sticky !important;
+  top:8px;
+  float:right;
+  width:auto !important;
+  min-width:78px;
+  height:42px !important;
+  padding:0 13px;
+  border-radius:14px !important;
+  z-index:50;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  background:#fee2e2 !important;
+  color:#991b1b !important;
+  border:3px solid #fecaca !important;
+  box-shadow:0 4px 0 #fca5a5 !important;
+  font-size:15px !important;
+}
+.dialog-close:hover{transform:translateY(-2px)}
+.dialog-close:active{transform:translateY(3px);box-shadow:none !important}
+.dialog-bottom-close{
+  width:100%;
+  margin-top:14px;
+  border:0;
+  border-radius:14px;
+  padding:11px 14px;
+  background:#f1f5f9;
+  color:#475569;
+  font-size:15px;
+  font-weight:800;
+  box-shadow:0 4px 0 #cbd5e1;
+}
+.dialog-bottom-close:active{transform:translateY(3px);box-shadow:none}
+.reflection-popup{position:relative}
+.reflection-close{
+  position:sticky;
+  top:0;
+  float:right;
+  z-index:60;
+  border:3px solid #fecaca;
+  background:#fee2e2;
+  color:#991b1b;
+  border-radius:14px;
+  padding:8px 12px;
+  font:800 14px 'Kanit',sans-serif;
+  box-shadow:0 4px 0 #fca5a5;
+}
+.reflection-close:active{transform:translateY(3px);box-shadow:none}
+.reflection-resume{
+  display:none;
+  position:fixed;
+  right:20px;
+  bottom:96px;
+  z-index:2600;
+  border:4px solid #fff;
+  border-radius:999px;
+  padding:12px 18px;
+  background:linear-gradient(135deg,#fde68a,#f9a8d4);
+  color:#713f12;
+  font:800 15px 'Kanit',sans-serif;
+  box-shadow:0 7px 0 #f59e0b,0 12px 24px rgba(0,0,0,.14);
+}
+.reflection-resume.show{display:block}
+.reflection-resume:active{transform:translateY(5px);box-shadow:0 2px 0 #f59e0b}
+@media(max-width:650px){
+  .dialog-close{min-width:68px;height:38px !important;font-size:13px !important}
+  .reflection-resume{right:10px;bottom:78px;max-width:calc(100vw - 20px)}
+}
+
 </style>
 </head>
 <body>
@@ -669,7 +743,7 @@
   <!-- หน้าต่างสร้างคำถาม -->
   <div id="newPostDialog" class="dialog-overlay">
     <div class="dialog-card">
-      <button class="dialog-close" onclick="closeDialog('newPostDialog')">×</button>
+      <button type="button" class="dialog-close" onclick="closeDialog('newPostDialog')">✕ ปิด</button>
       <h2>📌 ปักโพสต์อิทคำถาม</h2>
       <div class="form-grid">
         <div class="field"><label>ชื่อผู้ถาม</label><input id="questionName" placeholder="ชื่อเล่นหรือชื่อกลุ่ม"></div>
@@ -694,20 +768,23 @@
         “คำตอบนี้ช่วยแก้ปัญหาได้” จึงจะปิดคำถามและรับ 1 เหรียญ
       </div>
       <div style="text-align:center;margin-top:14px"><button id="submitQuestionBtn" class="primary-btn" onclick="submitQuestion()">📌 ปักคำถามบนกระดาน</button></div>
+      <button type="button" class="dialog-bottom-close" onclick="closeDialog('newPostDialog')">← กลับไปที่กระดาน</button>
     </div>
   </div>
 
   <!-- หน้าต่างอ่านและตอบ -->
   <div id="postDetailDialog" class="dialog-overlay">
     <div class="dialog-card">
-      <button class="dialog-close" onclick="closeDialog('postDetailDialog')">×</button>
+      <button type="button" class="dialog-close" onclick="closeDialog('postDetailDialog')">✕ ปิด</button>
       <div id="postDetailContent"></div>
+      <button type="button" class="dialog-bottom-close" onclick="closeDialog('postDetailDialog')">← ปิดหน้าต่างนี้</button>
     </div>
   </div>
 
 
   <div id="reflectionOverlay" class="reflection-overlay">
     <div class="reflection-popup">
+      <button type="button" class="reflection-close" onclick="closeReflectionOverlay()">✕ ไว้ทำทีหลัง</button>
       <h2>🪞 Reflection หลังส่งงาน</h2>
       <div class="subtext">
         ผลงานถูกส่งสำเร็จแล้ว ตอนนี้สมาชิกแต่ละคนสะท้อนสิ่งที่ได้เรียนรู้สั้น ๆ
@@ -761,7 +838,7 @@
       </div>
 
       <div class="reflection-reminder">
-        สมาชิกแต่ละคนต้องบันทึก Reflection ของตนเอง ระบบจึงจะปิดหน้าต่างนี้
+        กดบันทึกแล้วหน้าต่างจะปิดทันที • ถ้ายังมีสมาชิกเหลือ จะมีปุ่ม “ทำ Reflection ต่อ” ให้กลับมาทำภายหลัง
       </div>
 
       <div class="reflection-actions">
@@ -772,6 +849,8 @@
       </div>
     </div>
   </div>
+
+  <button id="reflectionResumeBtn" type="button" class="reflection-resume" onclick="resumePendingReflection()">🪞 ทำ Reflection ต่อ</button>
 
   </main>
 
@@ -1227,7 +1306,59 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
       document.querySelectorAll('.page-section').forEach(s=>s.classList.remove('active'));
       btn.classList.add('active'); document.getElementById(btn.dataset.target).classList.add('active');
     };
-    window.closeDialog = id => document.getElementById(id).classList.remove('show');
+    window.closeDialog = id => {
+      const el=document.getElementById(id);
+      if(el) el.classList.remove('show');
+      if(id==='postDetailDialog') selectedPostId=null;
+    };
+
+    function setReflectionResumeButton(){
+      const resume=document.getElementById('reflectionResumeBtn');
+      if(!resume) return;
+      const remaining=Math.max(0,reflectionMembers.length-reflectionMemberIndex);
+      if(remaining>0 && reflectionMissionId){
+        resume.textContent=`🪞 ทำ Reflection ต่อ • เหลือ ${remaining} คน`;
+        resume.classList.add('show');
+      }else{
+        resume.classList.remove('show');
+      }
+    }
+
+    window.closeReflectionOverlay=function(){
+      const overlay=document.getElementById('reflectionOverlay');
+      if(overlay) overlay.classList.remove('show');
+      document.body.style.overflow='';
+      setReflectionResumeButton();
+    };
+
+    window.resumePendingReflection=function(){
+      if(!reflectionMissionId || reflectionMemberIndex>=reflectionMembers.length){
+        setReflectionResumeButton();
+        return;
+      }
+      const overlay=document.getElementById('reflectionOverlay');
+      if(overlay) overlay.classList.add('show');
+      document.body.style.overflow='hidden';
+      const resume=document.getElementById('reflectionResumeBtn');
+      if(resume) resume.classList.remove('show');
+      renderReflectionMember();
+    };
+
+    document.addEventListener('click',e=>{
+      const dialog=e.target.closest?.('.dialog-overlay');
+      if(dialog && e.target===dialog) window.closeDialog(dialog.id);
+      if(e.target && e.target.id==='reflectionOverlay') window.closeReflectionOverlay();
+    });
+
+    document.addEventListener('keydown',e=>{
+      if(e.key!=='Escape') return;
+      ['newPostDialog','postDetailDialog'].forEach(id=>{
+        const el=document.getElementById(id);
+        if(el?.classList.contains('show')) window.closeDialog(id);
+      });
+      const reflection=document.getElementById('reflectionOverlay');
+      if(reflection?.classList.contains('show')) window.closeReflectionOverlay();
+    });
     window.showToast = msg => { const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),3200); };
 
     function loadTopMenuCoins(){
@@ -1780,6 +1911,7 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
       reflectionWorkId=workId||'';
 
       document.getElementById('reflectionOverlay').classList.add('show');
+      document.getElementById('reflectionResumeBtn')?.classList.remove('show');
       document.body.style.overflow='hidden';
       renderReflectionMember();
     }
@@ -1865,12 +1997,19 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
 
         reflectionMemberIndex++;
 
+        // บันทึกสำเร็จแล้วให้ปิดหน้าต่างทันที ไม่บังคับค้างอยู่บน Reflection
+        document.getElementById('reflectionOverlay').classList.remove('show');
+        document.body.style.overflow='';
+
         if(reflectionMemberIndex<reflectionMembers.length){
-          renderReflectionMember();
+          setReflectionResumeButton();
+          showToast(`🪞 บันทึกแล้ว • ยังเหลือ Reflection ${reflectionMembers.length-reflectionMemberIndex} คน กดปุ่มด้านล่างเมื่อพร้อม`);
         }else{
-          document.getElementById('reflectionOverlay').classList.remove('show');
-          document.body.style.overflow='';
-          showToast('🪞 สมาชิกทุกคนบันทึก Reflection เรียบร้อยแล้ว');
+          reflectionMissionId='';
+          reflectionMissionTitle='';
+          reflectionWorkId='';
+          setReflectionResumeButton();
+          showToast('🪞 บันทึก Reflection เรียบร้อยแล้ว');
         }
       }catch(error){
         console.error(error);
