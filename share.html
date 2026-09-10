@@ -674,8 +674,8 @@
       <div class="form-grid">
         <div class="field"><label>ชื่อผู้ถาม</label><input id="questionName" placeholder="ชื่อเล่นหรือชื่อกลุ่ม"></div>
         <div class="field"><label>ห้องเรียน</label><select id="questionRoom"><option value="">เลือกห้อง</option><option value="ป.4/1">ป.4/1</option><option value="ป.4/2">ป.4/2</option><option value="ป.4/3">ป.4/3</option></select></div>
-        <div class="field full"><label>หัวข้อคำถาม ❓</label><input id="questionTitle" maxlength="100" placeholder="เช่น ทำไมตัวละครไม่เดินเมื่อกดธงเขียว" oninput="checkQuestionQuality()"></div>
-        <div class="field full"><label>รายละเอียดปัญหา</label><textarea id="questionBody" maxlength="600" placeholder="บอกว่าต้องการให้ Scratch ทำอะไร เกิดปัญหาอะไร และลองแก้แบบไหนแล้ว" oninput="checkQuestionQuality()"></textarea></div>
+        <div class="field full"><label>หัวข้อคำถาม ❓</label><input id="questionTitle" placeholder="เช่น ทำไมตัวละครไม่เดินเมื่อกดธงเขียว — เขียนได้เต็มที่ ไม่จำกัดจำนวนตัวอักษร" oninput="checkQuestionQuality()"></div>
+        <div class="field full"><label>รายละเอียดปัญหา</label><textarea id="questionBody" placeholder="บอกได้เต็มที่ว่าต้องการให้ Scratch ทำอะไร เกิดปัญหาอะไร และลองแก้แบบไหนแล้ว" oninput="checkQuestionQuality()"></textarea></div>
         <div class="field full attachment-box">
           <label>🐱 แนบโปรเจกต์หรือภาพปัญหา (เลือกอย่างใดอย่างหนึ่งหรือแนบทั้งสองอย่างก็ได้)</label>
           <input id="questionScratchLink" type="url" placeholder="🔗 วางลิงก์โปรเจกต์ Scratch เช่น https://scratch.mit.edu/projects/123456789/" oninput="previewQuestionScratch()">
@@ -1462,7 +1462,7 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
             :''}
           ${teacher?`<button class="teacher-btn" onclick="togglePin('${postId}',${!p.isPinned})">${p.isPinned?'📌 เลิกปักหมุด':'📌 ปักหมุด'}</button>`:''}
         </div>
-        ${p.status!=='solved'&&!owner?`<div class="field"><label>💬 เขียนคำตอบหรือวิธีช่วยเพื่อน</label><textarea id="answerText" maxlength="700" placeholder="อธิบายขั้นตอน เหตุผล หรือตัวอย่างให้เพื่อนเข้าใจ" onfocus="autoClaimHelping('${postId}')" oninput="autoClaimHelping('${postId}')"></textarea></div><button class="primary-btn" onclick="submitAnswer('${postId}')">ส่งคำตอบให้ครูตรวจ</button>`:owner&&p.status!=='solved'?'<div class="ai-box"><strong>🔒 โพสต์ของคุณ:</strong> เจ้าของคำถามตอบโพสต์ของตนเองไม่ได้ และยังปิดคำถามเองทันทีไม่ได้ ต้องเลือกคำตอบที่ครูอนุมัติและช่วยแก้ปัญหาได้จริง</div>':''}
+        ${p.status!=='solved'&&!owner?`<div class="field"><label>💬 เขียนคำตอบหรือวิธีช่วยเพื่อน</label><textarea id="answerText" placeholder="อธิบายได้เต็มที่ ทั้งขั้นตอน เหตุผล หรือตัวอย่างให้เพื่อนเข้าใจ" onfocus="autoClaimHelping('${postId}')" oninput="autoClaimHelping('${postId}')"></textarea></div><button class="primary-btn" onclick="submitAnswer('${postId}')">ส่งคำตอบให้ครูตรวจ</button>`:owner&&p.status!=='solved'?'<div class="ai-box"><strong>🔒 โพสต์ของคุณ:</strong> เจ้าของคำถามตอบโพสต์ของตนเองไม่ได้ และยังปิดคำถามเองทันทีไม่ได้ ต้องเลือกคำตอบที่ครูอนุมัติและช่วยแก้ปัญหาได้จริง</div>':''}
         <h3 style="color:#4c1d95;margin-top:18px">คำตอบจากเพื่อน (${answers.length})</h3>${answerHtml}`;
       setTimeout(()=>window.hydrateAnswerAvatars?.(),0);
     }
