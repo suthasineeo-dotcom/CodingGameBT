@@ -726,6 +726,74 @@
 body{background-image:none!important;background-color:#f3fbe8!important;}
 .game-leaderboard-wrap{background:linear-gradient(180deg,#fffdf4 0%,#f4fff5 56%,#ecfdf5 100%)!important;}
 </style>
+<style id="garden-fruit-levels-7-8-v1">
+/* ผลไม้เดี่ยวสีธรรมชาติ: LV.7 ชมพูอ่อน / LV.8 วิบวับทอง โดยไม่เปลี่ยนต้นไม้ LV.1–6 */
+.student-card.level-max {
+  border-color:#ffe082;
+  background:linear-gradient(165deg,#fffef8,#fff7d6);
+  box-shadow:0 10px 24px rgba(205,153,18,.24);
+}
+.avatar.garden-fruit-avatar,
+.avatar.garden-fruit-avatar.avatar-max {
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:inherit; margin:0; animation:none;
+  transform:none; transform-origin:center;
+  filter:none;
+}
+.garden-fruit-display {
+  position:relative; display:inline-flex; align-items:center; justify-content:center;
+  width:126px; height:112px; vertical-align:middle; isolation:isolate;
+}
+.garden-fruit-emoji {
+  position:relative; z-index:3; font-size:72px; line-height:1;
+  filter:drop-shadow(0 4px 5px rgba(0,0,0,.12));
+}
+.garden-fruit-display.level7 { animation:gardenFruitFloat 3.1s ease-in-out infinite; }
+.garden-fruit-display.level7::before {
+  content:''; position:absolute; inset:17px; border-radius:50%; z-index:1;
+  background:radial-gradient(circle,rgba(255,255,255,.95) 0%,rgba(255,214,235,.68) 38%,rgba(255,255,255,0) 75%);
+  filter:blur(3px);
+}
+.garden-fruit-display.level7::after {
+  content:'✿'; position:absolute; z-index:4; right:8px; top:6px;
+  font-size:22px; color:#ff78ae; text-shadow:0 0 8px rgba(255,255,255,.9);
+  animation:gardenBlossomTwinkle 1.9s ease-in-out infinite alternate;
+}
+.garden-fruit-display.golden {
+  animation:gardenFruitFloat 2.5s ease-in-out infinite,gardenGoldPulse 1.7s ease-in-out infinite alternate;
+}
+.garden-fruit-display.golden::before {
+  content:''; position:absolute; inset:7px; border-radius:50%; z-index:1;
+  background:radial-gradient(circle,rgba(255,250,226,.98) 0%,rgba(255,223,99,.9) 32%,rgba(255,184,0,.52) 58%,rgba(255,184,0,0) 78%);
+  filter:blur(6px);
+}
+.garden-fruit-display.golden .garden-fruit-emoji {
+  transform:scale(1.08);
+  /* สีอีโมจิเดิม ไม่ใช้ grayscale/sepia จึงยังเห็นว่าผลไม้ชนิดไหน */
+  filter:drop-shadow(0 0 8px rgba(255,255,255,.85)) drop-shadow(0 0 18px rgba(255,193,7,.75)) drop-shadow(0 0 28px rgba(255,160,0,.6));
+}
+.garden-fruit-display .garden-spark {
+  position:absolute; z-index:4; font-size:18px; color:#ffd54f;
+  text-shadow:0 0 10px #fff59d,0 0 18px #ffca28; pointer-events:none;
+}
+.garden-fruit-display .garden-spark.s1 {top:8px;left:16px;animation:gardenSparkA 1.25s ease-in-out infinite}
+.garden-fruit-display .garden-spark.s2 {right:8px;top:26px;animation:gardenSparkB 1.55s ease-in-out infinite .2s}
+.garden-fruit-display .garden-spark.s3 {bottom:12px;right:18px;animation:gardenSparkC 1.75s ease-in-out infinite .4s}
+.garden-fruit-caption {font-size:12px;color:#7c5b20;margin:-3px 0 7px;font-weight:700}
+.garden-fruit-caption.golden {color:#9b6500}
+.garden-fruit-preview {display:inline-block;font-size:24px;line-height:1.1;vertical-align:middle}
+.garden-fruit-preview.golden {filter:drop-shadow(0 0 5px #ffd54f) drop-shadow(0 0 5px #f59e0b)}
+@keyframes gardenFruitFloat {0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.04)}}
+@keyframes gardenGoldPulse {from{filter:saturate(1) brightness(1)}to{filter:saturate(1.18) brightness(1.08)}}
+@keyframes gardenBlossomTwinkle {from{transform:scale(.78) rotate(-12deg);opacity:.65}to{transform:scale(1.08) rotate(12deg);opacity:1}}
+@keyframes gardenSparkA {0%,100%{transform:translateY(0) scale(.7) rotate(-10deg);opacity:.45}50%{transform:translateY(-8px) scale(1.2) rotate(8deg);opacity:1}}
+@keyframes gardenSparkB {0%,100%{transform:translateY(0) scale(.75) rotate(10deg);opacity:.5}50%{transform:translateY(-6px) scale(1.1) rotate(-12deg);opacity:1}}
+@keyframes gardenSparkC {0%,100%{transform:translateY(0) scale(.68) rotate(-6deg);opacity:.4}50%{transform:translateY(-7px) scale(1.14) rotate(10deg);opacity:1}}
+@media(prefers-reduced-motion:reduce){
+  .garden-fruit-display.level7,.garden-fruit-display.golden,.garden-fruit-display .garden-spark,
+  .garden-fruit-display.level7::after {animation:none!important}
+}
+</style>
 </head>
 <body>
 <script id="garden-session-guard">
@@ -939,8 +1007,8 @@ body{background-image:none!important;background-color:#f3fbe8!important;}
             { lv: 4, name: "กระถางน้อย", water: 30 }, 
             { lv: 5, name: "แตกกิ่งก้าน", water: 40 }, 
             { lv: 6, name: "บานสะพรั่ง", water: 50 }, 
-            { lv: 7, name: "ออกผลผลิต", water: 65 }, 
-            { lv: 8, name: "ต้นไม้มีชีวิต", water: 80 } 
+            { lv: 7, name: "ออกดอกออกผล", water: 65 }, 
+            { lv: 8, name: "ผลไม้ออร่าทอง", water: 80 } 
         ];
         const CUTE_MESSAGES = ["สดชื่นจังกั๊บ!", "ขอบคุณฮะครู!", "หูยยย เย็นจัง", "หนูจะรีบโตนะ!", "อร่อยจังเลยย", "รักน้ำ รักปลา!"];
 
@@ -1065,23 +1133,29 @@ body{background-image:none!important;background-color:#f3fbe8!important;}
 
         function getLevelInfo(score) { return LEVEL_THRESHOLDS.slice().reverse().find(l => score >= l.water) || LEVEL_THRESHOLDS[0]; }
         
-        // 🌟 อัปเดตอีโมจิและการสุ่มผลไม้ ให้เหมือน game.html 🌟
-        function getAvatar(lv, studentIdentifier) {
-            let emoji = '🌰';
-            if (lv === 7) {
-                const fruits = ['🍇','🍈','🍉','🍊','🍋','🍌','🍍','🥭','🍎','🍏','🍐','🍑','🍒','🍓','🫐','🥝','🍅','🥥','🥕','🌽','🥑','🍆','🥔','🫑','🌶️','🧅','🥜','🥦'];
-                let hash = 0; 
-                const str = studentIdentifier.toString();
-                for (let i = 0; i < str.length; i++) { hash += str.charCodeAt(i); }
-                emoji = fruits[hash % fruits.length];
-            } else {
-                const avatars = { 1:'🌰', 2:'🌱', 3:'🌿', 4:'🪴', 5:'🌳', 6:'🌸', 8:'✨🌳' };
-                emoji = avatars[lv] || avatars[1];
+        // 🍓 LV.7 / LV.8: ผลไม้ประจำตัวชนิดเดิมทั้งสองเลเวล (สุ่มแบบคงที่จากรหัสนักเรียน)
+        function getFruit(studentIdentifier) {
+            const fruits = ['🍇','🍈','🍉','🍊','🍋','🍌','🍍','🥭','🍎','🍏','🍐','🍑','🍒','🍓','🫐','🥝','🍅','🥥','🥕','🌽','🥑','🍆','🥔','🫑','🌶️','🧅','🥜','🥦'];
+            let hash = 0;
+            const str = String(studentIdentifier ?? '');
+            for (let i = 0; i < str.length; i++) hash += str.charCodeAt(i);
+            return fruits[hash % fruits.length];
+        }
+
+        // compact ใช้เฉพาะในกราฟสถิติ เพื่อไม่ให้แอนิเมชันขนาดใหญ่ดันความสูงกราฟ
+        function getAvatar(lv, studentIdentifier, compact = false) {
+            const fruit = getFruit(studentIdentifier);
+            if (lv === 7 || lv === 8) {
+                if (compact) {
+                    return `<span class="garden-fruit-preview ${lv === 8 ? 'golden' : ''}" aria-label="LV.${lv}">${fruit}</span>`;
+                }
+                const sparkles = lv === 8
+                    ? '<span class="garden-spark s1">✦</span><span class="garden-spark s2">✧</span><span class="garden-spark s3">✦</span>'
+                    : '';
+                return `<span class="avatar garden-fruit-avatar" onclick="showBubble('${studentIdentifier}')" title="LV.${lv}: ผลไม้ของฉัน ${fruit}"><span class="garden-fruit-display ${lv === 8 ? 'golden' : 'level7'}">${sparkles}<span class="garden-fruit-emoji">${fruit}</span></span></span>`;
             }
-            
-            // นำอีโมจิมาครอบด้วย span เพื่อให้มีแอนิเมชันตอนแสดงผล
-            let extraClass = lv >= 8 ? 'avatar-max' : '';
-            return `<span class="avatar ${extraClass}" onclick="showBubble('${studentIdentifier}')">${emoji}</span>`;
+            const avatars = {1:'🌰',2:'🌱',3:'🌿',4:'🪴',5:'🌳',6:'🌸'};
+            return `<span class="avatar" onclick="showBubble('${studentIdentifier}')">${avatars[lv] || avatars[1]}</span>`;
         }
 
         function getProgressPercentage(score) {
@@ -1291,6 +1365,7 @@ body{background-image:none!important;background-color:#f3fbe8!important;}
                         <div id="bubble-${student.id}" class="speech-bubble"></div>
                         ${getAvatar(lvInfo.lv, student.id)}
                     </div>
+                    ${lvInfo.lv >= 7 ? `<div class="garden-fruit-caption ${lvInfo.lv === 8 ? 'golden' : ''}">${lvInfo.lv === 8 ? '✨' : '🌸'} ผลไม้ของฉัน ${getFruit(student.id)}${lvInfo.lv === 8 ? ' • ออร่าทองวิบวับ' : ''}</div>` : ''}
                     <div class="name">${student.name}</div>
                     <div class="level">LV.${lvInfo.lv} ${lvInfo.name}</div>
                     <div class="progress-bg"><div class="progress-fill" style="width: ${progress}%"></div></div>
@@ -1517,7 +1592,7 @@ body{background-image:none!important;background-color:#f3fbe8!important;}
                 
                 // ใช้การสร้างอวาตาร์แบบเดียวกับการ์ดนักเรียน (แต่เพื่อใช้โชว์หน้าสถิติ เลยสุ่ม ID 1 เพื่อดึงผลไม้ที่แน่นอนมาแสดงแทนได้)
                 let sampleIdForPreview = "stats-" + level.lv;
-                const avatarIcon = getAvatar(level.lv, sampleIdForPreview);
+                const avatarIcon = getAvatar(level.lv, sampleIdForPreview, true);
                 
                 row.innerHTML = `
                     <div class="stat-label" style="width: 200px; font-size: 14px; text-align: left; display: flex; align-items: center; gap: 5px;">
