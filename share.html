@@ -1467,14 +1467,48 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
       document.getElementById('newPostDialog').classList.add('show'); checkQuestionQuality();
     };
     window.checkQuestionQuality=function(){
-      const title=document.getElementById('questionTitle').value.trim(); const body=document.getElementById('questionBody').value.trim();
+      const title=document.getElementById('questionTitle').value.trim();
+      const body=document.getElementById('questionBody').value.trim();
+    
       const tips=[];
-      if(title.length<10) tips.push('ตั้งหัวข้อให้เห็นปัญหาชัดเจนอย่างน้อย 10 ตัวอักษร');
-      if(body.length<25) tips.push('เพิ่มรายละเอียดว่าเกิดอะไรขึ้นและลองทำอะไรแล้ว');
-      if(!/[?？ไหมอย่างไรทำไม]/.test(title+body)) tips.push('ลองเขียนให้เป็นคำถาม เช่น “ทำไม...” หรือ “แก้อย่างไร”');
-      const words=(title+' '+body).toLowerCase().split(/\s+/).filter(w=>w.length>2);
-      const similar=knowledgePosts.map(p=>({p,score:words.filter(w=>(`${p.title} ${p.body}`).toLowerCase().includes(w)).length})).filter(x=>x.score>=2).sort((a,b)=>b.score-a.score).slice(0,3);
-      document.getElementById('aiWritingHelp').innerHTML=`<strong>🤖 ผู้ช่วยตรวจคำถาม:</strong> ${tips.length?tips.join(' • '):'คำถามชัดเจนดีแล้ว พร้อมปักได้เลย ✅'}${similar.length?`<div class="similar-list">คำถามคล้ายกัน: ${similar.map(x=>`<button type="button" onclick="closeDialog('newPostDialog');openPostDetail('${x.p.id}')">${escapeHtml(x.p.title)}</button>`).join('')}</div>`:''}`;
+    
+      // ไม่จำกัดจำนวนตัวอักษรของหัวข้อและรายละเอียด
+      // ยังคงช่วยแนะนำการตั้งคำถามให้ชัดเจน
+    
+      if(!/[?？ไหมอย่างไรทำไม]/.test(title+body)){
+        tips.push('ลองเขียนให้เป็นคำถาม เช่น “ทำไม...” หรือ “แก้อย่างไร”');
+      }
+    
+      const words=(title+' '+body)
+        .toLowerCase()
+        .split(/\s+/)
+        .filter(w=>w.length>2);
+    
+      const similar=knowledgePosts
+        .map(p=>({
+          p,
+          score:words.filter(w=>
+            (`${p.title} ${p.body}`).toLowerCase().includes(w)
+          ).length
+        }))
+        .filter(x=>x.score>=2)
+        .sort((a,b)=>b.score-a.score)
+        .slice(0,3);
+    
+      document.getElementById('aiWritingHelp').innerHTML=
+        `<strong>🤖 ผู้ช่วยตรวจคำถาม:</strong>
+        ${tips.length?tips.join(' • '):'คำถามชัดเจนดีแล้ว พร้อมปักได้เลย ✅'}
+        ${similar.length?`
+          <div class="similar-list">
+            คำถามคล้ายกัน:
+            ${similar.map(x=>
+              `<button type="button"
+                onclick="closeDialog('newPostDialog');openPostDetail('${x.p.id}')">
+                ${escapeHtml(x.p.title)}
+              </button>`
+            ).join('')}
+          </div>
+        `:''}`;
     };
 
     window.submitQuestion=async function(){
@@ -1484,8 +1518,8 @@ window.renderAvatar = renderAvatar; window.mergeCharacter = mergeCharacter; wind
       const name=document.getElementById('questionName').value.trim();
       const room=document.getElementById('questionRoom').value;
 
-      if(!name||!room||title.length<10||body.length<20){
-        alert('กรุณากรอกชื่อ ห้อง หัวข้ออย่างน้อย 10 ตัวอักษร และรายละเอียดอย่างน้อย 20 ตัวอักษร');
+      if(!name||!room||!title||!body){
+        alert('กรุณากรอกชื่อ ห้อง หัวข้อ และรายละเอียดให้ครบถ้วน');
         return;
       }
 
